@@ -1,6 +1,6 @@
 {
-  "homepage": "https://khayre-ddine.github.io/Education-Platform",
-  "name": "education-platform",
+  "homepage": "https://khayre-ddine.github.io/Dashboard",
+  "name": "Dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
