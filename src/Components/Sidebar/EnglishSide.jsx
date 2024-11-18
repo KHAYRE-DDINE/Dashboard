@@ -34,7 +34,7 @@ function EnglishSide({ list }) {
                     : "flex items-center text-normalColor "
                 }
               >
-                <img
+                {/* <img
                   className={
                     location.pathname.includes(`/${l.listName}`)
                       ? "text-primary-100"
@@ -42,7 +42,8 @@ function EnglishSide({ list }) {
                   }
                   src={l.listIcon}
                   alt="icon"
-                />{" "}
+                />{" "} */}
+                {l.listIcon}
                 {l.listName}
               </NavLink>
             </li>

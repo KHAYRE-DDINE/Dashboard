@@ -40,7 +40,7 @@ function StudentsDashboard() {
   return (
     <React.Fragment>
       {language === "english" ? (
-        <div className="student-dash ">
+        <div className="student-dash pb-[10px]">
           <Routes>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />

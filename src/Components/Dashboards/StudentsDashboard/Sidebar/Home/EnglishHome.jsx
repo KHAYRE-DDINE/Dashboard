@@ -4,15 +4,7 @@ import mainLogo from "../../../../../images/logo2.svg";
 import calender from "../../../../../images/calender.svg";
 import search from "../../../../../images/search.svg";
 import mark from "../../../../../images/inter.svg";
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Sector,
-  Tooltip,
-} from "recharts";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
@@ -172,7 +164,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
               height="100%"
               className={"min-h-[260px]"}
             >
-              <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
+              <PieChart width={800} height={400}>
                 <Pie
                   data={data01}
                   cx={420}
@@ -192,6 +184,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                     />
                   ))}
                 </Pie>
+                <Tooltip />
               </PieChart>
             </ResponsiveContainer>
             <ResponsiveContainer
@@ -211,7 +204,8 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                   fill="#8884d8"
                   label
                 />
-              </PieChart>
+              </PieChart>{" "}
+              <Tooltip />
             </ResponsiveContainer>
           </div>
         </div>

@@ -29,21 +29,21 @@ export default function Example() {
         leaveTo="transform opacity-0 scale-95"
       >
         <MenuItems className="list-item absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-2 px-4 cursor-pointer hover:bg-[#072c7f] ">
+          <div className="py-2 px-4 cursor-pointer hover:bg-[#a0a0a061] ">
             <MenuItem>{({ focus }) => <span>view contact</span>}</MenuItem>
           </div>
-          <div className="py-2 px-4 cursor-pointer hover:bg-[#072c7f] ">
+          <div className="py-2 px-4 cursor-pointer hover:bg-[#a0a0a061] ">
             <MenuItem>
               {({ focus }) => <span>mute notifications</span>}
             </MenuItem>
           </div>
-          <div className="py-2 px-4 cursor-pointer hover:bg-[#072c7f] ">
+          <div className="py-2 px-4 cursor-pointer hover:bg-[#a0a0a061] ">
             <MenuItem>{({ focus }) => <span>block contact</span>}</MenuItem>
           </div>
-          <div className="py-2 px-4 cursor-pointer hover:bg-[#072c7f] ">
+          <div className="py-2 px-4 cursor-pointer hover:bg-[#a0a0a061] ">
             <MenuItem>{({ focus }) => <span>clear chat</span>}</MenuItem>
           </div>
-          <div className="py-2 px-4 cursor-pointer hover:bg-[#072c7f] ">
+          <div className="py-2 px-4 cursor-pointer hover:bg-[#a0a0a061] ">
             <MenuItem>{({ focus }) => <span>report</span>}</MenuItem>
           </div>
         </MenuItems>

@@ -1,6 +1,14 @@
 import React from "react";
 import searchIcon from "../../../../../images/search.svg";
 import avatar from "../../../../../images/avatar.svg";
+import avatar9 from "../../../../../images/pngegg (9).svg";
+import avatar23 from "../../../../../images/pngegg (23).svg";
+import avatar22 from "../../../../../images/pngegg (22).svg";
+import avatar19 from "../../../../../images/pngegg (19).svg";
+import avatar18 from "../../../../../images/pngegg (18).svg";
+import avatar16 from "../../../../../images/pngegg (16).svg";
+import avatar14 from "../../../../../images/pngegg (14).svg";
+import avatar12 from "../../../../../images/pngegg (12).svg";
 import { FiSend } from "react-icons/fi";
 import { AiTwotoneAudio } from "react-icons/ai";
 import { PiPaperclipHorizontalDuotone } from "react-icons/pi";
@@ -31,7 +39,7 @@ function EnglishMessage() {
         <div className="members">
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar9} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -47,7 +55,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar22} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -63,7 +71,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar19} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -79,7 +87,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar16} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -95,7 +103,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar14} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -111,7 +119,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar18} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -125,7 +133,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar23} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -141,7 +149,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar12} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">
@@ -157,7 +165,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
-              <img src={avatar} alt="avatar" />
+              <img src={avatar18} alt="avatar" />
             </div>
             <div className="info ">
               <div className="name">

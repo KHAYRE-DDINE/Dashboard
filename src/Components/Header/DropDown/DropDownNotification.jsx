@@ -31,7 +31,14 @@ export default function Example() {
         leaveTo="transform opacity-0 scale-95"
       >
         <MenuItems className="absolute right-[-50px] z-10 mt-6 w-80 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-3 px-3 hover:bg-[#cccccc3d]">
+          <button
+            className={classNames(
+              "py-3 px-3 text-gray-700 cursor-text w-full text-start h-10 border-b-[2px] border-[#ccc] border-solid"
+            )}
+          >
+            Notifications
+          </button>
+          <div className="py-3 px-3 hover:bg-gray-100 hover:text-gray-900">
             <MenuItem>
               {({ focus }) => (
                 <div className="notify flex items-center justify-start gap-3">

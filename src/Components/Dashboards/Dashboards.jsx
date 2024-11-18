@@ -12,6 +12,15 @@ import routine from "../../images/routine.svg";
 import notice from "../../images/notice.svg";
 import account from "../../images/account.svg";
 import chart from "../../images/chart.svg";
+import { IoLibrary } from "react-icons/io5";
+import { FaBookOpen } from "react-icons/fa6";
+import { CgProfile } from "react-icons/cg";
+import { FaChartPie } from "react-icons/fa";
+import { IoMdHelpCircleOutline } from "react-icons/io";
+import { IoHome } from "react-icons/io5";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { LuMessagesSquare } from "react-icons/lu";
+import { FaTasks } from "react-icons/fa";
 
 import { LanguageContext, roleContext } from "../../App";
 
@@ -22,13 +31,13 @@ function Dashboard() {
   const role = useContext(roleContext);
 
   const AdminList = [
-    { listName: "dashboard", listIcon: dashboard },
+    { listName: "dashboard", listIcon: <IoHome /> },
     { listName: "recent", listIcon: recent },
     { listName: "teachers", listIcon: Assignment },
     { listName: "classes", listIcon: classes },
     { listName: "library", listIcon: library },
     { listName: "routine", listIcon: routine },
-    { listName: "notice", listIcon: notice },
+    { listName: "notice", listIcon: <IoMdHelpCircleOutline /> },
     { listName: "account", listIcon: account },
   ];
   const TeacherList = [
@@ -42,15 +51,39 @@ function Dashboard() {
     { listName: "account", listIcon: account },
   ];
   const StudentsList = [
-    { listName: "dashboard", listIcon: dashboard },
-    { listName: "courses", listIcon: recent },
-    { listName: "assignments", listIcon: Assignment },
+    {
+      listName: "dashboard",
+      listIcon: <IoHome className="mr-[5px]" size={"18px"} />,
+    },
+    {
+      listName: "courses",
+      listIcon: <FaBookOpen className="mr-[5px]" size={"18px"} />,
+    },
+    {
+      listName: "assignments",
+      listIcon: <FaTasks className="mr-[5px]" size={"18px"} />,
+    },
     // { listName: "classes", listIcon: classes },
-    { listName: "charts", listIcon: chart },
-    { listName: "calendar", listIcon: library },
-    { listName: "message", listIcon: routine },
-    { listName: "Library", listIcon: notice },
-    { listName: "account", listIcon: account },
+    {
+      listName: "charts",
+      listIcon: <FaChartPie className="mr-[5px]" size={"18px"} />,
+    },
+    {
+      listName: "calendar",
+      listIcon: <FaRegCalendarAlt className="mr-[5px]" size={"18px"} />,
+    },
+    {
+      listName: "message",
+      listIcon: <LuMessagesSquare className="mr-[5px]" size={"18px"} />,
+    },
+    {
+      listName: "Library",
+      listIcon: <IoLibrary className="mr-[5px]" size={"18px"} />,
+    },
+    {
+      listName: "account",
+      listIcon: <CgProfile className="mr-[5px]" size={"18px"} />,
+    },
   ];
 
   return (
