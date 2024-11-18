@@ -1,0 +1,8 @@
+.byusername .form fieldset span::after,
+.byusername .form fieldset span::before {
+    content: none;
+}
+
+.byusername .face {
+    height: 728px;
+}

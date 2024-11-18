@@ -1,0 +1,269 @@
+.calender {}
+
+.calender-box {
+    padding: 0 30px;
+}
+
+.calender-box .title {
+    margin: 20px 0;
+}
+
+.calender-box .title h2 {
+    font-size: 20px;
+}
+
+.filter {
+    width: max-content;
+}
+
+.filter .search-input {
+    margin-right: 22px;
+}
+
+.filter .search-input input {
+    border: 1px solid #ccc;
+    padding: 7px 19px 7px 36px;
+    width: 346px;
+    outline: none;
+    border-radius: 7px;
+    height: 42px;
+    font-size: 13px;
+}
+
+.filter .search-input svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 7px;
+}
+
+.rbc-header {
+    padding: 9px !important;
+    min-height: 40px !important;
+}
+
+.rbc-date-cell {
+    text-align: left !important;
+    padding: 13px;
+}
+
+.rbc-calendar {
+    margin-top: 25px;
+}
+
+.rbc-toolbar {
+    justify-content: end !important;
+    margin-right: 230px;
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+    flex-grow: 0 !important;
+}
+
+.choose {
+    width: max-content;
+    right: 17px;
+    display: flex;
+    align-items: center;
+}
+
+span[role='columnheader'] {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    color: #374151;
+}
+
+span.rbc-label {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    color: #6B7280;
+}
+
+select {
+    outline: none;
+    margin: 0 5px;
+    background-color: #F3F4F6;
+    color: #4B5563;
+    border-radius: 8px;
+    padding: 5px 10px;
+    min-width: 95px;
+    text-transform: capitalize;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 100%;
+    line-height: 33px;
+}
+
+.d-w-m,
+.select {
+    height: 40px;
+    position: relative;
+}
+
+.d-w-m svg,
+.select svg {
+    position: absolute;
+    right: 10px;
+    top: 51%;
+    font-size: x-large;
+    transform: translateY(-50%);
+    color: #4B5563;
+    z-index: 999;
+}
+
+.css-1utx3w7 {
+    width: max-content;
+}
+
+button.chakra-button.bg-grayD.css-p7mkev,
+button.chakra-button.css-p7mkev {
+    width: 40px;
+    height: 40px;
+    font-size: x-large;
+    border-radius: 7px;
+    color: #1a1a1aad;
+    background-color: #F3F4F6;
+    margin: 0 5px;
+}
+
+.rbc-day-slot .rbc-event,
+.rbc-day-slot .rbc-background-event {
+    padding: 0;
+}
+
+.rbc-day-slot .rbc-events-container {
+    margin-right: 0px;
+}
+
+.rbc-day-slot .rbc-event-label {
+    /* width: 206px; */
+    height: 24px;
+    width: 100% !important;
+    padding: 4px 8px 4px 8px;
+    border-bottom: 1px dashed;
+    text-align: start;
+    padding: 4px 8px 4px 8px;
+}
+
+.rbc-day-slot .rbc-event-content {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+    padding: 8px;
+}
+
+/***************************************Add Events*************************************/
+.event-side-bar {
+    position: absolute;
+    background-color: var(--main-color);
+    right: 0;
+    height: 100vh;
+    top: 0;
+    z-index: 2345;
+    width: 330px;
+    color: white;
+    transition: .4s;
+}
+
+.event-side-bar .head {
+    border-bottom: 1px solid;
+    padding: 10px 15px;
+    height: 50px;
+    font-weight: 600;
+    font-family: 'DM Sans';
+    text-transform: capitalize;
+}
+
+.event-side-bar form.form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 15px;
+}
+
+.event-side-bar fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-transform: capitalize;
+    width: 100%;
+    line-height: 2;
+}
+
+.event-side-bar fieldset label {
+    font-weight: 600;
+    font-family: 'DM Sans';
+    text-transform: capitalize;
+}
+
+.event-side-bar fieldset input {
+    background-color: transparent;
+    border: 1px solid;
+    border-radius: 5px;
+    height: 35px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.event-side-bar fieldset input::placeholder {
+    color: white;
+    font-size: 14px;
+}
+
+.event-side-bar fieldset input[type="submit"] {
+    background-color: #2e2eff;
+    width: 150px;
+    text-align: center;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+}
+
+/****************************************Media Query****************************************/
+@media (max-width: 1571px) {
+    .toolbar {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    select {
+        font-size: 13px;
+        padding: 0 6px;
+        min-width: 77px;
+    }
+
+    .d-w-m svg,
+    .select svg {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1280px) {
+    .filter .search-input input {
+        width: 277px;
+        height: 34px;
+    }
+
+    .d-w-m,
+    .select {
+        height: 34px;
+    }
+
+    button.chakra-button.bg-grayD.css-p7mkev,
+    button.chakra-button.css-p7mkev {
+        width: 34px;
+        height: 34px;
+        font-size: 17px;
+    }
+}
