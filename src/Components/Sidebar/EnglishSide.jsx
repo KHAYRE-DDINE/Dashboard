@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import settings from "../../images/settings.svg";
 import help from "../../images/help.svg";
+import { TbHelp } from "react-icons/tb";
+import { IoMdSettings } from "react-icons/io";
 
 function EnglishSide({ list }) {
   const location = useLocation();
@@ -34,15 +36,6 @@ function EnglishSide({ list }) {
                     : "flex items-center text-normalColor "
                 }
               >
-                {/* <img
-                  className={
-                    location.pathname.includes(`/${l.listName}`)
-                      ? "text-primary-100"
-                      : "text-normalColor"
-                  }
-                  src={l.listIcon}
-                  alt="icon"
-                />{" "} */}
                 {l.listIcon}
                 {l.listName}
               </NavLink>
@@ -64,7 +57,7 @@ function EnglishSide({ list }) {
                     : "flex items-center text-normalColor"
                 }
               >
-                <img src={help} alt="help" />
+                <TbHelp className="mr-[5px]" size={"18px"} />
                 help
               </NavLink>
             </li>
@@ -83,7 +76,7 @@ function EnglishSide({ list }) {
                     : "flex items-center text-normalColor "
                 }
               >
-                <img src={settings} alt="settings" />
+                <IoMdSettings className="mr-[5px]" size={"18px"} />
                 settings
               </NavLink>
             </li>
