@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import settings from "../../images/settings.svg";
-import help from "../../images/help.svg";
 import { TbHelp } from "react-icons/tb";
 import { IoMdSettings } from "react-icons/io";
 
-function EnglishSide({ list }) {
+function EnglishSide({ list, sidebarWidth }) {
   const location = useLocation();
   return (
     <div
-      className={`sidebar py-8 px-3 invisible bg-white w-0 md:w-[240px] fixed h-screen border-r-[1px] border-solid border-grayD`}
+      className={`sidebar ${
+        sidebarWidth === 60 ? "hide" : ""
+      } py-8 px-3 invisible bg-white w-0 md:w-[240px] fixed h-screen border-r-[1px] border-solid border-grayD`}
     >
       <div className="list flex flex-column">
         <ul className="dash-links ">
@@ -19,8 +19,16 @@ function EnglishSide({ list }) {
                 location.pathname.includes(
                   `/${l.listName === "dashboard" ? `home` : `${l.listName}`}`
                 )
-                  ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100`
-                  : "py-2 px-2 capitalize underline-none rounded-md"
+                  ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100 ${
+                      sidebarWidth === 60
+                        ? "!overflow-hidden !w-[40px]"
+                        : "!w-[216px]"
+                    } `
+                  : `py-2 px-2 capitalize underline-none rounded-md ${
+                      sidebarWidth === 60
+                        ? "!overflow-hidden !w-[40px]"
+                        : "!w-[216px]"
+                    } `
               }
               key={id}
             >
@@ -45,8 +53,16 @@ function EnglishSide({ list }) {
             <li
               className={
                 location.pathname.includes("help")
-                  ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100`
-                  : "py-2 px-2 capitalize underline-none rounded-md"
+                  ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100 ${
+                      sidebarWidth === 60
+                        ? "!overflow-hidden !w-[40px]"
+                        : "w-[216px]"
+                    } `
+                  : `py-2 px-2 capitalize underline-none rounded-md ${
+                      sidebarWidth === 60
+                        ? "!overflow-hidden !w-[40px]"
+                        : "w-[216px]"
+                    } `
               }
             >
               <NavLink
@@ -57,15 +73,26 @@ function EnglishSide({ list }) {
                     : "flex items-center text-normalColor"
                 }
               >
-                <TbHelp className="mr-[5px]" size={"18px"} />
+                <TbHelp
+                  className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+                  size={"18px"}
+                />
                 help
               </NavLink>
             </li>
             <li
               className={
                 location.pathname.includes("settings")
-                  ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100`
-                  : "py-2 px-2 capitalize underline-none rounded-md"
+                  ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100 ${
+                      sidebarWidth === 60
+                        ? "!overflow-hidden !w-[40px]"
+                        : "w-[216px]"
+                    } `
+                  : `py-2 px-2 capitalize underline-none rounded-md ${
+                      sidebarWidth === 60
+                        ? "!overflow-hidden !w-[40px]"
+                        : "w-[216px]"
+                    } `
               }
             >
               <NavLink
@@ -76,7 +103,10 @@ function EnglishSide({ list }) {
                     : "flex items-center text-normalColor "
                 }
               >
-                <IoMdSettings className="mr-[5px]" size={"18px"} />
+                <IoMdSettings
+                  className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+                  size={"18px"}
+                />
                 settings
               </NavLink>
             </li>

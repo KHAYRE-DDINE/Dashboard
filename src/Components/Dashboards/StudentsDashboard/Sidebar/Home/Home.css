@@ -466,6 +466,9 @@
   .right-side.open {
     transition: 0.3s;
     right: 0;
+    position: absolute;
+    bottom: 0;
+    top: 0;
   }
 }
 

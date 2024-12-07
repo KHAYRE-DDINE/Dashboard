@@ -53,42 +53,82 @@ function Dashboard() {
   const StudentsList = [
     {
       listName: "dashboard",
-      listIcon: <IoHome className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <IoHome
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     {
       listName: "courses",
-      listIcon: <FaBookOpen className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <FaBookOpen
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     {
       listName: "assignments",
-      listIcon: <FaTasks className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <FaTasks
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     // { listName: "classes", listIcon: classes },
     {
       listName: "charts",
-      listIcon: <FaChartPie className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <FaChartPie
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     {
       listName: "calendar",
-      listIcon: <FaRegCalendarAlt className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <FaRegCalendarAlt
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     {
       listName: "message",
-      listIcon: <LuMessagesSquare className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <LuMessagesSquare
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     {
       listName: "Library",
-      listIcon: <IoLibrary className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <IoLibrary
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
     {
       listName: "account",
-      listIcon: <CgProfile className="mr-[5px]" size={"18px"} />,
+      listIcon: (
+        <CgProfile
+          className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
+          size={"18px"}
+        />
+      ),
     },
   ];
 
   return (
     <div className="dashboard min-h-screen overflow-x-hidden">
-      <Header />
+      <Header setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
       {language === "english" ? (
         <main className={`layout flex relative top-[56px]`}>
           <Sidebar

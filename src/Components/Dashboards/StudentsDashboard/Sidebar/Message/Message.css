@@ -14,8 +14,7 @@
   flex-direction: column;
 }
 
-.sideBar-msg .title {
-}
+.sideBar-msg .title {}
 
 .sideBar-msg .title h1 {
   font-family: Inter;
@@ -35,7 +34,7 @@
   padding: 0 0 0 5px;
 }
 
-.sideBar-msg .box-search > .image img {
+.sideBar-msg .box-search>.image img {
   width: 38px;
   height: 38px;
 }
@@ -74,6 +73,8 @@
 
 .sideBar-msg .members {
   overflow-y: auto;
+  scrollbar-color: var(--main-color) #f9fafb;
+  scrollbar-width: thin;
 }
 
 .sideBar-msg .members .member {
@@ -102,8 +103,7 @@
   width: 208px;
 }
 
-.sideBar-msg .members .member .info .name {
-}
+.sideBar-msg .members .member .info .name {}
 
 .sideBar-msg .members .member .info .name h4 {
   font-family: Inter;
@@ -135,6 +135,7 @@
 }
 
 /*****************************SideBar Message***********************************/
+
 .rightSide-msg {
   margin: 0 auto;
   position: relative;
@@ -191,11 +192,14 @@
   height: calc(100vh - 209px);
   overflow-x: auto;
   margin: 77px auto 20px;
+  scrollbar-color: var(--main-color) #ffffff;
+  scrollbar-width: thin;
   /* justify-content: end; */
   /* padding-top: 60px;*/
 }
 
 .rightSide-msg .messages .message {
+  margin: 0 10px;
 }
 
 .rightSide-msg .messages .message img {
@@ -252,8 +256,7 @@
   border-radius: 7px;
 }
 
-.rightSide-msg .input-msg .buttons .send svg {
-}
+.rightSide-msg .input-msg .buttons .send svg {}
 
 @media (max-width: 1200px) {
   .sideBar-msg {

@@ -6,8 +6,7 @@ import { LanguageContext } from "../../App";
 import EnglishSide from "./EnglishSide";
 import ArabicSide from "./ArabicSide";
 
-
-function Sidebar({ list }) {
+function Sidebar({ list, sidebarWidth }) {
   const location = useLocation();
   const navigate = useNavigate();
   const language = useContext(LanguageContext);
@@ -24,7 +23,7 @@ function Sidebar({ list }) {
   return (
     <React.Fragment>
       {language === "english" ? (
-        <EnglishSide list={list} />
+        <EnglishSide list={list} sidebarWidth={sidebarWidth} />
       ) : (
         <ArabicSide list={list} />
       )}
