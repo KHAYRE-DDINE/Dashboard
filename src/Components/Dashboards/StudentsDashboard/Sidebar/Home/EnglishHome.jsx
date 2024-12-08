@@ -4,6 +4,7 @@ import mainLogo from "../../../../../images/logo2.svg";
 import calender from "../../../../../images/calender.svg";
 import search from "../../../../../images/search.svg";
 import mark from "../../../../../images/inter.svg";
+import { motion } from "framer-motion";
 import { Label, Pie, PieChart } from "recharts";
 // import {
 //   ChartContainer,
@@ -97,9 +98,14 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
   return (
     <div className="home flex flex-col xl:flex-row pl-2 lg:pl-6 gap-6 ">
       <section className="welcome xl:p-[72px]">
-        <h1 className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose ">
-          welcome, khalid al walid
-        </h1>
+        <motion.h1
+          initial={{ left: "30%", rotateY: 0 }}
+          animate={{ left: "0%", rotateY: "360deg" }}
+          transition={{ duration: 2, delay: 0.2 }}
+          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose relative"
+        >
+          welcome, Khirdin
+        </motion.h1>
         <div className="tests ">
           <div className="head mb-5 flex justify-between">
             <h3 className="text-gray-700">Your tests</h3>
@@ -107,7 +113,14 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
           </div>
           <div className="all-tests flex gap-[0.9rem] flex-wrap">
             {tests.map((t, id) => (
-              <div
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  translateX: id === 0 ? -50 : id === 2 ? 50 : "",
+                  translateY: id === 1 ? -50 : "",
+                }}
+                animate={{ opacity: 1, translateX: 0, translateY: 0 }}
+                transition={{ duration: 0.4 }}
                 key={id}
                 className="cover border-[1px] border-grayD border-solid "
               >
@@ -143,7 +156,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                     {t.month}, {t.date}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -218,7 +231,19 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-3">
             {courses.map((c, idx) => (
-              <div key={idx} className="course">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  translateX: idx % 2 === 0 ? 60 : -60,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  translateX: 0,
+                }}
+                transition={{ duration: 1.5, delay: idx * 0.2 }}
+                key={idx}
+                className="course"
+              >
                 <div className="top-section flex justify-between py-3 border-b-2 border-grayD border-b-solid">
                   <p className="my-auto text-normalColor">{c.title}</p>
                   {c.length > 5 && (
@@ -261,7 +286,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

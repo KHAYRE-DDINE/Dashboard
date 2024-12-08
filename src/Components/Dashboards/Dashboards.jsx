@@ -5,7 +5,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import dashboard from "../../images/dashboard.svg";
 import recent from "../../images/recent.svg";
-import Assignment from "../../images/assignment.svg";
+// import Assignment from "../../images/assignment.svg";
 import classes from "../../images/classes.svg";
 import library from "../../images/library.svg";
 import routine from "../../images/routine.svg";
@@ -33,7 +33,7 @@ function Dashboard() {
   const AdminList = [
     { listName: "dashboard", listIcon: <IoHome /> },
     { listName: "recent", listIcon: recent },
-    { listName: "teachers", listIcon: Assignment },
+    // { listName: "teachers", listIcon: Assignment },
     { listName: "classes", listIcon: classes },
     { listName: "library", listIcon: library },
     { listName: "routine", listIcon: routine },
@@ -43,7 +43,7 @@ function Dashboard() {
   const TeacherList = [
     { listName: "dashboard", listIcon: dashboard },
     { listName: "recent", listIcon: recent },
-    { listName: "teachers", listIcon: Assignment },
+    // { listName: "teachers", listIcon: Assignment },
     { listName: "classes", listIcon: classes },
     { listName: "library", listIcon: library },
     { listName: "routine", listIcon: routine },

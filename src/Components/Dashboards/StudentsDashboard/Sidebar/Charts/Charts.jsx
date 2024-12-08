@@ -13,6 +13,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { motion } from "framer-motion";
 
 const colors = ["#ff6600", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
@@ -81,7 +82,12 @@ const TriangleBar = (props) => {
 function Charts() {
   return (
     <div className="charts">
-      <div className="chart m-auto w-max">
+      <motion.div
+        initial={{ rotateY: "360deg", scale: 0.5 }}
+        whileInView={{ rotateY: "0deg", scale: 1 }}
+        transition={{ duration: 2 }}
+        className="chart m-auto w-max"
+      >
         <h1 className="title">data science</h1>
         <ResponsiveContainer>
           <BarChart
@@ -114,8 +120,13 @@ function Charts() {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </div>
-      <div className="chart m-auto w-max">
+      </motion.div>
+      <motion.div
+        initial={{ rotateY: "360deg", scale: 0.5 }}
+        whileInView={{ rotateY: "0deg", scale: 1 }}
+        transition={{ duration: 2 }}
+        className="chart m-auto w-max"
+      >
         <h1 className="title">Achievement</h1>
         <ResponsiveContainer>
           <AreaChart
@@ -148,8 +159,13 @@ function Charts() {
             <Area type={"monotone"} dataKey="pv" stackId="2" fill="pink"></Area>
           </AreaChart>
         </ResponsiveContainer>
-      </div>
-      <div className="chart m-auto w-max">
+      </motion.div>
+      <motion.div
+        initial={{ rotateY: "360deg", scale: 0.5 }}
+        whileInView={{ rotateY: "0deg", scale: 1 }}
+        transition={{ duration: 2 }}
+        className="chart m-auto w-max"
+      >
         <h1 className="title">Analytics</h1>
         <ResponsiveContainer>
           <AreaChart
@@ -186,7 +202,7 @@ function Charts() {
             <Area dataKey="uv" stroke="#2451B7" fill="url(#color)"></Area>
           </AreaChart>
         </ResponsiveContainer>
-      </div>
+      </motion.div>
     </div>
   );
 }
