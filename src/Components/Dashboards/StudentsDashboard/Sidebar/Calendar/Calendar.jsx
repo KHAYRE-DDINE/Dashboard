@@ -8,6 +8,7 @@ import EnglishCalendar from "./EnglishCalendar";
 import ArabicCalendar from "./ArabicCalendar";
 import { LanguageContext } from "../../../../../App";
 
+<<<<<<< HEAD
 
 function Calender() {
   const [view, setView] = useState(Views.DAY);
@@ -22,6 +23,11 @@ function Calender() {
     colorDescription: "",
   });
 
+=======
+function Calender() {
+  const [view, setView] = useState(Views.DAY);
+  const [date, setDate] = useState(moment("2022-10-10"));
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
   const events = MOCK_EVENTS.map((e) => {
     return {
       title: e.title,
@@ -32,6 +38,7 @@ function Calender() {
     };
   });
 
+<<<<<<< HEAD
   const [Events, setEvents] = useState([...events]);
 
   const addEvent = (newEvent) => {
@@ -39,6 +46,8 @@ function Calender() {
     setShowAddEventSide(false);
   };
 
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
   const dateText = useMemo(() => {
     if (view === Views.DAY) return moment(date).format("dddd, MMMM DD");
     if (view === Views.WEEK) {
@@ -106,6 +115,7 @@ function Calender() {
           setView={setView}
           dateText={dateText}
           date={date}
+<<<<<<< HEAD
           events={Events}
           view={view}
           setEvent={setEvent}
@@ -113,6 +123,10 @@ function Calender() {
           addEvent={addEvent}
           showAddEventSide={showAddEventSide}
           setShowAddEventSide={setShowAddEventSide}
+=======
+          events={events}
+          view={view}
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
         />
       ) : (
         <ArabicCalendar

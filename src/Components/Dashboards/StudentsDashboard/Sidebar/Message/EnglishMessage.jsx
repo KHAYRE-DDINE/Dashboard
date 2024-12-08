@@ -1,6 +1,7 @@
 import React from "react";
 import searchIcon from "../../../../../images/search.svg";
 import avatar from "../../../../../images/avatar.svg";
+<<<<<<< HEAD
 import avatar9 from "../../../../../images/pngegg (9).svg";
 import avatar23 from "../../../../../images/pngegg (23).svg";
 import avatar22 from "../../../../../images/pngegg (22).svg";
@@ -15,12 +16,15 @@ import { PiPaperclipHorizontalDuotone } from "react-icons/pi";
 import { IoCallOutline } from "react-icons/io5";
 import { CiVideoOn } from "react-icons/ci";
 import DropDownDots from "./DropDownDots";
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 
 function EnglishMessage() {
   return (
     <div className="message-section flex">
       <div className="sideBar-msg bg-gray-50">
         <div className="title">
+<<<<<<< HEAD
           <h1 className="capitalize text-gray-700">messages</h1>
         </div>
         <div className="box-search">
@@ -35,27 +39,50 @@ function EnglishMessage() {
             />
             <img src={searchIcon} className="" alt="searchIcon" />
           </div>
+=======
+          <h1 className="capitalize text-gray-700">message</h1>
+        </div>
+        <div className="box-search">
+          <input
+            type="search"
+            className="filter !border-gray-300"
+            placeholder="Searching something..."
+          />
+          <img src={searchIcon} className="" alt="searchIcon" />
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
         </div>
         <div className="members">
           <div className="member flex items-center">
             <div className="image">
+<<<<<<< HEAD
               <img src={avatar9} alt="avatar" />
+=======
+              <img src={avatar} alt="avatar" />
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
             </div>
             <div className="info ">
               <div className="name">
                 <h4 className="text-gray-700">khalid Al Walid</h4>
               </div>
               <div className="last-msg flex items-center">
+<<<<<<< HEAD
                 <span className="msg text-gray-600">
                   Good morning to you all!
                 </span>
+=======
+                <span className="msg text-gray-600">hey</span>
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                 <span className="date text-gray-400">20min</span>
               </div>
             </div>
           </div>
           <div className="member flex items-center">
             <div className="image">
+<<<<<<< HEAD
               <img src={avatar22} alt="avatar" />
+=======
+              <img src={avatar} alt="avatar" />
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
             </div>
             <div className="info ">
               <div className="name">
@@ -71,7 +98,11 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
+<<<<<<< HEAD
               <img src={avatar19} alt="avatar" />
+=======
+              <img src={avatar} alt="avatar" />
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
             </div>
             <div className="info ">
               <div className="name">
@@ -87,6 +118,7 @@ function EnglishMessage() {
           </div>
           <div className="member flex items-center">
             <div className="image">
+<<<<<<< HEAD
               <img src={avatar16} alt="avatar" />
             </div>
             <div className="info ">
@@ -97,10 +129,21 @@ function EnglishMessage() {
                 <span className="msg text-gray-600">
                   I hope you have a great day. Good morning!
                 </span>
+=======
+              <img src={avatar} alt="avatar" />
+            </div>
+            <div className="info ">
+              <div className="name">
+                <h4 className="text-gray-700">khalid Al Walid</h4>
+              </div>
+              <div className="last-msg flex items-center">
+                <span className="msg text-gray-600">hey</span>
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                 <span className="date text-gray-400">20min</span>
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           <div className="member flex items-center">
             <div className="image">
               <img src={avatar14} alt="avatar" />
@@ -211,6 +254,11 @@ function EnglishMessage() {
             </div>
           </div>
         </div>
+=======
+        </div>
+      </div>
+      <div className="rightSide-msg">
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
         <div className="messages flex flex-col gap-8">
           <div className="message owner flex-row-reverse flex gap-2">
             <img src={avatar} alt="avatar" />
@@ -219,6 +267,7 @@ function EnglishMessage() {
               to wrap my head around the whole concept.
             </span>
           </div>
+<<<<<<< HEAD
           <div className="message owner flex-row-reverse flex gap-2">
             <img src={avatar} alt="avatar" />
             <span className="text-white bg-primary-100 mx-3">
@@ -247,6 +296,8 @@ function EnglishMessage() {
               to wrap my head around the whole concept.
             </span>
           </div>
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
           <div className="message host flex gap-2">
             <img src={avatar} alt="avatar" />
             <span className="text-black bg-gray-100 mx-3">
@@ -268,6 +319,7 @@ function EnglishMessage() {
               formula. I'm pretty sure my brain is about to explode.
             </span>
           </div>
+<<<<<<< HEAD
           <div className="message host flex gap-2">
             <img src={avatar} alt="avatar" />
             <span className="text-black bg-grayD mx-3">
@@ -307,6 +359,11 @@ function EnglishMessage() {
               send <FiSend />
             </button>
           </div>
+=======
+        </div>
+        <div className="input-msg">
+          <input type="text" className="!border-grayD" placeholder="Aa" />
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
         </div>
       </div>
     </div>

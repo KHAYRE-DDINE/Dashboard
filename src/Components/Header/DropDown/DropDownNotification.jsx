@@ -7,7 +7,10 @@ import {
   Transition,
 } from "@headlessui/react";
 import notification from "../../../images/notification.svg";
+<<<<<<< HEAD
 import avatar from "../../../images/avatar.svg";
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -17,7 +20,11 @@ export default function Example() {
   return (
     <Menu as="div" className="relative inline-block text-left ">
       <div>
+<<<<<<< HEAD
         <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white text-sm font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50">
+=======
+        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white text-sm font-semibold text-gray-900   ring-gray-300 hover:bg-gray-50">
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
           <img src={notification} alt="notification" />
         </MenuButton>
       </div>
@@ -30,6 +37,7 @@ export default function Example() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
+<<<<<<< HEAD
         <MenuItems className="absolute right-[-50px] z-10 mt-6 w-80 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <button
             className={classNames(
@@ -103,6 +111,14 @@ export default function Example() {
                 </div>
               )}
             </MenuItem>
+=======
+        <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right py-3 px-2 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-3">
+            <MenuItem>{({ focus }) => <p>hello</p>}</MenuItem>
+          </div>
+          <div className="py-3">
+            <MenuItem>{({ focus }) => <p>hello</p>}</MenuItem>
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
           </div>
         </MenuItems>
       </Transition>

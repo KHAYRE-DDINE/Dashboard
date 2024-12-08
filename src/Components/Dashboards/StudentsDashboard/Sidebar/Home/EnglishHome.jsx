@@ -4,6 +4,7 @@ import mainLogo from "../../../../../images/logo2.svg";
 import calender from "../../../../../images/calender.svg";
 import search from "../../../../../images/search.svg";
 import mark from "../../../../../images/inter.svg";
+<<<<<<< HEAD
 import { motion } from "framer-motion";
 import { Label, Pie, PieChart } from "recharts";
 // import {
@@ -45,6 +46,8 @@ import { Label, Pie, PieChart } from "recharts";
 //     color: "hsl(var(--chart-5))",
 //   },
 // };
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 
 function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
@@ -86,11 +89,15 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
       ];
       setToday(day + " " + shortMonths[month]);
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
     getTodayDate();
     getFourDays();
   }, []);
 
+<<<<<<< HEAD
   // const totalVisitors = React.useMemo(() => {
   //   return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
   // }, []);
@@ -106,6 +113,14 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
         >
           welcome, Khirdin
         </motion.h1>
+=======
+  return (
+    <div className="home flex flex-col xl:flex-row pl-2 lg:pl-6 gap-6 ">
+      <section className="welcome xl:p-[72px]">
+        <h1 className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose ">
+          welcome, khalid al walid
+        </h1>
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
         <div className="tests ">
           <div className="head mb-5 flex justify-between">
             <h3 className="text-gray-700">Your tests</h3>
@@ -113,6 +128,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
           </div>
           <div className="all-tests flex gap-[0.9rem] flex-wrap">
             {tests.map((t, id) => (
+<<<<<<< HEAD
               <motion.div
                 initial={{
                   opacity: 0,
@@ -121,6 +137,9 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                 }}
                 animate={{ opacity: 1, translateX: 0, translateY: 0 }}
                 transition={{ duration: 0.4 }}
+=======
+              <div
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                 key={id}
                 className="cover border-[1px] border-grayD border-solid "
               >
@@ -156,15 +175,24 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                     {t.month}, {t.date}
                   </span>
                 </div>
+<<<<<<< HEAD
               </motion.div>
             ))}
           </div>
         </div>
         <div className="subjects ">
+=======
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="subjects mb-[40px]">
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
           <div className="head mb-5 flex justify-between">
             <h3 className="text-gray-700">Your classes</h3>
             <button className="text-primary-100 border-none">see all</button>
           </div>
+<<<<<<< HEAD
           <div className="flex items-center justify-center min-h-[260px]">
             {/* <ChartContainer
               config={chartConfig}
@@ -214,6 +242,38 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                 </Pie>
               </PieChart>
             </ChartContainer> */}
+=======
+          <div className="all-subjects flex gap-[0.9rem] flex-wrap">
+            {subject.map((l, id) => (
+              <div
+                key={id}
+                className="subject cursor-pointer rounded-md border-[1px] border-grayD border-solid"
+              >
+                <div
+                  className={cn(
+                    `image-box h-[127px] bg-primary-1001 flex justify-center items-center`,
+                    subjectFill[l.subject]
+                  )}
+                >
+                  <img
+                    src={mainLogo}
+                    alt="logo"
+                    className="w-[50px] h-[50px]"
+                  />
+                </div>
+                <div className="info ">
+                  <div className="subject-student">
+                    <span className="capitalize text-gray-700">
+                      {l.subject}
+                    </span>
+                  </div>
+                  <div className="student">
+                    <h4 className="capitalize text-gray-600">{l.student}</h4>
+                  </div>
+                </div>
+              </div>
+            ))}
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
           </div>
         </div>
         <div className="lessons">
@@ -231,6 +291,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-3">
             {courses.map((c, idx) => (
+<<<<<<< HEAD
               <motion.div
                 initial={{
                   opacity: 0,
@@ -244,6 +305,9 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                 key={idx}
                 className="course"
               >
+=======
+              <div key={idx} className="course">
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                 <div className="top-section flex justify-between py-3 border-b-2 border-grayD border-b-solid">
                   <p className="my-auto text-normalColor">{c.title}</p>
                   {c.length > 5 && (
@@ -286,7 +350,11 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                     </div>
                   ))}
                 </div>
+<<<<<<< HEAD
               </motion.div>
+=======
+              </div>
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
             ))}
           </div>
         </div>

@@ -1,4 +1,5 @@
 .background {
+<<<<<<< HEAD
   width: 6712px;
   height: 192px;
   top: 0;
@@ -12,10 +13,25 @@
   width: 70%;
   margin: 0 auto 15px;
   padding-top: 160px;
+=======
+    width: 6712px;
+    height: 192px;
+    top: 0;
+    left: -5034px;
+    background: linear-gradient(90deg, #FFC0AD 0%, #D2CCFF 33.33%, #F8C7FF 66%, #C2D1FF 100%);
+    z-index: -10;
+}
+
+.account {
+    width: 70%;
+    margin: 0 auto 15px;
+    padding-top: 160px;
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 
 /************************Header Side***********************************/
 .account .header-side {
+<<<<<<< HEAD
   align-items: end;
   height: 60px;
   padding: 0px 0px 32px 0px;
@@ -57,10 +73,52 @@
   width: 30px;
   height: 30px;
   margin: 0 4px;
+=======
+    align-items: end;
+    height: 60px;
+    padding: 0px 0px 32px 0px;
+    margin-top: 90px;
+}
+
+.account .header-side .person {}
+
+.account .header-side .person .image {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.account .header-side .person .image img {
+    width: 100%;
+    height: 100%;
+}
+
+.account .header-side .person .name {
+    margin: 15px 0 0;
+}
+
+.account .header-side .person .name h1 {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.account .header-side .badges {}
+
+.account .header-side .badges span {
+    width: 30px;
+    height: 30px;
+    margin: 0 4px;
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 
 /************************Statistics***********************************/
 .account .statistics {
+<<<<<<< HEAD
   margin-top: 32px;
 }
 
@@ -112,10 +170,63 @@
   text-align: left;
   margin-top: -2px;
   display: block;
+=======
+    margin-top: 32px;
+}
+
+.account .statistics .top-title {}
+
+.account .statistics .top-title h3 {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.account .statistics .top-title span {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+}
+
+.account .statistics .details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+.account .statistics .details .box {
+    width: 200px;
+}
+
+.account .statistics .details .box span {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+}
+
+.account .statistics .details .box span b {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    margin-top: -2px;
+    display: block;
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 
 /****************************Recent Lessons************************************/
 .recent-lessons {
+<<<<<<< HEAD
   margin-top: 32px;
   display: flex;
   flex-direction: column;
@@ -166,10 +277,59 @@
   font-weight: 400;
   line-height: 15px;
   text-align: left;
+=======
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.recent-lessons {}
+
+.recent-lessons .top-section {}
+
+.recent-lessons .top-section h3 {}
+
+.recent-lessons .top-section span {}
+
+.recent-lessons .lesson>span {
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    font-family: Inter;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 12.6px;
+    text-align: left;
+}
+
+.recent-lessons .lesson .info {
+    margin-left: 14px;
+}
+
+.recent-lessons .lesson .info .lesson-name {
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+}
+
+.recent-lessons .lesson .info .student-name {
+    font-family: Inter;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 
 /****************************Colleagues************************************/
 .colleagues {
+<<<<<<< HEAD
   margin-top: 32px;
 }
 
@@ -232,3 +392,67 @@
   line-height: 16px;
   text-align: left;
 }
+=======
+    margin-top: 32px;
+}
+
+.colleagues .all-colleagues {
+    margin-top: 14px;
+}
+
+.colleagues .all-colleagues .colleague {}
+
+.colleagues .all-colleagues .colleague .image {
+    margin-right: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.colleagues .all-colleagues .colleague .image img {
+    width: 35px;
+    height: 35px;
+
+}
+
+.colleagues .all-colleagues .colleague .info {}
+
+.colleagues .all-colleagues .colleague .info .colleague-name {
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+}
+
+.colleagues .all-colleagues .colleague .info span {
+    font-family: Inter;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+}
+
+
+
+/********************General Styles****************************************/
+.top-title {}
+
+.top-title h3 {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.top-title>span,
+.top-title div span {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+}
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533

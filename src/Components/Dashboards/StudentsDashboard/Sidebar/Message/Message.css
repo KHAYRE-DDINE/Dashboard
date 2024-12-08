@@ -1,22 +1,36 @@
+<<<<<<< HEAD
 .message-section {
   /* position: fixed; */
   /* width: calc(100% - 240px); */
 }
+=======
+.message-section {}
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 
 /*****************************SideBar Message***********************************/
 
 .sideBar-msg {
+<<<<<<< HEAD
   width: 320px;
   height: calc(100vh - 56px);
   padding: 20px;
   gap: 16px;
   display: flex;
   flex-direction: column;
+=======
+    width: 320px;
+    height: calc(100vh - 56px);
+    padding: 24px;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 
 .sideBar-msg .title {}
 
 .sideBar-msg .title h1 {
+<<<<<<< HEAD
   font-family: Inter;
   font-size: 24px;
   font-weight: 500;
@@ -101,11 +115,82 @@
 
 .sideBar-msg .members .member .info {
   width: 208px;
+=======
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: left;
+}
+
+.sideBar-msg .box-search {
+    width: 100%;
+    height: 32px;
+    position: relative;
+}
+
+.sideBar-msg .box-search input {
+    width: 272px;
+    height: 32px;
+    padding: 10px 16px 10px 30px;
+    gap: 8px;
+    border-radius: 5.82px;
+    background: transparent;
+    border: 1px solid;
+    outline: none;
+}
+
+.sideBar-msg .box-search input::placeholder {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16.8px;
+    text-align: left;
+    color: #9CA3AF;
+}
+
+.sideBar-msg .box-search img {
+    position: absolute;
+    top: 48%;
+    transform: translateY(-50%);
+    left: 9px;
+    width: 17px;
+}
+
+.sideBar-msg .members {}
+
+.sideBar-msg .members .member {
+    cursor: pointer;
+    padding: 10px 5px;
+    border-radius: 5px;
+    gap: 8px;
+}
+
+.sideBar-msg .members .member:hover {
+    background-color: #8080802e;
+}
+
+.sideBar-msg .members .member .image {
+    width: 38px;
+    height: 38px;
+
+}
+
+.sideBar-msg .members .member .image img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.sideBar-msg .members .member .info {
+    width: 226px;
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 
 .sideBar-msg .members .member .info .name {}
 
 .sideBar-msg .members .member .info .name h4 {
+<<<<<<< HEAD
   font-family: Inter;
   font-size: 14px;
   font-weight: 500;
@@ -274,4 +359,93 @@
   .rightSide-msg {
     width: 525px;
   }
+=======
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+}
+
+.sideBar-msg .members .member .info .last-msg {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+}
+
+.sideBar-msg .members .member .info .last-msg .msg {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    width: fit-content;
+    overflow: hidden;
+}
+
+.sideBar-msg .members .member .info .last-msg .date {
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+/*****************************SideBar Message***********************************/
+.rightSide-msg {
+    margin: 0 auto;
+    position: relative;
+    width: 600px;
+}
+
+.rightSide-msg .messages {
+    width: 100%;
+    height: calc(100vh - 156px);
+    overflow-x: auto;
+    margin: 20px auto 0;
+}
+
+.rightSide-msg .messages .message {}
+
+.rightSide-msg .messages .message img {
+    width: 24px;
+    height: 24px;
+
+}
+
+.rightSide-msg .messages .message span {
+    width: max-content;
+    padding: 8px 12px 8px 12px;
+    border-radius: 6px;
+}
+
+.rightSide-msg .input-msg {
+    position: absolute;
+    bottom: 22px;
+    width: 100%;
+}
+
+.rightSide-msg .input-msg input {
+    width: 100%;
+    border: 1px solid;
+    padding: 5px 20px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #8080801f;
+}
+
+@media(max-width: 1200px) {
+    .sideBar-msg {
+        width: 270px;
+    }
+
+    .sideBar-msg .box-search input {
+        width: 100%;
+    }
+
+    .sideBar-msg .members .member .info .last-msg .msg {
+        max-width: 127px
+    }
+
+    .rightSide-msg {
+        width: 525px;
+    }
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }

@@ -29,6 +29,7 @@ export default function Example() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
+<<<<<<< HEAD
         <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="">
             <button
@@ -38,12 +39,32 @@ export default function Example() {
             >
               Account Settings
             </button>
+=======
+        <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md py-3 px-2 bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
             <MenuItem>
               {({ focus }) => (
                 <button
                   className={classNames(
                     focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
+<<<<<<< HEAD
                     "py-3 px-3 hover:bg-[#cccccc3d] w-full text-start h-10"
+=======
+                    "block text-sm"
+                  )}
+                >
+                  Account settings
+                </button>
+              )}
+            </MenuItem>
+            <MenuItem>
+              {({ focus }) => (
+                <button
+                  className={classNames(
+                    focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                   )}
                 >
                   Support
@@ -55,7 +76,11 @@ export default function Example() {
                 <button
                   className={classNames(
                     focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
+<<<<<<< HEAD
                     "py-3 px-3 hover:bg-[#cccccc3d] w-full text-start h-10"
+=======
+                    "block px-4 py-2 text-sm"
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                   )}
                 >
                   License
@@ -69,7 +94,11 @@ export default function Example() {
                     type="submit"
                     className={classNames(
                       focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
+<<<<<<< HEAD
                       "py-3 px-3 hover:bg-[#cccccc3d] w-full text-start h-10"
+=======
+                      "block w-full px-4 py-2 text-left text-sm"
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                     )}
                   >
                     Sign out

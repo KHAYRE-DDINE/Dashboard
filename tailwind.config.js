@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+<<<<<<< HEAD
   darkMode: ["class"],
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+=======
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
   theme: {
     extend: {
       colors: {
@@ -30,6 +34,7 @@ module.exports = {
         required: "#F54747",
         backgroundErr: "#f5474742",
         grayD: "#E5E7EB",
+<<<<<<< HEAD
         normalColor: "#374151",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -64,11 +69,15 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+=======
+        normalColor: "#374151"
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
       },
       height: {
         firstHeightFace: "838px",
         secondHeightFace: "730px",
       },
+<<<<<<< HEAD
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
@@ -77,5 +86,10 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+=======
+    },
+  },
+  plugins: [],
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 }
 

@@ -12,11 +12,15 @@
     "@headlessui/react": "^2.0.4",
     "@heroicons/react": "^2.1.3",
     "@popperjs/core": "^2.11.8",
+<<<<<<< HEAD
     "@shadcn/ui": "^0.0.4",
+=======
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
+<<<<<<< HEAD
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
@@ -25,17 +29,29 @@
     "gh-pages": "^6.1.1",
     "json-server": "^1.0.0-beta.3",
     "lucide-react": "^0.462.0",
+=======
+    "date-fns": "^3.6.0",
+    "framer-motion": "^11.3.2",
+    "gh-pages": "^6.1.1",
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
     "postcss-loader": "^8.1.1",
     "react": "^18.3.1",
     "react-big-calendar": "^1.13.0",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
     "react-icons": "^5.4.0",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "recharts": "^2.13.3",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+=======
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "5.0.1",
+    "tailwind-merge": "^2.3.0",
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -66,11 +82,16 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
+<<<<<<< HEAD
     "husky": "^4.3.8",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.16"
   },
   "overrides": {
     "react-is": "^19.0.0-rc-69d4b800-20241021"
+=======
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4"
+>>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
   }
 }
