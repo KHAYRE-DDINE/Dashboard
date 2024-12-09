@@ -30,26 +30,6 @@ function Dashboard() {
   const language = useContext(LanguageContext);
   const role = useContext(roleContext);
 
-  const AdminList = [
-    { listName: "dashboard", listIcon: <IoHome /> },
-    { listName: "recent", listIcon: recent },
-    // { listName: "teachers", listIcon: Assignment },
-    { listName: "classes", listIcon: classes },
-    { listName: "library", listIcon: library },
-    { listName: "routine", listIcon: routine },
-    { listName: "notice", listIcon: <IoMdHelpCircleOutline /> },
-    { listName: "account", listIcon: account },
-  ];
-  const TeacherList = [
-    { listName: "dashboard", listIcon: dashboard },
-    { listName: "recent", listIcon: recent },
-    // { listName: "teachers", listIcon: Assignment },
-    { listName: "classes", listIcon: classes },
-    { listName: "library", listIcon: library },
-    { listName: "routine", listIcon: routine },
-    { listName: "notice", listIcon: notice },
-    { listName: "account", listIcon: account },
-  ];
   const StudentsList = [
     {
       listName: "dashboard",
@@ -132,13 +112,7 @@ function Dashboard() {
       {language === "english" ? (
         <main className={`layout flex relative top-[56px]`}>
           <Sidebar
-            list={
-              role === "student"
-                ? StudentsList
-                : role === "teacher"
-                ? TeacherList
-                : AdminList
-            }
+            list={StudentsList}
             sidebarWidth={sidebarWidth}
             setSidebarWidth={setSidebarWidth}
           />
@@ -152,13 +126,7 @@ function Dashboard() {
       ) : (
         <main className={`layout flex flex-row-reverse relative top-[56px]`}>
           <Sidebar
-            list={
-              role === "student"
-                ? StudentsList
-                : role === "teacher"
-                ? TeacherList
-                : AdminList
-            }
+            list={StudentsList}
             sidebarWidth={sidebarWidth}
             setSidebarWidth={setSidebarWidth}
           />
