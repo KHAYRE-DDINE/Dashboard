@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { TbHelp } from "react-icons/tb";
 import { IoMdSettings } from "react-icons/io";
-
+import { motion } from "framer-motion";
 function EnglishSide({ list, sidebarWidth }) {
   const location = useLocation();
   return (
@@ -14,7 +14,10 @@ function EnglishSide({ list, sidebarWidth }) {
       <div className="list flex flex-column">
         <ul className="dash-links ">
           {list.map((l, id) => (
-            <li
+            <motion.li
+              initial={{ opacity: 0, translateX: -50, translateY: -50 }}
+              animate={{ opacity: 1, translateX: 0, translateY: 0 }}
+              transition={{ duration: 0.4, delay: id * 0.09 }}
               className={
                 location.pathname.includes(
                   `/${l.listName === "dashboard" ? `home` : `${l.listName}`}`
@@ -47,10 +50,13 @@ function EnglishSide({ list, sidebarWidth }) {
                 {l.listIcon}
                 {l.listName}
               </NavLink>
-            </li>
+            </motion.li>
           ))}
           <ul className="bottomSide">
-            <li
+            <motion.li
+              initial={{ opacity: 0, translateX: -50, translateY: -50 }}
+              animate={{ opacity: 1, translateX: 0, translateY: 0 }}
+              transition={{ duration: 0.4, delay: 5 * 0.2 }}
               className={
                 location.pathname.includes("help")
                   ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100 ${
@@ -79,8 +85,11 @@ function EnglishSide({ list, sidebarWidth }) {
                 />
                 help
               </NavLink>
-            </li>
-            <li
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, translateX: -50, translateY: -50 }}
+              animate={{ opacity: 1, translateX: 0, translateY: 0 }}
+              transition={{ duration: 0.4, delay: 5 * 0.2 }}
               className={
                 location.pathname.includes("settings")
                   ? `py-2 px-2 capitalize underline-none bg-blue-100 rounded-sm border-l-[3px] border-solid border-primary-100 ${
@@ -109,7 +118,7 @@ function EnglishSide({ list, sidebarWidth }) {
                 />
                 settings
               </NavLink>
-            </li>
+            </motion.li>
           </ul>
         </ul>
       </div>
