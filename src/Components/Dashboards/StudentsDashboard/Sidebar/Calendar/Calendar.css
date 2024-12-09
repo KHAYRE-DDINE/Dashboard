@@ -160,7 +160,7 @@ button.chakra-button.css-p7mkev {
     padding: 8px;
 }
 
-<<<<<<< HEAD
+
 /***************************************Add Events*************************************/
 .event-side-bar {
     position: absolute;
@@ -232,9 +232,7 @@ button.chakra-button.css-p7mkev {
 }
 
 /****************************************Media Query****************************************/
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
-@media (max-width: 1571px) {
+ @media (max-width: 1571px) {
     .toolbar {
         justify-content: center;
         flex-direction: column;

@@ -4,11 +4,10 @@ import { LanguageContext, setLanguageContext } from "../../App";
 import EnglishHeader from "./EnglishHeader";
 import ArabicHeader from "./ArabicHeader";
 
-<<<<<<< HEAD
+ 
 function Header({ sidebarWidth, setSidebarWidth }) {
-=======
-function Header() {
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+
+ 
   const setLanguage = useContext(setLanguageContext);
   const Language = useContext(LanguageContext);
 
@@ -31,7 +30,7 @@ function Header() {
   //  </div>;
   return (
     <React.Fragment>
-<<<<<<< HEAD
+ 
       {Language === "english" ? (
         <EnglishHeader
           setSidebarWidth={setSidebarWidth}
@@ -40,9 +39,9 @@ function Header() {
       ) : (
         <ArabicHeader />
       )}
-=======
+ 
       {Language === "english" ? <EnglishHeader /> : <ArabicHeader />}
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
     </React.Fragment>
   );
 }

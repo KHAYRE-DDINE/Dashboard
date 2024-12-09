@@ -5,10 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function EnglishSteps({ error, handleValues, handleForm, setError, values }) {
   const navigate = useNavigate();
-<<<<<<< HEAD
 
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
   return (
     <div className="wrapper ">
       <form action="" className="inputs form" onSubmit={(e) => handleForm(e)}>
@@ -27,39 +24,33 @@ function EnglishSteps({ error, handleValues, handleForm, setError, values }) {
           />
         </fieldset>
         <fieldset className="name">
-          <fieldset>
-<<<<<<< HEAD
-            <label htmlFor="first name">first name</label>
+          {/* <label htmlFor="first name">first name</label>
             <input
               type="text"
               name="first name"
-=======
-            <label htmlFor="First name">First name</label>
-            <input
-              type="text"
-              name="First name"
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
-              placeholder="Ahmed"
-              onChange={(ev) => handleValues(ev)}
-            />
-          </fieldset>
-          <fieldset>
-<<<<<<< HEAD
-            <label htmlFor="last name">last name</label>
-            <input
-              type="text"
-              name="last name"
-=======
+ >   */}
+          <label htmlFor="First name">First name</label>
+          <input
+            type="text"
+            name="First name"
+            placeholder="Ahmed"
+            onChange={(ev) => handleValues(ev)}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="last name">last name</label>
+          <input type="text" name="last name" />
+        </fieldset>
+        {/* <fieldset>
             <label htmlFor="Last name">Last name</label>
             <input
               type="text"
               name="Last name"
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
               placeholder="Mohamed"
               onChange={(ev) => handleValues(ev)}
             />
-          </fieldset>
-        </fieldset>
+          </fieldset> */}
         <fieldset
           className={error.password ? "password error" : "password"}
           data-error="Your password must be at least 8 characters long."
@@ -82,13 +73,10 @@ function EnglishSteps({ error, handleValues, handleForm, setError, values }) {
           <input
             type="submit"
             className={
-<<<<<<< HEAD
               values["first name"] !== "" &&
               values["last name"] !== "" &&
-=======
               values["First name"] !== "" &&
               values["Last name"] !== "" &&
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
               values.email !== "" &&
               values.password !== "" &&
               Object.keys(error).length === 0
@@ -97,13 +85,10 @@ function EnglishSteps({ error, handleValues, handleForm, setError, values }) {
             }
             value="Sign up"
             disabled={
-<<<<<<< HEAD
               values["first name"] !== "" &&
               values["last name"] !== "" &&
-=======
               values["First name"] !== "" &&
               values["Last name"] !== "" &&
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
               values.email !== "" &&
               values.password !== "" &&
               Object.keys(error).length === 0

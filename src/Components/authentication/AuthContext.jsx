@@ -6,11 +6,11 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-<<<<<<< HEAD
+ 
   // const csrf = () => axios.get("/sanctum/csrf-cookie");
-=======
+ 
   const csrf = () => axios.get("/sanctum/csrf-cookie");
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
   const navigate = useNavigate();
 
   const getUser = async () => {
@@ -19,11 +19,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async ({ ...data }) => {
-<<<<<<< HEAD
+ 
     // await csrf();
-=======
+ 
     await csrf();
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
     try {
       await axios.post("/login", data);
       getUser();
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async ({ ...data }) => {
-<<<<<<< HEAD
+ 
     // await csrf();
     console.log(data);
     try {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       // if (e.response.status === 422) {
       //   console.log(e);
       // }
-=======
+ 
     await csrf();
     try {
       await axios.post("/register/steps", data);
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       if (e.response.status === 422) {
         console.log(e);
       }
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
     }
   };
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+};}
 
 export default function useAuthContext() {
   return useContext(AuthContext);

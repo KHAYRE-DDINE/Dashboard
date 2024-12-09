@@ -7,7 +7,7 @@ import DropDownAbout from "./DropDown/DropDownAbout";
 import logo from "../../images/logo2.svg";
 import dottes from "../../images/dottesSquare.svg";
 
-<<<<<<< HEAD
+ 
 function EnglishHeader({ sidebarWidth, setSidebarWidth }) {
   return (
     <header className="bg-white z-[9999] fixed w-[100%] flex items-center justify-between  border-b-[1px] border-solid border-grayD">
@@ -16,13 +16,7 @@ function EnglishHeader({ sidebarWidth, setSidebarWidth }) {
           className=" w-8 h-8 mr-1"
           onClick={() => setSidebarWidth(sidebarWidth === 240 ? 60 : 240)}
         >
-=======
-function EnglishHeader() {
-  return (
-    <header className="bg-white z-[9999] fixed w-[100%] flex items-center justify-between  border-b-[1px] border-solid border-grayD">
-      <div className="logo p-4 flex items-center">
-        <button className=" w-8 h-8 mr-1">
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
           <img src={dottes} alt="dottes" />
         </button>
         <h2 className="w-[180px] uppercase text-gray-700 font-bold text-2xl flex">
@@ -45,12 +39,12 @@ function EnglishHeader() {
             <DropDownNotification />
           </button>
           <button className="w-[44px] h-[56px] px-3 leading-[50%]">
-<<<<<<< HEAD
-=======
+ 
+ 
             <DropDownAbout />
           </button>
           <button className="w-[44px] h-[56px] px-3 leading-[50%]">
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
             <DropDownSetting />
           </button>
           <button className="w-[56px] h-[56px] px-3 leading-[50%]">

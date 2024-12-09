@@ -5,17 +5,12 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import dashboard from "../../images/dashboard.svg";
 import recent from "../../images/recent.svg";
-<<<<<<< HEAD
 // import Assignment from "../../images/assignment.svg";
-=======
-import Assignment from "../../images/assignment.svg";
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 import classes from "../../images/classes.svg";
 import library from "../../images/library.svg";
 import routine from "../../images/routine.svg";
 import notice from "../../images/notice.svg";
 import account from "../../images/account.svg";
-<<<<<<< HEAD
 import chart from "../../images/chart.svg";
 import { IoLibrary } from "react-icons/io5";
 import { FaBookOpen } from "react-icons/fa6";
@@ -27,8 +22,6 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { LuMessagesSquare } from "react-icons/lu";
 import { FaTasks } from "react-icons/fa";
 
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 import { LanguageContext, roleContext } from "../../App";
 
 function Dashboard() {
@@ -38,33 +31,29 @@ function Dashboard() {
   const role = useContext(roleContext);
 
   const AdminList = [
-<<<<<<< HEAD
-    { listName: "dashboard", listIcon: <IoHome /> },
-    { listName: "recent", listIcon: recent },
-    // { listName: "teachers", listIcon: Assignment },
-    { listName: "classes", listIcon: classes },
-    { listName: "library", listIcon: library },
-    { listName: "routine", listIcon: routine },
-    { listName: "notice", listIcon: <IoMdHelpCircleOutline /> },
-=======
+    // { listName: "dashboard", listIcon: <IoHome /> },
+    // { listName: "recent", listIcon: recent },
+    // // { listName: "teachers", listIcon: Assignment },
+    // { listName: "classes", listIcon: classes },
+    // { listName: "library", listIcon: library },
+    // { listName: "routine", listIcon: routine },
+    // { listName: "notice", listIcon: <IoMdHelpCircleOutline /> },
+
     { listName: "dashboard", listIcon: dashboard },
     { listName: "recent", listIcon: recent },
-    { listName: "teachers", listIcon: Assignment },
+    // { listName: "teachers", listIcon: Assignment },
     { listName: "classes", listIcon: classes },
     { listName: "library", listIcon: library },
     { listName: "routine", listIcon: routine },
     { listName: "notice", listIcon: notice },
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
     { listName: "account", listIcon: account },
   ];
   const TeacherList = [
-    { listName: "dashboard", listIcon: dashboard },
-    { listName: "recent", listIcon: recent },
-<<<<<<< HEAD
+    // { listName: "dashboard", listIcon: dashboard },
+    // { listName: "recent", listIcon: recent },
     // { listName: "teachers", listIcon: Assignment },
-=======
-    { listName: "teachers", listIcon: Assignment },
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+
+    // { listName: "teachers", listIcon: Assignment },
     { listName: "classes", listIcon: classes },
     { listName: "library", listIcon: library },
     { listName: "routine", listIcon: routine },
@@ -72,7 +61,6 @@ function Dashboard() {
     { listName: "account", listIcon: account },
   ];
   const StudentsList = [
-<<<<<<< HEAD
     {
       listName: "dashboard",
       listIcon: (
@@ -149,23 +137,8 @@ function Dashboard() {
   ];
 
   return (
-    <div className="dashboard min-h-screen overflow-x-hidden">
-      <Header setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
-=======
-    { listName: "dashboard", listIcon: dashboard },
-    { listName: "courses", listIcon: recent },
-    { listName: "assignments", listIcon: Assignment },
-    { listName: "classes", listIcon: classes },
-    { listName: "calendar", listIcon: library },
-    { listName: "message", listIcon: routine },
-    { listName: "Library", listIcon: notice },
-    { listName: "account", listIcon: account },
-  ];
-
-  return (
     <div className=" dashboard min-h-screen overflow-x-hidden">
       <Header />
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
       {language === "english" ? (
         <main className={`layout flex relative top-[56px]`}>
           <Sidebar

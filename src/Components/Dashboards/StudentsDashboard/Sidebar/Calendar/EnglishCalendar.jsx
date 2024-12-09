@@ -8,7 +8,7 @@ import { Flex, IconButton, Text } from "@chakra-ui/react";
 import { Button } from "@headlessui/react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-<<<<<<< HEAD
+ 
 import SideBarEvent from "./SideBarEvent";
 
 const localizer = momentLocalizer(moment);
@@ -21,12 +21,7 @@ function Event({ event }) {
     </div>
   );
 }
-
-=======
-
-const localizer = momentLocalizer(moment);
-
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
 function EnglishCalendar({
   onTodayClick,
   dateText,
@@ -37,26 +32,26 @@ function EnglishCalendar({
   view,
   setView,
   date,
-<<<<<<< HEAD
+ 
   addEvent,
   showAddEventSide,
   setShowAddEventSide,
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
+ 
 }) {
   return (
     <div className="calender-box">
       <div className="title">
         <h2>Your tests</h2>
       </div>
-<<<<<<< HEAD
+ 
       <SideBarEvent
         addEvent={addEvent}
         showAddEventSide={showAddEventSide}
         setShowAddEventSide={setShowAddEventSide}
       />
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
+ 
       <div className="toolbar flex flex-wrap justify-between items-center gap-4">
         <div className="filter flex items-center">
           <div className="hidden md:flex search-input relative">
@@ -67,11 +62,11 @@ function EnglishCalendar({
               className=""
               placeholder="Search something..."
             />
-<<<<<<< HEAD
+ 
           </div>
-=======
+ 
           </div>{" "}
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
           <div className="select ">
             {" "}
             <select name="type">
@@ -101,11 +96,11 @@ function EnglishCalendar({
             </select>
             <HiChevronDown />
           </div>
-<<<<<<< HEAD
+ 
         </div>
-=======
-        </div>{" "}
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
+        
+ 
         <div className="right-side-bar flex ">
           <Flex gap={4}>
             <Flex>
@@ -148,7 +143,7 @@ function EnglishCalendar({
               </select>
               <HiChevronDown />
             </div>
-<<<<<<< HEAD
+ 
             <div
               onClick={() => setShowAddEventSide(true)}
               className="btn relative rounded-md bg-[#F3F4F6] w-[85px] h-[40px] flex items-center justify-center"
@@ -156,7 +151,7 @@ function EnglishCalendar({
               <button className="text-[#1a1a1aad] capitalize text-[12px] font-[inter] font-[500]">
                 add event
               </button>
-=======
+ 
             <div className="select relative">
               <RiToolsFill className="absolute left-[10px]" />
               <select className="select pl-7">
@@ -165,7 +160,7 @@ function EnglishCalendar({
                 <option value="Views.WEEK">week</option>
                 <option value="Views.MONTH">month</option>
               </select>
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
             </div>
           </div>
         </div>
@@ -183,10 +178,10 @@ function EnglishCalendar({
             },
           };
         }}
-<<<<<<< HEAD
+ 
         components={{ event: Event }}
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+ 
+ 
         onSelectEvent={(e) => handleSelectedDates(e)}
         toolbar={false}
         date={date}

@@ -13,10 +13,6 @@ import TeachersDashboard from './Components/Dashboards/TeachersDashboard/Teacher
 import AdminDashboard from "./Components/Dashboards/AdminDashboard/AdminDashboard"
 import Dashboard from "./Components/Dashboards/Dashboards";
 import useAuthContext from './Components/authentication/AuthContext';
-<<<<<<< HEAD
-=======
-import LandingPage from './Components/LandingPage/LandingPage';
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 import ResetPassword from './Components/LoginRegister/ForgotPassword/ResetPassword/ResetPassword';
 import ProtectRouteDash from './Components/authentication/ProtectRouteDash';
 import ProtectRouteLog from './Components/authentication/ProtectRouteLog';
@@ -39,7 +35,7 @@ function App() {
           <roleContext.Provider value={role}>
             <Routes>
               {/* <Route element={<ProtectRouteLog />}> */}
-<<<<<<< HEAD
+
               {
                 role === "student" ?
                   <Route element={<Dashboard />}>
@@ -71,40 +67,39 @@ function App() {
 
               {/* <Route element={<ProtectRouteDash />}> */}
 
-=======
-                {
-                  role === "student" ?
+
+              {/* {
+                role === "student" ?
+                  <Route element={<Dashboard />}>
+                    <Route index element={<StudentsDashboard />} />
+                    <Route path="/dashboard/*" element={<StudentsDashboard />} />
+                  </Route>
+                  :
+                  role === "teacher" ?
                     <Route element={<Dashboard />}>
-                      <Route index element={<StudentsDashboard />} />
-                      <Route path="/dashboard/*" element={<StudentsDashboard />} />
-                    </Route>
-                    :
-                    role === "teacher" ?
+                      <Route index element={<TeachersDashboard />} />
+                      <Route path="/dashboard/*" element={<TeachersDashboard />} />
+                    </Route> :
+                    role === "admin" ?
                       <Route element={<Dashboard />}>
-                        <Route index element={<TeachersDashboard />} />
-                        <Route path="/dashboard/*" element={<TeachersDashboard />} />
-                      </Route> :
-                      role === "admin" ?
-                        <Route element={<Dashboard />}>
-                          <Route index element={<AdminDashboard />} />
-                          <Route path="/dashboard/*" element={<AdminDashboard />} />
-                        </Route> : <Route exact path="/" element={<LandingPage />} />
-                }
+                        <Route index element={<AdminDashboard />} />
+                        <Route path="/dashboard/*" element={<AdminDashboard />} />
+                      </Route> : <Route exact path="/" element={<LandingPage />} />
+              } */}
               {/* </Route> */}
 
               {/* <Route element={<ProtectRouteDash />}> */}
-                <Route exact path="/landing-page" element={<LandingPage />} />
-                <Route element={< LoginRegister />}>
-                  <Route exact path="login" element={< Login />} />
-                  <Route path="forgot-password" element={< ForgotPassword />} >
-                    <Route path="password-reset" element={<ResetPassword />} />
-                  </Route>
-                  <Route path="register" element={< Register />} />
-                  <Route path="register/steps" element={< Steps />} />
-                  <Route path="register/register-by-username" element={< ByUsername />} />
-                  <Route path="register/class-code" element={< ClassCode />} />
+              {/* <Route exact path="/landing-page" element={<LandingPage />} />
+              <Route element={< LoginRegister />}>
+                <Route exact path="login" element={< Login />} />
+                <Route path="forgot-password" element={< ForgotPassword />} >
+                  <Route path="password-reset" element={<ResetPassword />} />
                 </Route>
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+                <Route path="register" element={< Register />} />
+                <Route path="register/steps" element={< Steps />} />
+                <Route path="register/register-by-username" element={< ByUsername />} />
+                <Route path="register/class-code" element={< ClassCode />} />
+              </Route> */}
               {/* </Route> */}
 
             </Routes>

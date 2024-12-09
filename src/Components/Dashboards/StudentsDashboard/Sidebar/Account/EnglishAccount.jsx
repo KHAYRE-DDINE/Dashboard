@@ -1,13 +1,10 @@
 import React from "react";
 import avatar from "../../../../../images/avatar.svg";
-<<<<<<< HEAD
 import { LuBadgeCent } from "react-icons/lu";
 import { LuBadgeEuro } from "react-icons/lu";
 import { RiPoliceBadgeLine } from "react-icons/ri";
 import { SlBadge } from "react-icons/sl";
 import { LuBadgeDollarSign } from "react-icons/lu";
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 
 function EnglishAccount({ courses, colleagues, subjectFill, cn }) {
   return (
@@ -23,7 +20,6 @@ function EnglishAccount({ courses, colleagues, subjectFill, cn }) {
           </div>
         </div>
         <div className="badges flex justify-center items-center">
-<<<<<<< HEAD
           <span className="w-3 h-3 ">
             <LuBadgeCent size={30} />
           </span>
@@ -39,13 +35,11 @@ function EnglishAccount({ courses, colleagues, subjectFill, cn }) {
           <span className="w-3 h-3 ">
             <LuBadgeDollarSign size={30} />
           </span>
-=======
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
           <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
         </div>
       </div>
       <div className="statistics">

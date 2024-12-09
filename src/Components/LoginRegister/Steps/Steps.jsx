@@ -1,13 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./Steps.css";
 import "../Login/Login.css";
-<<<<<<< HEAD
-import { LanguageContext } from "../../../App";
-=======
-import { useNavigate } from "react-router-dom";
-import { LanguageContext } from "../../../App";
 
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+import { LanguageContext } from "../../../App";
 import useAuthContext from "../../authentication/AuthContext";
 import EnglishSteps from "./EnglishSteps";
 import ArabicSteps from "./ArabicSteps";
@@ -16,13 +11,13 @@ function Steps() {
   const language = useContext(LanguageContext);
   const [values, setValues] = useState({
     email: "",
-<<<<<<< HEAD
+
     "first name": "",
     "last name": "",
-=======
+
     "First name": "",
     "Last name": "",
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
+
     password: "",
   });
   const [error, setError] = useState({});

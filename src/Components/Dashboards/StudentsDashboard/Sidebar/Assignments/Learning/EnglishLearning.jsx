@@ -1,10 +1,8 @@
 import React from "react";
 import arrowDown from "../../../../../../images/down.svg";
 import avatar from "../../../../../../images/avatar.svg";
-<<<<<<< HEAD
+
 import avatar5 from "../../../../../../images/avatar.svg";
-=======
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
 
 function EnglishAbout() {
   return (
@@ -40,11 +38,8 @@ function EnglishAbout() {
                   I just figured out you can use it like this
                   <br />
                   <a className="text-link !underline" href="#">
-<<<<<<< HEAD
                     {avatar5}
-=======
                     http://localhost:3000/dashboard/assignments/learning
->>>>>>> 274c5f0b1cc78a8943c599d9535d3f21de836533
                   </a>
                 </span>
                 <div className="commenter flex items-center">
