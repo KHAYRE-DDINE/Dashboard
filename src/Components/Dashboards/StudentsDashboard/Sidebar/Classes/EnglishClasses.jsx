@@ -4,15 +4,22 @@ import config from "../../../../../images/config.svg";
 import mainLogo from "../../../../../images/logo2.svg";
 import { Link } from "react-router-dom";
 import mark from "../../../../../images/inter.svg";
+import { motion } from "framer-motion";
+
 function EnglishClasses({ subject, subjectFill, cn }) {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
   return (
     <div className="classes flex">
       <div className="left">
         {" "}
-        <h1 className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose ">
+        <motion.h1
+          initial={{ left: "30%", rotateY: 0 }}
+          animate={{ left: "0%", rotateY: "360deg" }}
+          transition={{ duration: 2, delay: 0.2 }}
+          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
+        >
           classes
-        </h1>
+        </motion.h1>
         <div className="subjects mb-[40px]">
           <div className="all-subjects flex gap-[0.6rem] flex-wrap">
             {subject.map((l, id) => (

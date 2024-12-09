@@ -6,6 +6,7 @@ import config from "../../../../../images/config.svg";
 import { Link, Outlet } from "react-router-dom";
 import mainLogo from "../../../../../images/logo2.svg";
 import mark from "../../../../../images/inter.svg";
+import { motion } from "framer-motion";
 
 function EnglishAssignment({
   data,
@@ -25,9 +26,14 @@ function EnglishAssignment({
         className="left"
         style={{ width: open && `calc(100% - ${sideWidth}px )` }}
       >
-        <h1 className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose ">
+        <motion.h1
+          initial={{ left: "30%", rotateY: 0 }}
+          animate={{ left: "0%", rotateY: "360deg" }}
+          transition={{ duration: 2, delay: 0.2 }}
+          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
+        >
           Assignments
-        </h1>
+        </motion.h1>
         <div className="assignment-table">
           <DataTable
             goToTable={goToTable}

@@ -9,6 +9,8 @@ import { Button } from "@headlessui/react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import SideBarEvent from "./SideBarEvent";
+import { motion } from "framer-motion";
+
 
 const localizer = momentLocalizer(moment);
 
@@ -38,7 +40,13 @@ function EnglishCalendar({
   return (
     <div className="calender-box">
       <div className="title">
-        <h2>Your tests</h2>
+        <motion.h2
+          initial={{ left: "30%", rotateY: 0 }}
+          animate={{ left: "0%", rotateY: "360deg" }}
+          transition={{ duration: 2, delay: 0.2 }}
+        >
+          Your tests
+        </motion.h2>
       </div>
       <SideBarEvent
         addEvent={addEvent}

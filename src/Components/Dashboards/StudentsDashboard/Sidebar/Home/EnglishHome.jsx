@@ -120,7 +120,7 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
                   translateY: id === 1 ? -50 : "",
                 }}
                 animate={{ opacity: 1, translateX: 0, translateY: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
                 key={id}
                 className="cover border-[1px] border-grayD border-solid "
               >

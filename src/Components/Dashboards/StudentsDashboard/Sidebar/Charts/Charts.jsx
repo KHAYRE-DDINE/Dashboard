@@ -125,7 +125,6 @@ function Charts() {
         initial={{ rotateY: "0", scale: 0.5 }}
         whileInView={{
           rotateY: "-360deg",
-          matrix: (1, 0, 4, 1, 0, 0),
           scale: 1,
         }}
         transition={{ duration: 2 }}
@@ -166,7 +165,7 @@ function Charts() {
       </motion.div>
       <motion.div
         initial={{ rotateY: "360deg", scale: 0.5 }}
-        whileInView={{ rotateY: "0deg", matrix: (1, 0, 0, 1, 0, 0), scale: 1 }}
+        whileInView={{ rotateY: "0deg", scale: 1 }}
         transition={{ duration: 2 }}
         className="chart m-auto w-max"
       >

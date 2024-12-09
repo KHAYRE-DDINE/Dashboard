@@ -4,6 +4,7 @@ import config from "../../../../../images/config.svg";
 import mainLogo from "../../../../../images/logo2.svg";
 import mark from "../../../../../images/inter.svg";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function EnglishCourses({
   closeOpenRightSide,
@@ -17,9 +18,14 @@ function EnglishCourses({
   return (
     <div className="courses flex ">
       <div className="left-side">
-        <h1 className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose ">
+        <motion.h1
+          initial={{ left: "30%", rotateY: 0 }}
+          animate={{ left: "0%", rotateY: "360deg" }}
+          transition={{ duration: 2, delay: 0.2 }}
+          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
+        >
           courses
-        </h1>
+        </motion.h1>
         <div className="w-full">
           <div className="top-section ">
             <div className="move  border-slate-200 flex items-center">

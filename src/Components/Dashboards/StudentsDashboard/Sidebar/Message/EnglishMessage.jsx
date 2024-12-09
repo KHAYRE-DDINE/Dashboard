@@ -15,13 +15,21 @@ import { PiPaperclipHorizontalDuotone } from "react-icons/pi";
 import { IoCallOutline } from "react-icons/io5";
 import { CiVideoOn } from "react-icons/ci";
 import DropDownDots from "./DropDownDots";
+import { motion } from "framer-motion";
 
 function EnglishMessage() {
   return (
     <div className="message-section flex">
       <div className="sideBar-msg bg-gray-50">
         <div className="title">
-          <h1 className="capitalize text-gray-700">messages</h1>
+          <motion.h1
+            initial={{ left: "30%", rotateY: 0 }}
+            animate={{ left: "0%", rotateY: "360deg" }}
+            transition={{ duration: 2, delay: 0.2 }}
+            className="capitalize text-gray-700"
+          >
+            messages
+          </motion.h1>
         </div>
         <div className="box-search">
           <div className="image">
