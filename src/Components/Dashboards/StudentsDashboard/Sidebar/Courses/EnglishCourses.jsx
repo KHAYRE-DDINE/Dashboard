@@ -22,7 +22,8 @@ function EnglishCourses({
           initial={{ left: "30%", rotateY: 0 }}
           animate={{ left: "0%", rotateY: "360deg" }}
           transition={{ duration: 2, delay: 0.2 }}
-          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
+          className="capitalize w-full
+           text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
         >
           courses
         </motion.h1>
