@@ -1,7 +1,8 @@
 import React from "react";
 import arrowDown from "../../../../../../images/down.svg";
-import avatar from "../../../../../../images/avatar.svg";
-import avatar5 from "../../../../../../images/avatar.svg";
+import avatar from "../../../../../../images/pngegg (18).png";
+import avatar2 from "../../../../../../images/pngegg (12).png";
+import avatar3 from "../../../../../../images/pngegg (14).png";
 
 function EnglishAbout() {
   return (
@@ -24,11 +25,13 @@ function EnglishAbout() {
             <strong className="text-gray-700">Latest update</strong>
           </div>
           <div className="all-comments">
-            <div className="comment relative flex">
+            <div className="comment relative flex gap-4">
               <div className=" cursor-pointer arrow absolute right-[15px] top-[12px]">
                 <img className="w-[15px]" src={arrowDown} alt="arrow" />
               </div>
-              <div className="avatar w-8"></div>
+              <div className="avatar w-8">
+                <img src={avatar} alt="avatar" />
+              </div>
               <div className="info">
                 <div className="title mb-5">
                   <h4 className="text-gray-700">learning</h4>
@@ -37,11 +40,14 @@ function EnglishAbout() {
                   I just figured out you can use it like this
                   <br />
                   <a className="text-link !underline" href="#">
-                    {avatar5}
+                    {avatar2}
                   </a>
                 </span>
                 <div className="commenter flex items-center">
-                  <div className="avatar"></div>
+                  <div className="avatar">
+                    {" "}
+                    <img src={avatar3} alt="avatar" />
+                  </div>
                   <h5 className="name text-gray-500">jamal monim</h5>
                   <span className="text-gray-500">2 min ago</span>
                 </div>

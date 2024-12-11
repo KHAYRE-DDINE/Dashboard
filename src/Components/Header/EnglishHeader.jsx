@@ -6,17 +6,21 @@ import DropDownSetting from "./DropDown/DropDownSetting";
 import DropDownAbout from "./DropDown/DropDownAbout";
 import logo from "../../images/logo2.svg";
 import dottes from "../../images/dottesSquare.svg";
+import { motion } from "framer-motion";
 
 function EnglishHeader({ sidebarWidth, setSidebarWidth }) {
   return (
     <header className="bg-white z-[9999] fixed w-[100%] flex items-center justify-between  border-b-[1px] border-solid border-grayD">
       <div className="logo p-4 flex items-center">
-        <button
+        <motion.button
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1, bounce: 3, repeat: Infinity }}
           className=" w-8 h-8 mr-1"
           onClick={() => setSidebarWidth(sidebarWidth === 240 ? 60 : 240)}
         >
           <img src={dottes} alt="dottes" />
-        </button>
+        </motion.button>
         <h2 className="w-[180px] uppercase text-gray-700 font-bold text-2xl flex">
           <img className="mr-2" src={logo} alt="logo" />
           al rihla

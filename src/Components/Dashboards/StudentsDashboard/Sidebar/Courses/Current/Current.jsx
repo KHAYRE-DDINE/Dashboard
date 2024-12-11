@@ -3,6 +3,7 @@ import mainLogo from "../../../../../../images/logo2.svg";
 import icon from "../../../../../../images/logo.svg";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -51,9 +52,16 @@ function Current() {
       <div className=" my-10">
         <div className="all-subjects flex gap-[0.9rem] flex-wrap">
           {subject.map((l, id) => (
-            <div
+            <motion.div
+              initial={{
+                left: id % 2 === 0 ?  100 : -100,
+              }}
+              whileInView={{
+                left: 0,
+              }}
+              transition={{ duration: 1, delay: 0.2 }}
               key={id}
-              className="subject rounded-lg border-[1px] border-gray-100 border-solid bg-white"
+              className="subject relative rounded-lg border-[1px] border-gray-100 border-solid bg-white"
             >
               <div
                 className={cn(
@@ -85,7 +93,7 @@ function Current() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

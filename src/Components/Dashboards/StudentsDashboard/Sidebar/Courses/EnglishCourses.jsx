@@ -37,9 +37,12 @@ function EnglishCourses({
           </div>
           <div className="recent-courses flex justify-start items-center flex-wrap gap-4 mt-8">
             {subject.map((l, id) => (
-              <div
+              <motion.div
+                initial={{ scale: 0, rotate: "360deg", borderRadius: "50%" }}
+                whileInView={{ scale: 1, rotate: "0deg", borderRadius: "0%" }}
+                transition={{ duration: 3, delay: 0.3 }}
                 key={id}
-                className="subject rounded-lg border-[1px] border-gray-100 border-solid bg-white"
+                className="subject overflow-hidden rounded-lg border-[1px] border-gray-100 border-solid bg-white"
               >
                 <div
                   className={cn(
@@ -75,7 +78,7 @@ function EnglishCourses({
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

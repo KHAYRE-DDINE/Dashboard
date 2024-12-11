@@ -4,53 +4,71 @@ import mainLogo from "../../../../../images/logo2.svg";
 import calender from "../../../../../images/calender.svg";
 import search from "../../../../../images/search.svg";
 import mark from "../../../../../images/inter.svg";
-import { Label, Pie, PieChart } from "recharts";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  Legend,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 import { motion } from "framer-motion";
-// import {
-//   ChartContainer,
-//   ChartTooltip,
-//   ChartTooltipContent,
-// } from "@shadcn/ui";
-
-// const chartData = [
-//   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-//   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-//   { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-//   { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-//   { browser: "other", visitors: 190, fill: "var(--color-other)" },
-// ];
-
-// const chartConfig = {
-//   visitors: {
-//     label: "Visitors",
-//   },
-//   chrome: {
-//     label: "Chrome",
-//     color: "hsl(var(--chart-1))",
-//   },
-//   safari: {
-//     label: "Safari",
-//     color: "hsl(var(--chart-2))",
-//   },
-//   firefox: {
-//     label: "Firefox",
-//     color: "hsl(var(--chart-3))",
-//   },
-//   edge: {
-//     label: "Edge",
-//     color: "hsl(var(--chart-4))",
-//   },
-//   other: {
-//     label: "Other",
-//     color: "hsl(var(--chart-5))",
-//   },
-// };
 
 function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
   const [days, setDays] = useState([]);
   const [today, setToday] = useState("");
-
+  const RADIAN = Math.PI / 180;
+  const data1 = [
+    { name: "Group A", value: 400 },
+    { name: "Group B", value: 300 },
+    { name: "Group C", value: 300 },
+    { name: "Group D", value: 200 },
+    { name: "Group E", value: 278 },
+    { name: "Group F", value: 189 },
+  ];
+  const data2 = [
+    {
+      subject: "Math",
+      A: 120,
+      B: 110,
+      fullMark: 150,
+    },
+    {
+      subject: "Chinese",
+      A: 98,
+      B: 130,
+      fullMark: 150,
+    },
+    {
+      subject: "English",
+      A: 86,
+      B: 130,
+      fullMark: 150,
+    },
+    {
+      subject: "Geography",
+      A: 99,
+      B: 100,
+      fullMark: 150,
+    },
+    {
+      subject: "Physics",
+      A: 85,
+      B: 90,
+      fullMark: 150,
+    },
+    {
+      subject: "History",
+      A: 65,
+      B: 85,
+      fullMark: 150,
+    },
+  ];
   useEffect(() => {
     const getFourDays = () => {
       const today = new Date();
@@ -91,10 +109,40 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
     getFourDays();
   }, []);
 
-  // const totalVisitors = React.useMemo(() => {
-  //   return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  // }, []);
+  const cx = 150;
+  const cy = 200;
+  const iR = 50;
+  const oR = 100;
+  const value = 50;
 
+  const needle = (value, data, cx, cy, iR, oR, color) => {
+    let total = 0;
+    data.forEach((v) => {
+      total += v.value;
+    });
+    const ang = 180.0 * (1 - value / total);
+    const length = (iR + 2 * oR) / 3;
+    const sin = Math.sin(-RADIAN * ang);
+    const cos = Math.cos(-RADIAN * ang);
+    const r = 5;
+    const x0 = cx + 5;
+    const y0 = cy + 5;
+    const xba = x0 + r * sin;
+    const yba = y0 - r * cos;
+    const xbb = x0 - r * sin;
+    const ybb = y0 + r * cos;
+    const xp = x0 + length * cos;
+    const yp = y0 + length * sin;
+
+    return [
+      <circle cx={x0} cy={y0} r={r} fill={color} stroke="none" />,
+      <path
+        d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`}
+        stroke="#none"
+        fill={color}
+      />,
+    ];
+  };
   return (
     <div className="home flex flex-col xl:flex-row pl-2 lg:pl-6 gap-6 ">
       <section className="welcome xl:p-[72px]">
@@ -166,59 +214,48 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
             <button className="text-primary-100 border-none">see all</button>
           </div>
           <div className="flex items-center justify-center min-h-[260px]">
-            {/* <ChartContainer
-              config={chartConfig}
-              className="mx-auto aspect-square max-h-[250px]"
-            >
-              <PieChart>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
+            <ResponsiveContainer width="100%" height="250px">
+              <PieChart width={400} height={400}>
                 <Pie
-                  data={chartData}
-                  dataKey="visitors"
-                  nameKey="browser"
-                  innerRadius={60}
-                  strokeWidth={5}
-                >
-                  <Label
-                    content={({ viewBox }) => {
-                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                        return (
-                          <text
-                            x={viewBox.cx}
-                            y={viewBox.cy}
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                          >
-                            <tspan
-                              x={viewBox.cx}
-                              y={viewBox.cy}
-                              className="fill-foreground text-3xl font-bold"
-                            >
-                              {totalVisitors.toLocaleString()}
-                            </tspan>
-                            <tspan
-                              x={viewBox.cx}
-                              y={(viewBox.cy || 0) + 24}
-                              className="fill-muted-foreground"
-                            >
-                              Visitors
-                            </tspan>
-                          </text>
-                        );
-                      }
-                    }}
-                  />
-                </Pie>
+                  dataKey="value"
+                  startAngle={180}
+                  endAngle={0}
+                  data={data1}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                />
               </PieChart>
-            </ChartContainer> */}
+            </ResponsiveContainer>
+            <ResponsiveContainer width="100%" height="250px">
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data2}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="subject" />
+                <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                <Radar
+                  name="Mike"
+                  dataKey="A"
+                  stroke="#8884d8"
+                  fill="#8884d8"
+                  fillOpacity={0.6}
+                />
+                <Radar
+                  name="Lily"
+                  dataKey="B"
+                  stroke="#82ca9d"
+                  fill="#82ca9d"
+                  fillOpacity={0.6}
+                />
+                <Legend />
+              </RadarChart>
+            </ResponsiveContainer>
           </div>
         </div>
         <div className="lessons">
           <div className="head flex justify-between items-center">
-            <h3>Your lessons</h3>
+            <h3 className="text-gray-700"> Your lessons</h3>
             <div className="hidden md:flex search-input relative">
               <img src={search} alt="search" />
               <input
