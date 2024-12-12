@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import arrowDown from "../../../../../../images/down.svg";
+import arrowUp from "../../../../../../images/chevron-up-solid.svg";
 import avatar from "../../../../../../images/pngegg (18).png";
 import avatar2 from "../../../../../../images/pngegg (12).png";
 import avatar3 from "../../../../../../images/pngegg (14).png";
 import { FiSend } from "react-icons/fi";
 
 function EnglishAbout() {
-  const [boxHeight, setBoxHeight] = useState(146);
+  const [boxHeight, setBoxHeight] = useState(50);
+  const [statusHeight, setStatusHeight] = useState(false);
 
   const changeHeight = () => {
+    console.log("func work");
     let height = boxHeight === 146 ? 50 : 146;
+    setStatusHeight(!statusHeight);
     setBoxHeight(height);
   };
 
@@ -36,19 +40,25 @@ function EnglishAbout() {
             <strong className="text-gray-700">Latest update</strong>
           </div>
           <div className="all-comments">
-            <div className={`comment relative flex gap-4 ${boxHeight}px`}>
+            <div
+              className={`comment relative flex gap-4 h-[${boxHeight}px] overflow-hidden`}
+            >
               <div
                 className="cursor-pointer arrow absolute right-[15px] top-[12px]"
                 onClick={() => changeHeight()}
               >
-                <img className="w-[15px]" src={arrowDown} alt="arrow" />
+                {statusHeight ? (
+                  <img className="w-[15px]" src={arrowDown} alt="arrow" />
+                ) : (
+                  <img className="w-[15px]" src={arrowUp} alt="arrow" />
+                )}
               </div>
               <div className="avatar w-8">
                 <img src={avatar} alt="avatar" />
               </div>
               <div className="info">
                 <div className="title mb-5">
-                  <h4 className="text-gray-700">learning</h4>
+                  <h4 className="text-gray-700">khayreddine</h4>
                 </div>
                 <span className="text-gray-500">
                   I just figured out you can use it like this
