@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import arrowDown from "../../../../../../images/down.svg";
 import avatar from "../../../../../../images/pngegg (18).png";
 import avatar2 from "../../../../../../images/pngegg (12).png";
 import avatar3 from "../../../../../../images/pngegg (14).png";
+import { FiSend } from "react-icons/fi";
 
 function EnglishAbout() {
+  const [boxHeight, setBoxHeight] = useState(146);
+
+  const changeHeight = () => {
+    let height = boxHeight === 146 ? 50 : 146;
+    setBoxHeight(height);
+  };
+
   return (
     <div className="learning">
       <div className="comments ">
@@ -18,6 +26,9 @@ function EnglishAbout() {
               className="!border-gray-300"
               placeholder="Add a comment..."
             />
+            <button className="send" type="submit">
+              add <FiSend />
+            </button>
           </form>
         </div>
         <div className="latest-updates gap-3">
@@ -25,8 +36,11 @@ function EnglishAbout() {
             <strong className="text-gray-700">Latest update</strong>
           </div>
           <div className="all-comments">
-            <div className="comment relative flex gap-4">
-              <div className=" cursor-pointer arrow absolute right-[15px] top-[12px]">
+            <div className={`comment relative flex gap-4 ${boxHeight}px`}>
+              <div
+                className="cursor-pointer arrow absolute right-[15px] top-[12px]"
+                onClick={() => changeHeight()}
+              >
                 <img className="w-[15px]" src={arrowDown} alt="arrow" />
               </div>
               <div className="avatar w-8">

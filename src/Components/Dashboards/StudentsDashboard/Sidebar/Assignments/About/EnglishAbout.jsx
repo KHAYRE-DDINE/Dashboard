@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import avatar from "../../../../../../images/avatar.svg";
+import { FiSend } from "react-icons/fi";
 
 function EnglishAbout() {
   const { id } = useParams();
@@ -57,6 +58,9 @@ function EnglishAbout() {
               className="!border-gray-300"
               placeholder="Add a comment..."
             />
+            <button className="send" type="submit">
+              add <FiSend />
+            </button>
           </form>
         </div>
       </div>
