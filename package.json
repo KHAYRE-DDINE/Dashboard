@@ -1,6 +1,6 @@
 {
-  "homepage": "https://khayre-ddine.github.io/Dashboard",
-  "name": "Dashboard",
+    "homepage": "http://KHAYRE-DDINE.github.io/Dashboard", 
+  "name": "dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,7 +22,6 @@
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.13.1",
-    "gh-pages": "^6.2.0",
     "json-server": "^1.0.0-beta.3",
     "lucide-react": "^0.462.0",
     "postcss-loader": "^8.1.1",
@@ -39,8 +38,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build ",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -66,6 +65,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
+    "gh-pages": "^6.2.0",
     "husky": "^4.3.8",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.16"
