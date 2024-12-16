@@ -5,7 +5,6 @@ import BoxesCode from "../BoxesCode/BoxesCode";
 import TermsPrivacy from "../TermsPrivacy/TermsPrivacy";
 
 function EnglishLogin({
-  checkPAssValidation,
   handleLogin,
   changeInputs,
   whileWriting,
@@ -62,7 +61,6 @@ function EnglishLogin({
                   type="submit"
                   value="Login"
                   className={info.email !== "" && isMatched ? "blue" : ""}
-                  onClick={() => checkPAssValidation()}
                 />
               </fieldset>
             ) : (
@@ -101,7 +99,7 @@ function EnglishLogin({
               </label>
               <input
                 onChange={(event) =>
-                  setInfo({ ...info, password: event.target.password })
+                  setInfo({ ...info, password: event.target.value })
                 }
                 type="password"
                 name="password"

@@ -15,14 +15,29 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async ({ ...data }) => {
+    // const checkPAssValidation = () => {
+    //   if (data.password.length > 6) {
+    //     setIsCorrect(true);
+    //     alert("Password is correct");
+    //   } else {
+    //     alert("Password is incorrect");
+    //     setIsCorrect(false);
+    //   }
+    // };
+
     // await csrf();
     try {
-      await axios.post("/login", data);
-      getUser();
-      navigate("/");
+      // await axios.post("/login", data);
+      // getUser();
+      // navigate("/");
+
+      if (data.email === "khirdin@gmail.com" && data.password === "123456") {
+        setUser(data);
+        navigate("/dashboard");
+      }
     } catch (e) {
       if (e.response.status === 422) {
-        console.log(e);
+        setUser(null);
       }
     }
   };
@@ -40,6 +55,15 @@ export const AuthProvider = ({ children }) => {
       // if (e.response.status === 422) {
       //   console.log(e);
       // }
+    }
+  };
+
+  const logout = async ({ ...data }) => {
+    try {
+      setUser(null);
+      navigate("")
+    } catch (e) {
+      console.log(e);
     }
   };
 

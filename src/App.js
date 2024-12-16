@@ -32,29 +32,25 @@ function App() {
         <setLanguageContext.Provider value={setPlatformLanguage}>
           <roleContext.Provider value={role}>
             <Routes>
-              <Route element={<ProtectRouteLog />}>
-              {
-                role === "student" ?
-                  <Route element={<Dashboard />}>
-                    <Route index element={<StudentsDashboard />} />
-                    <Route path="/dashboard/*" element={<StudentsDashboard />} />
-                  </Route>
-                  : <Route element={< LoginRegister />}>
-                    <Route exact path="login" element={< Login />} />
-                    <Route path="forgot-password" element={< ForgotPassword />} >
-                      <Route path="password-reset" element={<ResetPassword />} />
-                    </Route>
-                    <Route path="register" element={< Register />} />
-                    <Route path="register/steps" element={< Steps />} />
-                    <Route path="register/register-by-username" element={< ByUsername />} />
-                    <Route path="register/class-code" element={< ClassCode />} />
-                  </Route>
-              }
+              <Route element={<ProtectRouteLog user={user} />}>
+                <Route element={<Dashboard />}>
+                  <Route index element={<StudentsDashboard />} />
+                  <Route path="/dashboard/*" element={<StudentsDashboard />} />
+                </Route>
               </Route>
 
-              {/* <Route element={<ProtectRouteDash />}> */}
-
-              {/* </Route> */}
+              <Route element={<ProtectRouteDash user={user} />}>
+                <Route element={< LoginRegister />}>
+                  <Route exact path="login" element={< Login />} />
+                  <Route path="forgot-password" element={< ForgotPassword />} >
+                    <Route path="password-reset" element={<ResetPassword />} />
+                  </Route>
+                  <Route path="register" element={< Register />} />
+                  <Route path="register/steps" element={< Steps />} />
+                  <Route path="register/register-by-username" element={< ByUsername />} />
+                  <Route path="register/class-code" element={< ClassCode />} />
+                </Route>
+              </Route>
 
             </Routes>
           </roleContext.Provider>

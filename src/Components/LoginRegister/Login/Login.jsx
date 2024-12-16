@@ -4,6 +4,7 @@ import { LanguageContext } from "../../../App";
 import useAuthContext from "../../authentication/AuthContext";
 import EnglishLogin from "./EnglishLogin";
 import ArabicLogin from "./ArabicLogin";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
   const language = useContext(LanguageContext);
@@ -19,11 +20,13 @@ function Login() {
     email: "",
     password: "",
   });
+
   const whileWriting = (event) => {
     const pattern = /^(.+)@(.+)\.([a-zA-Z]{2,})$/;
     setInfo({ ...info, [event.target.name]: event.target.value });
     setIsMatched(pattern.test(event.target.value));
   };
+
   const changeInputs = () => {
     setInfo({ ...info, email: "", password: "" });
     setTheWay(theWay === "email" ? "withPassword" : "email");
@@ -33,23 +36,9 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    // login(info);
+    login(info);
+  };
 
-    if (info.email === "khirdin@gmail.com") {
-      setGetPassword(true);
-    } else {
-      setGetPassword(false);
-    }
-  };
-  const checkPAssValidation = () => {
-    if (info.password === "12345678") {
-      setIsCorrect(true);
-      alert("Password is correct");
-    } else {
-      alert("Password is incorrect");
-      setIsCorrect(false);
-    }
-  };
   useEffect(() => {
     setInfo({ ...info, password: codeClass.join("") });
   }, [codeClass]);
@@ -58,7 +47,6 @@ function Login() {
     <div className="login">
       {language === "english" ? (
         <EnglishLogin
-          checkPAssValidation={checkPAssValidation}
           handleLogin={handleLogin}
           changeInputs={changeInputs}
           whileWriting={whileWriting}

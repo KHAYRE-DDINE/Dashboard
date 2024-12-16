@@ -1,8 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 
-export default function ProtectRouteLog() {
-  const user = true;
+export default function ProtectRouteLog({ user }) {
   const navigate = useNavigate();
-  console.log(user);
+
   return user ? <Outlet /> : navigate("/Login");
 }
