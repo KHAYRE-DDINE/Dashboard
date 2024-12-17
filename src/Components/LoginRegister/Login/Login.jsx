@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
   const language = useContext(LanguageContext);
+  const location = useLocation();
   const [theWay, setTheWay] = useState("withPassword");
   const [isMatched, setIsMatched] = useState(true);
   const [isCorrect, setIsCorrect] = useState(true);
@@ -33,7 +34,7 @@ function Login() {
     setGetPassword(theWay === "email" && isMatched ? !getPassword : "");
   };
 
-  const handleLogin =  (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
 
     login(info);
@@ -44,7 +45,13 @@ function Login() {
   }, [codeClass]);
 
   return (
-    <div className="login">
+    <div
+      className={`login ${
+        location.pathname === "/Login" || location.pathname === "/login"
+          ? "h-[113vh]"
+          : ""
+      }`}
+    >
       {language === "english" ? (
         <EnglishLogin
           handleLogin={handleLogin}
