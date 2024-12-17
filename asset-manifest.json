@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Dashboard/static/css/main.172c3a71.css",
-    "main.js": "/Dashboard/static/js/main.c6a99c49.js",
+    "main.css": "/Dashboard/static/css/main.9f43c20e.css",
+    "main.js": "/Dashboard/static/js/main.1e5b76dc.js",
     "static/media/logo.svg": "/Dashboard/static/media/logo.6f23a18f034d6e3207bbd1924c39ebef.svg",
     "static/media/pngegg (18).png": "/Dashboard/static/media/pngegg (18).2d6168639ee05eda142c.png",
     "static/media/pngegg (18).svg": "/Dashboard/static/media/pngegg (18).4911758fd0498f65a9d18ba2dd3780c3.svg",
@@ -20,29 +20,21 @@
     "static/media/settings.svg": "/Dashboard/static/media/settings.aedd5531d905c2134a5912e23e0f5f7c.svg",
     "static/media/logo2.svg": "/Dashboard/static/media/logo2.c26c4fa92c364f108d3ea685ffc3845f.svg",
     "static/media/dottesSquare.svg": "/Dashboard/static/media/dottesSquare.ae5635bfa6532cc7ab011125d47d6124.svg",
-    "static/media/classes.svg": "/Dashboard/static/media/classes.be7ae2fbc8e9a0c2995611100990435b.svg",
     "index.html": "/Dashboard/index.html",
     "static/media/more.svg": "/Dashboard/static/media/more.e5873942c3f9a858664dc0a6df48a579.svg",
-    "static/media/dashboard.svg": "/Dashboard/static/media/dashboard.520a9f6a7c81927051424cae0e87d347.svg",
     "static/media/notification.svg": "/Dashboard/static/media/notification.f48b86a097887a74f263caaadb8a828e.svg",
-    "static/media/account.svg": "/Dashboard/static/media/account.f4ac0007e86a09034580ecd84fcc96c7.svg",
     "static/media/inter.svg": "/Dashboard/static/media/inter.b0a3b5e6b1fec11356426029fced8fd1.svg",
     "static/media/close.svg": "/Dashboard/static/media/close.5201a0614c605c13a36331dfcec5d647.svg",
     "static/media/search.svg": "/Dashboard/static/media/search.b06b8d937d7aee780c40a599dcd5dc30.svg",
-    "static/media/chart.svg": "/Dashboard/static/media/chart.838353aadc076ae22cce327d0947c4d7.svg",
     "static/media/chevron-up-solid.svg": "/Dashboard/static/media/chevron-up-solid.c6de591c10e8d349f0ca95b23359b26d.svg",
     "static/media/chevron-down-solid.svg": "/Dashboard/static/media/chevron-down-solid.4d7ffdbb523cb8a2eb73a1ce49f8664a.svg",
-    "static/media/notice.svg": "/Dashboard/static/media/notice.8a427cb1e9cfcfba64edb435e710ef79.svg",
-    "static/media/recent.svg": "/Dashboard/static/media/recent.903b08cd49e48da78d0cba0bbfd64684.svg",
     "static/media/calender.svg": "/Dashboard/static/media/calender.68171589ed544e24398ec57157df43c3.svg",
-    "static/media/library.svg": "/Dashboard/static/media/library.f26493929ba2d7731480d414b611bd30.svg",
     "static/media/Vector.svg": "/Dashboard/static/media/Vector.09a98135917afd6d95484cc6893624d7.svg",
-    "static/media/routine.svg": "/Dashboard/static/media/routine.6357c6c0b105209bc66320ad9edc0587.svg",
-    "main.172c3a71.css.map": "/Dashboard/static/css/main.172c3a71.css.map",
-    "main.c6a99c49.js.map": "/Dashboard/static/js/main.c6a99c49.js.map"
+    "main.9f43c20e.css.map": "/Dashboard/static/css/main.9f43c20e.css.map",
+    "main.1e5b76dc.js.map": "/Dashboard/static/js/main.1e5b76dc.js.map"
   },
   "entrypoints": [
-    "static/css/main.172c3a71.css",
-    "static/js/main.c6a99c49.js"
+    "static/css/main.9f43c20e.css",
+    "static/js/main.1e5b76dc.js"
   ]
 }
