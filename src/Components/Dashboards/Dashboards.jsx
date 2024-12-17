@@ -1,28 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Dashboards.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
-import dashboard from "../../images/dashboard.svg";
-import recent from "../../images/recent.svg";
-// import Assignment from "../../images/assignment.svg";
-import classes from "../../images/classes.svg";
-import library from "../../images/library.svg";
-import routine from "../../images/routine.svg";
-import notice from "../../images/notice.svg";
-import account from "../../images/account.svg";
-import chart from "../../images/chart.svg";
 import { IoLibrary } from "react-icons/io5";
 import { FaBookOpen } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { FaChartPie } from "react-icons/fa";
-import { IoMdHelpCircleOutline } from "react-icons/io";
 import { IoHome } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { LuMessagesSquare } from "react-icons/lu";
 import { FaTasks } from "react-icons/fa";
 
 import { LanguageContext, roleContext } from "../../App";
+import { toast, ToastContainer } from "react-toastify";
 
 function Dashboard() {
   const [sidebarWidth, setSidebarWidth] = useState(240);
@@ -106,6 +97,14 @@ function Dashboard() {
     },
   ];
 
+  const secondNotify = () => {
+    toast("Dashboard still under development");
+  };
+
+  useEffect(() => {
+    secondNotify();
+  }, []);
+
   return (
     <div className="dashboard min-h-screen overflow-x-hidden">
       <Header setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
@@ -122,6 +121,7 @@ function Dashboard() {
           >
             <Outlet />
           </div>
+          <ToastContainer />
         </main>
       ) : (
         <main className={`layout flex flex-row-reverse relative top-[56px]`}>

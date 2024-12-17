@@ -5,6 +5,7 @@ import "./ForgotPassword.css";
 import { LanguageContext } from "../../../App";
 import EnglishForgot from "./EnglishForgot";
 import ArabicForgot from "./ArabicForgot";
+import axios from "../../api/axios";
 
 function ForgotPassword() {
   const language = useContext(LanguageContext);
@@ -21,10 +22,18 @@ function ForgotPassword() {
     setEmail(event.target.value);
   };
 
-  const handleFormTwo = (e) => {
+  const handleFormTwo = async (e) => {
     e.preventDefault();
     navigate("password-reset");
-    if (email === "ahrarkhirdin@gmail.com") {
+    try {
+      // let response = await axios.post("/forgot-password", { email });
+    } catch (e) {
+      if (e.response.status) {
+        console.log(e.response.data.errors);
+      }
+    }
+
+    if (email === "khirdin@gmail.com") {
       setFound(true);
     } else {
       setFound(false);

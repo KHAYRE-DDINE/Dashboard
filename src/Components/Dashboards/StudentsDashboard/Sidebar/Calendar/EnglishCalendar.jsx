@@ -11,7 +11,6 @@ import moment from "moment";
 import SideBarEvent from "./SideBarEvent";
 import { motion } from "framer-motion";
 
-
 const localizer = momentLocalizer(moment);
 
 function Event({ event }) {
@@ -44,6 +43,7 @@ function EnglishCalendar({
           initial={{ left: "30%", rotateY: 0 }}
           animate={{ left: "0%", rotateY: "360deg" }}
           transition={{ duration: 2, delay: 0.2 }}
+          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose"
         >
           Your tests
         </motion.h2>

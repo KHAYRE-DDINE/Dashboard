@@ -1,7 +1,7 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function ProtectRouteLog({ user }) {
-  const navigate = useNavigate();
+export default function ProtectRouteLog() {
+  const user = localStorage.getItem("user");
 
-  return user ? <Outlet /> : navigate("/Login");
+  return user ? <Outlet /> : <Navigate to="/Login" />;
 }

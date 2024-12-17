@@ -17,8 +17,8 @@ function Login() {
   const { login } = useAuthContext();
 
   const [info, setInfo] = useState({
-    email: "",
-    password: "",
+    email: "khirdin@gmail.com",
+    password: "123456",
   });
 
   const whileWriting = (event) => {
@@ -33,7 +33,7 @@ function Login() {
     setGetPassword(theWay === "email" && isMatched ? !getPassword : "");
   };
 
-  const handleLogin = async (event) => {
+  const handleLogin =  (event) => {
     event.preventDefault();
 
     login(info);

@@ -37,7 +37,15 @@ function EnglishReset({
           className="form-control"
           type="password"
           id="resetPassword"
-          placeholder="●●●●●●●●"
+          placeholder="New password"
+          onChange={(v) => setPassword(v.target.value)}
+          value={password}
+        />
+        <input
+          className="form-control"
+          type="password"
+          id="resetPassword"
+          placeholder="Confirmation password"
           onChange={(v) => setPassword(v.target.value)}
           value={password}
         />

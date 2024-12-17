@@ -31,19 +31,20 @@ function App() {
       <LanguageContext.Provider value={platformLanguage}>
         <setLanguageContext.Provider value={setPlatformLanguage}>
           <roleContext.Provider value={role}>
+
             <Routes>
-              <Route element={<ProtectRouteLog user={user} />}>
+              <Route element={<ProtectRouteLog />}>
                 <Route element={<Dashboard />}>
                   <Route index element={<StudentsDashboard />} />
                   <Route path="/dashboard/*" element={<StudentsDashboard />} />
                 </Route>
               </Route>
 
-              <Route element={<ProtectRouteDash user={user} />}>
+              <Route element={<ProtectRouteDash />}>
                 <Route element={< LoginRegister />}>
                   <Route exact path="login" element={< Login />} />
                   <Route path="forgot-password" element={< ForgotPassword />} >
-                    <Route path="password-reset" element={<ResetPassword />} />
+                    <Route path="password-reset/:token" element={<ResetPassword />} />
                   </Route>
                   <Route path="register" element={< Register />} />
                   <Route path="register/steps" element={< Steps />} />

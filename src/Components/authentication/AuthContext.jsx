@@ -15,16 +15,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async ({ ...data }) => {
-    // const checkPAssValidation = () => {
-    //   if (data.password.length > 6) {
-    //     setIsCorrect(true);
-    //     alert("Password is correct");
-    //   } else {
-    //     alert("Password is incorrect");
-    //     setIsCorrect(false);
-    //   }
-    // };
-
     // await csrf();
     try {
       // await axios.post("/login", data);
@@ -34,11 +24,12 @@ export const AuthProvider = ({ children }) => {
       if (data.email === "khirdin@gmail.com" && data.password === "123456") {
         setUser(data);
         navigate("/dashboard");
+        localStorage.setItem("user", data.email);
       }
     } catch (e) {
-      if (e.response.status === 422) {
-        setUser(null);
-      }
+      // if (e.response.status === 422) {
+      console.log(e);
+      // }
     }
   };
 
@@ -58,17 +49,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async ({ ...data }) => {
-    try {
-      setUser(null);
-      navigate("")
-    } catch (e) {
-      console.log(e);
-    }
+  const logout = async () => {
+    // axios.post("/logout").then(() => {
+    //   setUser(null);
+    // });
+
+    setUser(null);
+    navigate("/Login");
+    localStorage.removeItem("user");
   };
 
   return (
-    <AuthContext.Provider value={{ user, getUser, login, register }}>
+    <AuthContext.Provider value={{ user, getUser, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

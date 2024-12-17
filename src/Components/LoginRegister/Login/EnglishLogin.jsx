@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import LoginMethod from "../LoginMethod/LoginMethod";
 import { Link } from "react-router-dom";
 import BoxesCode from "../BoxesCode/BoxesCode";
 import TermsPrivacy from "../TermsPrivacy/TermsPrivacy";
+
 
 function EnglishLogin({
   handleLogin,
@@ -18,6 +19,10 @@ function EnglishLogin({
   isCorrect,
   setInfo,
 }) {
+  const refInp = useRef();
+
+
+
   return (
     <div className="wrapper">
       <div className="form">
@@ -86,6 +91,7 @@ function EnglishLogin({
               <input
                 onChange={(event) => whileWriting(event)}
                 value={info.email}
+                ref={refInp}
                 type="email"
                 name="email"
                 placeholder="example@mail.com"
@@ -103,6 +109,8 @@ function EnglishLogin({
                 }
                 type="password"
                 name="password"
+                ref={refInp}
+                value={info.password}
                 placeholder="●●●●●●●●"
               />
             </fieldset>

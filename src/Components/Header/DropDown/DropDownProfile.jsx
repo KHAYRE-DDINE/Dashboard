@@ -7,12 +7,20 @@ import {
   Transition,
 } from "@headlessui/react";
 import avatar from "../../../images/avatar.svg";
+import useAuthContext from "../../authentication/AuthContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Example() {
+  const { logout } = useAuthContext();
+
+  const handleLogout = () => {
+    logout();
+  };
+  console.log(logout);
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -71,6 +79,7 @@ export default function Example() {
                       focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       "py-3 px-3 hover:bg-[#cccccc3d] w-full text-start h-10"
                     )}
+                    onClick={() => handleLogout()}
                   >
                     Sign out
                   </button>

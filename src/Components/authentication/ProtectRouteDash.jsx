@@ -1,7 +1,7 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function ProtectRouteDash({ user }) {
-  const navigate = useNavigate();
+export default function ProtectRouteDash() {
+  const user = localStorage.getItem("user");
 
-  return user ? navigate("dashboard") : <Outlet />;
+  return user ? <Navigate to="/" /> : <Outlet />;
 }
