@@ -5,16 +5,16 @@ import calender from "../../../../../images/calender.svg";
 import search from "../../../../../images/search.svg";
 import mark from "../../../../../images/inter.svg";
 import {
-  Radar,
-  RadarChart,
-  PolarGrid,
   Legend,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Pie,
-  PieChart,
   ResponsiveContainer,
-  Cell,
+  ComposedChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Area,
+  Bar,
+  Line,
 } from "recharts";
 import { motion } from "framer-motion";
 
@@ -22,53 +22,45 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
   const [days, setDays] = useState([]);
   const [today, setToday] = useState("");
-  const RADIAN = Math.PI / 180;
-  const data1 = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-    { name: "Group E", value: 278 },
-    { name: "Group F", value: 189 },
-  ];
-  const data2 = [
+  const data = [
     {
-      subject: "Math",
-      A: 120,
-      B: 110,
-      fullMark: 150,
+      name: "Math",
+      uv: 590,
+      pv: 800,
+      amt: 1400,
     },
     {
-      subject: "Chinese",
-      A: 98,
-      B: 130,
-      fullMark: 150,
+      name: "Arabic",
+      uv: 868,
+      pv: 967,
+      amt: 1506,
     },
     {
-      subject: "English",
-      A: 86,
-      B: 130,
-      fullMark: 150,
+      name: "Physics",
+      uv: 1397,
+      pv: 1098,
+      amt: 989,
     },
     {
-      subject: "Geography",
-      A: 99,
-      B: 100,
-      fullMark: 150,
+      name: "Javascript",
+      uv: 1480,
+      pv: 1200,
+      amt: 1228,
     },
     {
-      subject: "Physics",
-      A: 85,
-      B: 90,
-      fullMark: 150,
+      name: "English",
+      uv: 1520,
+      pv: 1108,
+      amt: 1100,
     },
     {
-      subject: "History",
-      A: 65,
-      B: 85,
-      fullMark: 150,
+      name: "Islam",
+      uv: 1400,
+      pv: 680,
+      amt: 1700,
     },
   ];
+
   useEffect(() => {
     const getFourDays = () => {
       const today = new Date();
@@ -109,40 +101,6 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
     getFourDays();
   }, []);
 
-  const cx = 150;
-  const cy = 200;
-  const iR = 50;
-  const oR = 100;
-  const value = 50;
-
-  const needle = (value, data, cx, cy, iR, oR, color) => {
-    let total = 0;
-    data.forEach((v) => {
-      total += v.value;
-    });
-    const ang = 180.0 * (1 - value / total);
-    const length = (iR + 2 * oR) / 3;
-    const sin = Math.sin(-RADIAN * ang);
-    const cos = Math.cos(-RADIAN * ang);
-    const r = 5;
-    const x0 = cx + 5;
-    const y0 = cy + 5;
-    const xba = x0 + r * sin;
-    const yba = y0 - r * cos;
-    const xbb = x0 - r * sin;
-    const ybb = y0 + r * cos;
-    const xp = x0 + length * cos;
-    const yp = y0 + length * sin;
-
-    return [
-      <circle cx={x0} cy={y0} r={r} fill={color} stroke="none" />,
-      <path
-        d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`}
-        stroke="#none"
-        fill={color}
-      />,
-    ];
-  };
   return (
     <div className="home flex flex-col xl:flex-row pl-2 lg:pl-6 gap-6 ">
       <section className="welcome xl:p-[72px]">
@@ -208,48 +166,46 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
             ))}
           </div>
         </div>
-        <div className="subjects ">
+        <div className="subjects">
           <div className="head mb-5 flex justify-between">
             <h3 className="text-gray-700">Your classes</h3>
             <button className="text-primary-100 border-none">see all</button>
           </div>
-          <div className="flex items-center justify-center min-h-[260px]">
-            <ResponsiveContainer width="100%" height="250px">
-              <PieChart width={400} height={400}>
-                <Pie
-                  dataKey="value"
-                  startAngle={180}
-                  endAngle={0}
-                  data={data1}
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  fill="#8884d8"
-                  label
+          <div className="flex items-center justify-center min-h-[200px]">
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              minHeight={"200px"}
+              minWidth={"200px"}
+            >
+              <ComposedChart
+                layout="vertical"
+                width={500}
+                height={400}
+                data={data}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                  left: 20,
+                }}
+                className={"m-auto !max-w-[900px]"}
+              >
+                <CartesianGrid stroke="#f5f5f5" vertical="" horizontal="" />
+                <XAxis type="number" stroke="#524f4f" fontSize={"13px"} />
+                <YAxis
+                  dataKey="name"
+                  type="category"
+                  scale="band"
+                  stroke="#524f4f"
+                  fontSize={"13px"}
                 />
-              </PieChart>
-            </ResponsiveContainer>
-            <ResponsiveContainer width="100%" height="250px">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data2}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis angle={30} domain={[0, 150]} />
-                <Radar
-                  name="Mike"
-                  dataKey="A"
-                  stroke="#8884d8"
-                  fill="#8884d8"
-                  fillOpacity={0.6}
-                />
-                <Radar
-                  name="Lily"
-                  dataKey="B"
-                  stroke="#82ca9d"
-                  fill="#82ca9d"
-                  fillOpacity={0.6}
-                />
+                <Tooltip content={<CustomTooltip />} />
                 <Legend />
-              </RadarChart>
+                <Area dataKey="amt" fill="#1865f25c" stroke="#8884d8" />
+                <Bar dataKey="pv" barSize={15} fill="#2563EB" />
+                <Line dataKey="uv" stroke="#ff7300" />
+              </ComposedChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -459,3 +415,22 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
 }
 
 export default EnglishHome;
+
+export const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && label) {
+    return (
+      <div className="p-4 bg-slate-900 flex-col gap-4 rounded-md ">
+        <p className="text-medium text-lg text-white">{label}</p>
+        <p className="text-sm text-blue-400">
+          amt: <span className="ml-2">{payload[0].value}</span>
+        </p>
+        <p className="text-sm text-indigo-400 ">
+          pv: <span className="ml-2">{payload[1].value}</span>
+        </p>
+        <p className="text-sm text-indigo-400 ">
+          uv: <span className="ml-2">{payload[2].value}</span>
+        </p>
+      </div>
+    );
+  }
+};
