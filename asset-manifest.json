@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Dashboard/static/css/main.1ac50281.css",
-    "main.js": "/Dashboard/static/js/main.ec81fe64.js",
+    "main.css": "/Dashboard/static/css/main.b109b32c.css",
+    "main.js": "/Dashboard/static/js/main.bb6013b0.js",
     "static/media/logo.svg": "/Dashboard/static/media/logo.6f23a18f034d6e3207bbd1924c39ebef.svg",
     "static/media/pngegg (18).png": "/Dashboard/static/media/pngegg (18).2d6168639ee05eda142c.png",
     "static/media/pngegg (18).svg": "/Dashboard/static/media/pngegg (18).4911758fd0498f65a9d18ba2dd3780c3.svg",
@@ -30,11 +30,11 @@
     "static/media/chevron-down-solid.svg": "/Dashboard/static/media/chevron-down-solid.4d7ffdbb523cb8a2eb73a1ce49f8664a.svg",
     "static/media/calender.svg": "/Dashboard/static/media/calender.68171589ed544e24398ec57157df43c3.svg",
     "static/media/Vector.svg": "/Dashboard/static/media/Vector.09a98135917afd6d95484cc6893624d7.svg",
-    "main.1ac50281.css.map": "/Dashboard/static/css/main.1ac50281.css.map",
-    "main.ec81fe64.js.map": "/Dashboard/static/js/main.ec81fe64.js.map"
+    "main.b109b32c.css.map": "/Dashboard/static/css/main.b109b32c.css.map",
+    "main.bb6013b0.js.map": "/Dashboard/static/js/main.bb6013b0.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ac50281.css",
-    "static/js/main.ec81fe64.js"
+    "static/css/main.b109b32c.css",
+    "static/js/main.bb6013b0.js"
   ]
 }
