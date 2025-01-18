@@ -1,66 +1,102 @@
 import axios from "../api/axios";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [users, setUsers] = useState(undefined);
+  const [isFound, setIsFound] = useState(true);
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
+  const [isSuccessed, setIsSuccessed] = useState(undefined);
+  const [status, setStatus] = useState();
+  const [token, setToken] = useState();
+
   // const csrf = () => axios.get("/sanctum/csrf-cookie");
   const navigate = useNavigate();
 
   const getUser = async () => {
-    const { data } = axios.get("/api/user");
-    setUser(data);
+    const { data, status } = await axios.get("/users");
+    setUsers(data);
+    setStatus(status);
   };
 
   const login = async ({ ...data }) => {
     // await csrf();
     try {
-      // await axios.post("/login", data);
-      // getUser();
-      // navigate("/");
-
-      if (data.email === "khirdin@gmail.com" && data.password === "123456") {
-        setUser(data);
-        navigate("/dashboard");
-        localStorage.setItem("user", data.email);
+      await getUser();
+      // eslint-disable-next-line array-callback-return
+      users.map((user) => {
+        if (user && user.email === data.email) {
+          setIsFound(true);
+          if (user.password === data.password) {
+            setIsPasswordCorrect(true);
+            setIsSuccessed(true);
+            toast.success("Successful Login", {
+              position: "top-center",
+              draggable: true,
+            });
+            navigate("/dashboard");
+            setCurrentUser(user);
+            localStorage.setItem("user", user.id);
+          } else {
+            setIsPasswordCorrect(false);
+          }
+        } else {
+          setIsFound(false);
+          // eslint-disable-next-line no-lone-blocks
+          {
+            !isFound &&
+              toast.warning("The account not found", {
+                position: "top-center",
+                draggable: true,
+              });
+          }
+        }
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 431) {
+        console.error("Request header too large:", error.response.data);
       }
-    } catch (e) {
-      // if (e.response.status === 422) {
-      console.log(e);
-      // }
     }
   };
 
   const register = async ({ ...data }) => {
     // await csrf();
-    console.log(data);
     try {
-      await axios.post("/register", data);
-      // getUser();
-      // navigate("/");
-      alert("Your register success");
+      await axios.post("/users", data);
+      getUser();
+      localStorage.setItem("user", data.id);
+      navigate("/dashboard");
+      toast.success("Your register successed");
     } catch (e) {
-      alert("Your register failed");
-      // if (e.response.status === 422) {
-      //   console.log(e);
-      // }
+      toast.error("Your register failed");
+      if (e.response.status === 422) {
+        console.log(e);
+      }
     }
   };
 
   const logout = async () => {
-    // axios.post("/logout").then(() => {
-    //   setUser(null);
-    // });
-
-    setUser(null);
-    navigate("/Login");
+    setUsers(null);
     localStorage.removeItem("user");
+    navigate("/Login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, getUser, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        getUser,
+        login,
+        register,
+        logout,
+        isPasswordCorrect,
+        isFound,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

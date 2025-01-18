@@ -10,51 +10,45 @@ import LoginRegister from './Components/LoginRegister/LoginRegister';
 import Register from './Components/LoginRegister/Register/Register';
 import StudentsDashboard from './Components/Dashboards/StudentsDashboard/StudentsDashboard'
 import Dashboard from "./Components/Dashboards/Dashboards";
-import useAuthContext from './Components/authentication/AuthContext';
 import ResetPassword from './Components/LoginRegister/ForgotPassword/ResetPassword/ResetPassword';
 import ProtectRouteDash from './Components/authentication/ProtectRouteDash';
 import ProtectRouteLog from './Components/authentication/ProtectRouteLog';
 
 export const LanguageContext = createContext(0)
 export const setLanguageContext = createContext(0)
-export const roleContext = createContext(0)
-export const setRoleContext = createContext(0)
 
 function App() {
   const [platformLanguage, setPlatformLanguage] = useState("english")
-  const { user } = useAuthContext()
-  const [role, setRole] = useState("student")
-  // const [role, setRole] = useState(null)
+
 
   return (
     <div className="App">
       <LanguageContext.Provider value={platformLanguage}>
         <setLanguageContext.Provider value={setPlatformLanguage}>
-          <roleContext.Provider value={role}>
 
-            <Routes>
-              <Route element={<ProtectRouteLog />}>
-                <Route element={<Dashboard />}>
-                  <Route index element={<StudentsDashboard />} />
-                  <Route path="/dashboard/*" element={<StudentsDashboard />} />
-                </Route>
+
+          <Routes>
+            <Route element={<ProtectRouteLog />}>
+              <Route element={<Dashboard />}>
+                <Route index element={<StudentsDashboard />} />
+                <Route path="/dashboard/*" element={<StudentsDashboard />} />
               </Route>
+            </Route>
 
-              <Route element={<ProtectRouteDash />}>
-                <Route element={< LoginRegister />}>
-                  <Route exact path="login" element={< Login />} />
-                  <Route path="forgot-password" element={< ForgotPassword />} >
-                    <Route path="password-reset/:token" element={<ResetPassword />} />
-                  </Route>
-                  <Route path="register" element={< Register />} />
-                  <Route path="register/steps" element={< Steps />} />
-                  <Route path="register/register-by-username" element={< ByUsername />} />
-                  <Route path="register/class-code" element={< ClassCode />} />
+            <Route element={<ProtectRouteDash />}>
+              <Route element={< LoginRegister />}>
+                <Route exact path="login" element={< Login />} />
+                <Route path="forgot-password" element={< ForgotPassword />} >
+                  <Route path="password-reset/:token" element={<ResetPassword />} />
                 </Route>
+                <Route path="register" element={< Register />} />
+                <Route path="register/steps" element={< Steps />} />
+                <Route path="register/register-by-username" element={< ByUsername />} />
+                <Route path="register/class-code" element={< ClassCode />} />
               </Route>
+            </Route>
 
-            </Routes>
-          </roleContext.Provider>
+          </Routes>
         </setLanguageContext.Provider>
       </LanguageContext.Provider>
     </div >

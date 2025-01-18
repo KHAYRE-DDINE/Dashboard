@@ -4,22 +4,21 @@ import { LanguageContext } from "../../../App";
 import useAuthContext from "../../authentication/AuthContext";
 import EnglishLogin from "./EnglishLogin";
 import ArabicLogin from "./ArabicLogin";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 
 function Login() {
   const language = useContext(LanguageContext);
   const location = useLocation();
   const [theWay, setTheWay] = useState("withPassword");
   const [isMatched, setIsMatched] = useState(true);
-  const [isCorrect, setIsCorrect] = useState(true);
   const [codeClass, setCodeClass] = useState([]);
   const [isFull, setIsFull] = useState(false);
   const [getPassword, setGetPassword] = useState(false);
-  const { login } = useAuthContext();
+  const { login, isCorrect } = useAuthContext();
 
   const [info, setInfo] = useState({
-    email: "khirdin@gmail.com",
-    password: "123456",
+    email: "khirdin@email.com",
   });
 
   const whileWriting = (event) => {

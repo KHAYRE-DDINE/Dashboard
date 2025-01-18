@@ -8,6 +8,7 @@ import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import EnglishHome from "./EnglishHome";
 import ArabicHome from "./ArabicHome";
+import { userContext } from "../../StudentsDashboard";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -201,11 +202,15 @@ function Home() {
   };
 
   const language = useContext(LanguageContext);
+  const user = useContext(userContext);
+
+  console.log(user);
 
   return (
     <div>
       {language === "english" ? (
         <EnglishHome
+          user={user}
           subject={subject}
           tests={tests}
           courses={courses}

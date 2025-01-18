@@ -3,7 +3,7 @@ import LoginMethod from "../LoginMethod/LoginMethod";
 import { Link } from "react-router-dom";
 import BoxesCode from "../BoxesCode/BoxesCode";
 import TermsPrivacy from "../TermsPrivacy/TermsPrivacy";
-
+import useAuthContext from "../../authentication/AuthContext";
 
 function EnglishLogin({
   handleLogin,
@@ -20,8 +20,7 @@ function EnglishLogin({
   setInfo,
 }) {
   const refInp = useRef();
-
-
+  const { isPasswordCorrect } = useAuthContext();
 
   return (
     <div className="wrapper">
@@ -113,6 +112,11 @@ function EnglishLogin({
                 value={info.password}
                 placeholder="●●●●●●●●"
               />
+              {!isPasswordCorrect && (
+                <p className="text-required !mt-[-9px]">
+                  Password is not correct
+                </p>
+              )}
             </fieldset>
             <input
               className={

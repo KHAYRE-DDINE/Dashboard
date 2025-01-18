@@ -12,7 +12,7 @@ function LoginRegister() {
   const [id, setId] = useState(0);
 
   const firstNotify = () => {
-    toast("Password is : 123456 !");
+    toast("Password is : 123456789 !");
   };
 
   const secondNotify = () => {

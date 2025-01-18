@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import { motion } from "framer-motion";
 
-function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
+function EnglishHome({ tests, courses, subject, subjectFill, cn, user }) {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
   const [days, setDays] = useState([]);
   const [today, setToday] = useState("");
@@ -101,6 +101,8 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
     getFourDays();
   }, []);
 
+  console.log(user);
+
   return (
     <div className="home flex flex-col xl:flex-row pl-2 lg:pl-6 gap-6 ">
       <section className="welcome xl:p-[72px]">
@@ -110,7 +112,8 @@ function EnglishHome({ tests, courses, subject, subjectFill, cn }) {
           transition={{ duration: 2, delay: 0.2 }}
           className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
         >
-          welcome, Khirdin
+          welcome,
+          {/* {user["first name"] + user["last name"]} */}
         </motion.h1>
         <div className="tests ">
           <div className="head mb-5 flex justify-between">

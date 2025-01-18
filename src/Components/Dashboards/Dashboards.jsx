@@ -12,14 +12,12 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { LuMessagesSquare } from "react-icons/lu";
 import { FaTasks } from "react-icons/fa";
 
-import { LanguageContext, roleContext } from "../../App";
+import { LanguageContext } from "../../App";
 import { toast, ToastContainer } from "react-toastify";
 
 function Dashboard() {
   const [sidebarWidth, setSidebarWidth] = useState(240);
-  const location = useLocation();
   const language = useContext(LanguageContext);
-  const role = useContext(roleContext);
 
   const StudentsList = [
     {

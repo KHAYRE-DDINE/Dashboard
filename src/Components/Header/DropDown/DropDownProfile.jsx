@@ -19,7 +19,6 @@ export default function Example() {
   const handleLogout = () => {
     logout();
   };
-  console.log(logout);
 
   return (
     <Menu as="div" className="relative inline-block text-left">

@@ -33,6 +33,8 @@ module.exports = {
         normalColor: "#374151",
       },
     },
-    plugins: [],
+    plugins: [
+      require('daisyui'),
+    ],
   }
 }
