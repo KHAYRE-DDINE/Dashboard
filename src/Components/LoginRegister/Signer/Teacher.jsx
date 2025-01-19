@@ -1,21 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "../LoginMethod/LoginMethod.css";
-
-import { LanguageContext } from "../../../App";
-import EnglishTeacher from "./EnglishTeacher";
-import ArabicTeacher from "./ArabicTeacher";
+import { Link } from "react-router-dom";
+import LoginMethod from "../LoginMethod/LoginMethod";
+import Steps from "../Steps/Steps";
+import Signer from "./Signer";
 
 function Teacher() {
-  const language = useContext(LanguageContext);
   const [withEmail, setWithEmail] = useState(false);
   return (
-    <React.Fragment>
-      {language === "english" ? (
-        <EnglishTeacher withEmail={withEmail} setWithEmail={setWithEmail} />
+    <div className="teacher">
+      {!withEmail ? (
+        <React.Fragment>
+          <Signer />
+          <LoginMethod />
+          <Link className="other" to="steps">
+            Sign up with email
+          </Link>
+        </React.Fragment>
       ) : (
-        <ArabicTeacher withEmail={withEmail} setWithEmail={setWithEmail} />
+        <Steps setWithEmail={setWithEmail} />
       )}
-    </React.Fragment>
+    </div>
   );
 }
 

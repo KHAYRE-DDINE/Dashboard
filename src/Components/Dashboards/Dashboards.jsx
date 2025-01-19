@@ -106,7 +106,6 @@ function Dashboard() {
   return (
     <div className="dashboard min-h-screen overflow-x-hidden">
       <Header setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
-      {language === "english" ? (
         <main className={`layout flex relative top-[56px]`}>
           <Sidebar
             list={StudentsList}
@@ -121,21 +120,7 @@ function Dashboard() {
           </div>
           <ToastContainer />
         </main>
-      ) : (
-        <main className={`layout flex flex-row-reverse relative top-[56px]`}>
-          <Sidebar
-            list={StudentsList}
-            sidebarWidth={sidebarWidth}
-            setSidebarWidth={setSidebarWidth}
-          />
-          <div
-            className={`under-layout absolute left-0 xlg:px-10`}
-            style={{ width: `calc(100% - ${sidebarWidth}px)` }}
-          >
-            <Outlet />
-          </div>
-        </main>
-      )}
+     
     </div>
   );
 }

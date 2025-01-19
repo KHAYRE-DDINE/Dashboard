@@ -1,17 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import "./ForgotPassword.css";
-import { LanguageContext } from "../../../App";
-import EnglishForgot from "./EnglishForgot";
-import ArabicForgot from "./ArabicForgot";
-import axios from "../../api/axios";
+import TermsPrivacy from "../TermsPrivacy/TermsPrivacy";
+import ResetPassword from "./ResetPassword/ResetPassword";
 
 function ForgotPassword() {
-  const language = useContext(LanguageContext);
   const [isMatched, setIsMatched] = useState(false);
   const [found, setFound] = useState(true);
-
+  const location = useLocation();
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
@@ -42,25 +39,51 @@ function ForgotPassword() {
 
   return (
     <div className="login fgPassword">
-      {language === "english" ? (
-        <EnglishForgot
-          handleFormTwo={handleFormTwo}
-          whileWriting={whileWriting}
-          found={found}
-          isMatched={isMatched}
-          email={email}
-          setEmail={setEmail}
-        />
-      ) : (
-        <ArabicForgot
-          handleFormTwo={handleFormTwo}
-          whileWriting={whileWriting}
-          found={found}
-          isMatched={isMatched}
-          email={email}
-          setEmail={setEmail}
-        />
-      )}
+      <div className="form forgot">
+        <h1 className="title text-left">Forgot Password</h1>
+        {location.pathname.includes("reset") ? (
+          <ResetPassword email={email} setEmail={setEmail} />
+        ) : (
+          <form
+            action="#"
+            className="writeYourEmail"
+            method="get"
+            onSubmit={(e) => handleFormTwo(e)}
+          >
+            <fieldset
+              className={!found ? "error mb-3 email" : "email"}
+              data-error={
+                "Sorry, we can't find an Al Rihla Academy account connected to " +
+                email
+              }
+            >
+              <label htmlFor="resetPassword" className="form-label">
+                Enter your email to reset your password:
+              </label>
+
+              <input
+                className="form-control"
+                type="email"
+                id="resetPassword"
+                placeholder="example@mail.com"
+                onChange={(e) => whileWriting(e)}
+                autoComplete="off"
+              />
+            </fieldset>
+
+            <fieldset>
+              <button onClick={() => navigate(-1)}>back</button>
+              <input
+                type="submit"
+                className={isMatched ? "blue" : ""}
+                value="Reset password"
+                disabled={isMatched ? false : true}
+              />
+            </fieldset>
+          </form>
+        )}
+        <TermsPrivacy info="By signing up" />
+      </div>
     </div>
   );
 }

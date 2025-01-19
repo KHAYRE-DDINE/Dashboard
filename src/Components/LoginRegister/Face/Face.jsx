@@ -1,16 +1,30 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Face.css";
-import { LanguageContext } from "../../../App";
-import EnglishFace from "./EnglishFace";
-import ArabicFace from "./ArabicFace";
+import { useLocation } from "react-router-dom";
+import logo from "../../../images/logo.svg";
 
 function Face() {
-  const language = useContext(LanguageContext);
-
+  const location = useLocation();
   return (
-    <React.Fragment>
-      {language === "english" ? <EnglishFace /> : <ArabicFace />}
-    </React.Fragment>
+    <div
+      className={`face  md:w-[65%] bg-secondary-200 flex justify-center items-center ${
+        location.pathname === "/login" || location.pathname === "/Login"
+          ? "h-firstHeightFace"
+          : location.pathname.includes("/register-by-username")
+          ? "h-secondHeightFace"
+          : ""
+      }`}
+    >
+      <div className="info">
+        <div className="logo">
+          <img src={logo} alt="Logo" />
+        </div>
+        <h1>
+          Join Al Rihla Academy for <br /> the best E-learning
+        </h1>
+        <p>Log in to Al Rihla Academy to get started!</p>
+      </div>
+    </div>
   );
 }
 

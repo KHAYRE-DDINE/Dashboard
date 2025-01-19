@@ -7,7 +7,6 @@ function TermsPrivacy({ info }) {
   const location = useLocation();
   return (
     <React.Fragment>
-      {language === "english" ? (
         <div className="privacy">
           <p
             className={`terms ${
@@ -29,29 +28,7 @@ function TermsPrivacy({ info }) {
             .
           </p>
         </div>
-      ) : (
-        <div>
-          <p
-            className={`terms ${
-              location.pathname.includes("register")
-                ? "!left-auto !translate-x-0"
-                : ""
-            }`}
-          >
-            من خلال التسجيل في أكاديمية الرحلة، فإنك توافق على
-            <Link to="/Terms" className="text-link">
-              {" "}
-              شروط الاستخدام{" "}
-            </Link>
-            و
-            <Link to="/Privacy" className="text-link">
-              {" "}
-              سياسة الخصوصية{" "}
-            </Link>
-            الخاصة بنا.
-          </p>
-        </div>
-      )}
+    
     </React.Fragment>
   );
 }

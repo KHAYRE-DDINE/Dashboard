@@ -54,52 +54,31 @@ function StudentsDashboard() {
   return (
     <Suspense fallback={<Loading />}>
       <userContext.Provider value={currentUser}>
-        {language === "english" ? (
-          <div className="student-dash pb-[10px]">
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="home" element={<Home />} />
-              <Route path="courses" element={<Courses />}>
-                <Route path="current learning" element={<Current />} />
-                <Route path="Archived" element={<Archived />} />
-                <Route path="Completed" element={<Completed />} />
-              </Route>
-              <Route path="classes" element={<Classes />} />
-              <Route path="charts" element={<Charts />} />
-              <Route path="calendar" element={<Calender />} />
-              <Route path="library" element={<Library />} />
-              <Route path="message" element={<Message />} />
-              <Route path="assignments" element={<Assignments />}>
-                <Route path="about/:id" element={<About />} />
-                <Route path="learnings/:id" element={<Learning />} />
-                <Route path="resources/:id" element={<Resources />} />
-              </Route>
-              <Route path="account" element={<Account />} />
-              <Route path="help" element={<Help />} />
-              <Route path="settings" element={<Settings />} />
-            </Routes>
-            <Outlet />
-          </div>
-        ) : (
-          <div className="student-dash text-end">
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="home" element={<Home />} />
-              <Route path="courses" element={<Courses />}>
-                <Route path="current learning" element={<Current />} />
-                <Route path="Archived" element={<Archived />} />
-                <Route path="Completed" element={<Completed />} />
-              </Route>
-              <Route path="classes" element={<Classes />} />
-              <Route path="calendar" element={<Calender />} />
-              <Route path="library" element={<Library />} />
-              <Route path="message" element={<Message />} />
-              <Route path="assignments" element={<Assignments />} />
-              <Route path="account" element={<Account />} />
-            </Routes>
-            <Outlet />
-          </div>
-        )}
+        <div className="student-dash pb-[10px]">
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="courses" element={<Courses />}>
+              <Route path="current learning" element={<Current />} />
+              <Route path="Archived" element={<Archived />} />
+              <Route path="Completed" element={<Completed />} />
+            </Route>
+            <Route path="classes" element={<Classes />} />
+            <Route path="charts" element={<Charts />} />
+            <Route path="calendar" element={<Calender />} />
+            <Route path="library" element={<Library />} />
+            <Route path="message" element={<Message />} />
+            <Route path="assignments" element={<Assignments />}>
+              <Route path="about/:id" element={<About />} />
+              <Route path="learnings/:id" element={<Learning />} />
+              <Route path="resources/:id" element={<Resources />} />
+            </Route>
+            <Route path="account" element={<Account />} />
+            <Route path="help" element={<Help />} />
+            <Route path="settings" element={<Settings />} />
+          </Routes>
+          <Outlet />
+        </div>
       </userContext.Provider>
     </Suspense>
   );
