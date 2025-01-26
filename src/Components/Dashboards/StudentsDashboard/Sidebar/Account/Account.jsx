@@ -70,10 +70,10 @@ function Account() {
   };
 
   return (
-    <div className="account pl-6">
+    <div className="account md:!w-[75%] mx-5 md:mx-6 md:pl-6">
       <div className="background absolute w-[100%]"></div>
-      <div className="header-side flex justify-between">
-        <div className="person">
+      <div className="header-side grid grid-cols-2 items-center">
+        <div className="person min-w-[200px]">
           <div className="image rounded-full">
             <img src={avatar} alt="avatar" />
           </div>
@@ -81,7 +81,7 @@ function Account() {
             <h1 className="text-gray-700">khalid Al walid</h1>
           </div>
         </div>
-        <div className="badges flex justify-center items-center">
+        <div className="badges h-[75px] flex flex-row flex-wrap justify-center items-center gap-2 ">
           <span className="w-3 h-3 ">
             <LuBadgeCent size={30} />
           </span>
@@ -106,7 +106,7 @@ function Account() {
             other will only see what they can access{" "}
           </span>
         </div>
-        <div className="details">
+        <div className="details grid grid-cols-2 md:flex">
           <div className="box joined">
             <span className="text-gray-600">
               Date joined <br /> <b className="text-gray-700">3 months ago</b>

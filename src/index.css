@@ -5,6 +5,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@plugin "daisyui";
+
 
 * {
   margin: 0;
@@ -63,7 +65,7 @@ fieldset.username.error input {
   background-color: var(--error-background) !important;
 }
 
-.inputs fieldset.username.error ::placeholder{
+.inputs fieldset.username.error ::placeholder {
   color: var(--required-color) !important;
 }
 
@@ -140,8 +142,7 @@ p.terms a {
   }
 }
 
-@media (min-width: 640px) and (max-width: 768px) {
-}
+@media (min-width: 640px) and (max-width: 768px) {}
 
 @media (min-width: 768px) {
   .steps p.terms {
@@ -149,12 +150,8 @@ p.terms a {
   }
 }
 
-@media (min-width: 1024px) {
-}
+@media (min-width: 1024px) {}
 
-@media (min-width: 1280px) {
-}
+@media (min-width: 1280px) {}
 
-@media (min-width: 1536px) {
-}
-
+@media (min-width: 1536px) {}

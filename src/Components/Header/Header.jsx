@@ -33,7 +33,7 @@ function Header({ sidebarWidth, setSidebarWidth }) {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1, bounce: 3, repeat: Infinity }}
-          className=" w-8 h-8 mr-1"
+          className="w-8 h-8 mr-1 hidden md:block"
           onClick={() => setSidebarWidth(sidebarWidth === 240 ? 60 : 240)}
         >
           <img src={dottes} alt="dottes" />

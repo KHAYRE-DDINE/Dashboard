@@ -21,3 +21,9 @@
     margin: 30px auto;
     box-shadow: inset 0 0 8px 2px #9d9d9d82, 0 0 0px 0px #9d9d9d;
 }
+
+@media (max-width : 768px) {
+    .charts .chart {
+        width: 100%;
+    }
+}

@@ -9,21 +9,17 @@
 }
 
 .account {
-  width: 70%;
-  margin: 0 auto 15px;
   padding-top: 160px;
+  width: calc(100% - 40px);
 }
 
 /************************Header Side***********************************/
 .account .header-side {
-  align-items: end;
-  height: 60px;
-  padding: 0px 0px 32px 0px;
-  margin-top: 90px;
+  height: 200px;
+  margin-top: -62px;
 }
 
-.account .header-side .person {
-}
+.account .header-side .person {}
 
 .account .header-side .person .image {
   width: 132px;
@@ -50,8 +46,7 @@
   text-transform: capitalize;
 }
 
-.account .header-side .badges {
-}
+.account .header-side .badges {}
 
 .account .header-side .badges span {
   width: 30px;
@@ -64,8 +59,7 @@
   margin-top: 32px;
 }
 
-.account .statistics .top-title {
-}
+.account .statistics .top-title {}
 
 .account .statistics .top-title h3 {
   font-family: Inter;
@@ -85,7 +79,6 @@
 }
 
 .account .statistics .details {
-  display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 15px;
@@ -122,19 +115,15 @@
   gap: 14px;
 }
 
-.recent-lessons {
-}
+.recent-lessons {}
 
-.recent-lessons .top-section {
-}
+.recent-lessons .top-section {}
 
-.recent-lessons .top-section h3 {
-}
+.recent-lessons .top-section h3 {}
 
-.recent-lessons .top-section span {
-}
+.recent-lessons .top-section span {}
 
-.recent-lessons .lesson > span {
+.recent-lessons .lesson>span {
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -177,8 +166,7 @@
   margin-top: 14px;
 }
 
-.colleagues .all-colleagues .colleague {
-}
+.colleagues .all-colleagues .colleague {}
 
 .colleagues .all-colleagues .colleague .image {
   margin-right: 14px;
@@ -192,8 +180,7 @@
   height: 35px;
 }
 
-.colleagues .all-colleagues .colleague .info {
-}
+.colleagues .all-colleagues .colleague .info {}
 
 .colleagues .all-colleagues .colleague .info .colleague-name {
   font-family: Inter;
@@ -212,8 +199,7 @@
 }
 
 /********************General Styles****************************************/
-.top-title {
-}
+.top-title {}
 
 .top-title h3 {
   font-family: Inter;
@@ -224,7 +210,7 @@
   text-transform: capitalize;
 }
 
-.top-title > span,
+.top-title>span,
 .top-title div span {
   font-family: Inter;
   font-size: 12px;

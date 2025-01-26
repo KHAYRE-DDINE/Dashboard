@@ -40,7 +40,6 @@ const Home = lazy(() => import("./Sidebar/Home/Home"));
 export const userContext = createContext(null);
 
 function StudentsDashboard() {
-  const language = useContext(LanguageContext);
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser } = useAuthContext();
