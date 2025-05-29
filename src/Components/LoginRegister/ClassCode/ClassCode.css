@@ -1,0 +1,28 @@
+.classCode .face {
+    height: 100vh;
+}
+
+.classCode .name {
+    text-align: center;
+    margin-top: 23px;
+    color: var(--second-color);
+    font-size: 24px;
+    font-family: noto sans;
+    font-weight: 700;
+}
+
+.classCode fieldset label {
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+
+.classCode fieldset:last-of-type {
+    gap: 8px;
+}
+
+.classCode fieldset button {
+
+    border-radius: 8px;
+    padding: 10px 16px 10px 16px;
+    font-weight: 600;
+}

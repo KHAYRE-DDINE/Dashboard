@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@-11..11,200..1000&family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@-11..11,200..1000&family=Inter:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@-11..11,200..1000&family=Inter:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@plugin "daisyui";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-color: #1865f2;
+  --chart-color: #eeee;
+  --second-color: #3b4a78;
+  --link-color: #1865f2;
+  --required-color: #f54747;
+  --error-background: #f5474742;
+  --chart-box-bg: rgb(255 255 255 / 74%);
+}
+
+::placeholder {
+  color: #ccd2e6;
+  letter-spacing: 0.3px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+body {
+  font-family: "Noto Sans Arabic", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body.arabic {
+  direction: rtl;
+}
+
+.outlet {
+  width: 443px;
+  position: relative;
+  margin: 0 auto;
+}
+
+/***************************** ERROR *****************************/
+fieldset.username.error::after {
+  content: attr(data-error);
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  color: var(--required-color);
+  font-size: 12px;
+  bottom: -7px;
+}
+
+fieldset.username.error input {
+  border-color: var(--required-color) !important;
+  background-color: var(--error-background) !important;
+}
+
+.inputs fieldset.username.error ::placeholder {
+  color: var(--required-color) !important;
+}
+
+/***************************** Terms && Privacy *****************************/
+.steps p.terms {
+  text-align: center;
+  /* margin: 14px 38px 6px; */
+}
+
+.register p.terms {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+p.terms {
+  font-family: Noto Sans;
+  color: var(--second-color);
+  font-weight: 400 !important;
+  opacity: 1 !important;
+  width: 350px;
+  position: absolute;
+  bottom: 23px;
+  font-size: 14px !important;
+  line-height: 19.6px;
+  text-align: center;
+}
+
+p.terms a {
+  font-weight: 500;
+}
+
+.login .form {
+  min-height: 100vh;
+}
+
+/************** Icon Search *****************/
+.search-input img {
+  padding: 0.45456rem 0.72725rem 0.45456rem 0.45456rem;
+}
+
+/***************************** Media Queries *****************************/
+
+@media (max-width: 768px) {
+  .outlet {
+    width: 414px;
+    margin: 0;
+    min-height: 800px;
+  }
+
+  .page {
+    justify-content: center !important;
+  }
+
+  .wrapper {
+    width: 100% !important;
+  }
+
+  .register {
+    padding: 30px 15px !important;
+  }
+
+  .login {
+    display: block;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 640px) {
+  p.terms {
+    width: 300px !important;
+    position: absolute;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 768px) {}
+
+@media (min-width: 768px) {
+  .steps p.terms {
+    margin: 14px 38px 6px;
+  }
+}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1280px) {}
+
+@media (min-width: 1536px) {}

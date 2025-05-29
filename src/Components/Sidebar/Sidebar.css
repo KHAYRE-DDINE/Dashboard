@@ -1,0 +1,50 @@
+.list {
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 145px);
+}
+
+.list :is(.dash-links, .bottomSide) li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 216px;
+  height: 40px;
+  padding: 8px 10px 8px 10px;
+  gap: 8px;
+  border-radius: 0px 6px 6px 0px;
+}
+
+.list :is(.dash-links li, .bottomSide li) a {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left;
+}
+
+.list :is(.dash-links li, .bottomSide li) a img {
+  margin-right: 13px;
+}
+
+.list .dash-links li.arabic a img,
+.bottomSide li.arabic a img {
+  margin-left: 13px;
+}
+
+ul.bottomSide {
+  position: absolute;
+  bottom: 75px;
+  width: 100%;
+  padding: 0 2rem 0 0;
+}
+
+@media (min-width: 769px) {
+  .sidebar {
+    visibility: visible;
+  }
+  .sidebar.hide {
+    width: 60px !important;
+  }
+}

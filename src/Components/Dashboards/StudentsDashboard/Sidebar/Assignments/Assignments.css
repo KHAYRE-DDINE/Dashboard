@@ -1,0 +1,123 @@
+/***********************Left Side*****************************/
+.Assignments .left {
+    padding: 1.5rem 1.5rem 0rem 1.5rem;
+    width: 70%;
+}
+
+tr {
+    border-bottom: 1px solid #F3F4F6;
+    justify-content: start;
+}
+
+.fzvXhU.rdt_Table.sc-aYaIB {
+    border-bottom: 1px solid #ccc;
+}
+
+div#cell-6-1 div {
+    cursor: pointer;
+}
+
+@media(max-width: 1280px) {
+    .Assignments .left {
+        width: 100%;
+    }
+
+    .dODGfY {
+        justify-content: space-between;
+    }
+}
+
+/***********************Right Side*****************************/
+.show-table {
+    width: 500px;
+    height: 944px;
+    padding: 24px 16px 32px 16px;
+    gap: 24px;
+    position: fixed;
+    right: -100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.show-table .close img {
+    position: absolute;
+    right: 13px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.Assignments .show-table .sections {
+    /* margin-top: 65px; */
+}
+
+.Assignments .show-table .unit {}
+
+.Assignments .show-table .unit span {
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    /* 142.857% */
+}
+
+.Assignments .show-table .unit h2 {
+    font-family: Inter;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem;
+    /* 120% */
+}
+
+.Assignments .show-table .move {
+    /* margin-top: 75px; */
+}
+
+.Assignments .show-table .move::after {
+    content: '';
+    width: 93%;
+    height: 2px;
+    position: absolute;
+    margin-top: 42px;
+}
+
+.Assignments .show-table .move a {
+    position: relative;
+    text-align: center;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    /* 142.857% */
+}
+
+.Assignments .show-table .move a.active::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    margin-top: 30px;
+    left: 0;
+    z-index: 55;
+}
+
+@media(max-width: 768px) {
+    .Assignments .show-table {
+        width: 90%;
+    }
+
+}
+
+@media(max-width: 640px) {
+
+    .all-resources .resource {
+        width: 100% !important;
+    }
+}
+
+/***************************Resources***************************/

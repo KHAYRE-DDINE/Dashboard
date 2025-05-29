@@ -1,0 +1,49 @@
+.res .title {
+    margin-bottom: 10px;
+}
+
+.res .title h1 {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+}
+
+.res .title h1 {}
+
+.all-resources {}
+
+.all-resources .resource {
+    width: 187.66px;
+    height: 191.44px;
+}
+
+.all-resources .resource .info {
+    padding: 5px 10px;
+    border-radius: 0 0 7px 7px;
+}
+
+.all-resources .resource .image-box {}
+
+.all-resources .resource .image-box img {}
+
+.all-resources .resource .image-box .info .description {}
+
+.all-resources .resource .info span {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+}
+
+.all-resources .resource .image-box .info .description .name {}
+
+.all-resources .resource .info .name h4 {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+}

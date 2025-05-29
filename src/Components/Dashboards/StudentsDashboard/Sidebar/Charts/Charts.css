@@ -1,0 +1,29 @@
+.charts {
+    padding: 20px 30px;
+    background: var(--chart-color);
+}
+
+.charts .title {
+    color: #000000c2;
+    text-transform: capitalize;
+    font-size: 22px;
+    margin: 10px 10px 30px 10px;
+    width: max-content;
+    font-weight: 600;
+}
+
+.charts .chart {
+    background-color: var(--chart-box-bg);
+    padding: 8px 10px 78px;
+    border-radius: 10px;
+    width: 80%;
+    height: 400px;
+    margin: 30px auto;
+    box-shadow: inset 0 0 8px 2px #9d9d9d82, 0 0 0px 0px #9d9d9d;
+}
+
+@media (max-width : 768px) {
+    .charts .chart {
+        width: 100%;
+    }
+}

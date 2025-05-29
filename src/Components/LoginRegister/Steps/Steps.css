@@ -1,0 +1,121 @@
+.steps {}
+
+.stepsToSignUp .face {
+    height: max-content;
+}
+
+.steps .title {
+    font-size: 36px;
+}
+
+.steps .inputs {
+    padding: 30px;
+}
+
+.steps .inputs fieldset {
+    position: relative;
+}
+
+
+.steps .inputs fieldset label {
+    font-weight: 500;
+    line-height: 19.6px;
+    color: var(--second-color);
+    font-family: noto sans;
+}
+
+.steps .inputs fieldset.name {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+.steps .inputs fieldset span {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18.2px;
+    color: #8B92A7;
+    margin: 6px 0 3px;
+}
+
+.steps .inputs fieldset span::after,
+.steps .inputs fieldset span::before {
+    content: none;
+
+}
+
+.steps .inputs fieldset input[type="submit"] {
+    width: 160px;
+    height: 44px;
+    border-radius: 8px;
+    padding: 10px 16px 10px 16px;
+}
+
+.steps .inputs>fieldset:last-of-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 8px;
+    padding-top: 20px;
+}
+
+.steps .inputs fieldset:last-of-type button {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19.6px;
+    color: var(--link-color);
+    font-family: NOTO sans;
+    border: none;
+    background: none;
+}
+
+.steps .inputs fieldset.name input {
+    width: 178.5px;
+}
+
+/************ Validation ***************/
+.inputs fieldset.password.error::after {
+    content: attr(data-error);
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    color: var(--required-color);
+    font-size: 12px;
+    bottom: -7px;
+}
+
+.inputs fieldset.password.error input {
+    border-color: var(--required-color);
+    background-color: var(--error-background);
+}
+
+.inputs fieldset.email.error>input::placeholder,
+.inputs fieldset.password.error>input::placeholder {
+    color: var(--required-color);
+}
+
+
+@media(max-width: 640px) {
+    .steps .inputs {
+        padding: 30px 0;
+    }
+
+    .steps .inputs>fieldset:last-of-type {
+        padding-right: 0;
+    }
+
+    .steps .inputs fieldset input[type="submit"] {
+        width: 160px !important;
+    }
+
+    .steps .inputs fieldset.name {
+        flex-direction: column;
+    }
+
+    .steps .inputs fieldset.name input:first-of-type {
+        margin-bottom: 0;
+    }
+}
