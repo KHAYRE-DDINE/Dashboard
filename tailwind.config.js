@@ -37,7 +37,7 @@ module.exports = {
       'node_modules/daisyui/dist/**/*.js',
       'node_modules/react-daisyui/dist/**/*.js',
     ],
-    plugins: [require('daisyui')],
+    plugins: [],
     daisyui: {
       themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
       darkTheme: "dark", // name of one of the included themes for dark mode
