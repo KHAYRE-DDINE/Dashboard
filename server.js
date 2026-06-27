@@ -2,20 +2,20 @@ const jsonServer = require('json-server');
 const cors = require('cors');
 
 const server = jsonServer.create();
-const router = jsonServer.router('db.json'); // Path to your db.json file
+const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
-// Configure CORS to allow credentials and a specific origin
+// Allow requests from the React dev server (port 3000)
 const corsOptions = {
-  origin: 'http://localhost:3001', // Allow this origin
-  credentials: true,              // Allow credentials
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  credentials: false,
 };
 
 server.use(cors(corsOptions));
 server.use(middlewares);
 server.use(router);
 
-// Start the JSON server
-server.listen(3000, () => {
-  console.log('JSON Server is running on http://localhost:3000');
+// JSON Server runs on port 3001 — React dev server uses 3000
+server.listen(3001, () => {
+  console.log('JSON Server is running on http://localhost:3001');
 });

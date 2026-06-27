@@ -1,635 +1,293 @@
-import "./Home.css";
-import icon from "../../../../../images/logo.svg";
 import React, { useContext, useEffect, useState } from "react";
-import { LanguageContext } from "../../../../../App";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { userContext } from "../../StudentsDashboard";
-import { CiBadgeDollar } from "react-icons/ci";
-import mainLogo from "../../../../../images/logo2.svg";
-import calender from "../../../../../images/calender.svg";
-import search from "../../../../../images/search.svg";
-import mark from "../../../../../images/inter.svg";
 import {
-  Legend,
-  ResponsiveContainer,
-  ComposedChart,
-  CartesianGrid,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
-  Area,
-  Bar,
-  Line,
+  ResponsiveContainer,
 } from "recharts";
-import { motion } from "framer-motion";
+import { FiBook, FiClock, FiCheckCircle, FiAward, FiCalendar, FiBell } from "react-icons/fi";
+import { CiBadgeDollar } from "react-icons/ci";
+
+import icon from "../../../../../images/logo.svg";
+import mainLogo from "../../../../../images/logo2.svg";
+import avatar from "../../../../../images/avatar.svg";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+const activityData = [
+  { name: "Mon", hours: 2.5 },
+  { name: "Tue", hours: 3.8 },
+  { name: "Wed", hours: 1.5 },
+  { name: "Thu", hours: 4.2 },
+  { name: "Fri", hours: 3.1 },
+  { name: "Sat", hours: 5.5 },
+  { name: "Sun", hours: 2.0 },
+];
+
 function Home() {
-  const [subject, setSubject] = useState([
-    {
-      id: 1,
-      icon: icon,
-      subject: "arabic",
-      student: "khalid al walid",
-    },
-    {
-      id: 2,
-      icon: icon,
-      subject: "physics",
-      student: "khalid al walid",
-    },
-    {
-      id: 3,
-      icon: icon,
-      subject: "math",
-      student: "khalid al walid",
-    },
-  ]);
-  const [tests, setTests] = useState([
-    {
-      id: 1,
-      icon: icon,
-      subject: "math",
-      student: "khalid al walid",
-      day: "thursday",
-      month: "july",
-      date: `20 / july / 2016`,
-    },
-    {
-      id: 2,
-      icon: icon,
-      subject: "physics",
-      student: "khalid al walid",
-      day: "thursday",
-      month: "july",
-      date: `20 / july / 2016`,
-    },
-    {
-      id: 3,
-      icon: icon,
-      subject: "arabic",
-      student: "khalid al walid",
-      day: "thursday",
-      month: "july",
-      date: `20 / july / 2016`,
-    },
-  ]);
-  const [courses, setCourses] = useState([
-    {
-      title: "Algebra 101 - Mathematics 7th Grade",
-      type: "not programming",
-      length: "12",
-      color: "#4cc0da",
-      lessons: [
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Linear equations and inequalities",
-          completed: true,
-          status: "progress",
-        },
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Linear equations and inequalities",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Linear equations and inequalities",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Linear equations and inequalities",
-          completed: false,
-          status: "progress",
-        },
-      ],
-    },
-    {
-      title: "JavaScript - Computer programming 7th Grade",
-      type: "programming",
-      length: "12",
-      color: "#f2e214",
-      lessons: [
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Intro to JS: Drawing & Animation",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Intro to JS: Drawing & Animation",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Intro to JS: Drawing & Animation",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "2(x+3)",
-          name: "Unit 1: Intro to JS: Drawing & Animation",
-          completed: false,
-          status: "progress",
-        },
-      ],
-    },
-    {
-      title: "Arabic",
-      type: "not programming",
-      length: "12",
-      color: "#ff8128",
-      lessons: [
-        {
-          id: "ض",
-          name: "Unit 1: همزة القطع و همزة الوصل",
-          completed: false,
-          status: "completed",
-        },
-        {
-          id: "ض",
-          name: "Unit 1: همزة القطع و همزة الوصل",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "ض",
-          name: "Unit 1: همزة القطع و همزة الوصل",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "ض",
-          name: "Unit 1: همزة القطع و همزة الوصل",
-          completed: false,
-          status: "progress",
-        },
-      ],
-    },
-    {
-      title: "Language C - C++ - C#",
-      type: "not programming",
-      length: "12",
-      color: "#ff8128",
-      lessons: [
-        {
-          id: "F=ma",
-          name: "Unit 1 : For Loop ",
-          completed: false,
-          status: "completed",
-        },
-        {
-          id: "F=ma",
-          name: "Unit 2 : Pointer",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "F=ma",
-          name: "Unit 2 : Pointer",
-          completed: false,
-          status: "progress",
-        },
-        {
-          id: "F=ma",
-          name: "Unit 2 : Pointer",
-          completed: false,
-          status: "progress",
-        },
-      ],
-    },
-  ]);
-  const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
+  const navigate = useNavigate();
   const [days, setDays] = useState([]);
   const [today, setToday] = useState("");
-  const data = [
-    {
-      name: "Math",
-      uv: 590,
-      pv: 800,
-      amt: 1400,
-    },
-    {
-      name: "Arabic",
-      uv: 868,
-      pv: 967,
-      amt: 1506,
-    },
-    {
-      name: "Physics",
-      uv: 1397,
-      pv: 1098,
-      amt: 989,
-    },
-    {
-      name: "Javascript",
-      uv: 1480,
-      pv: 1200,
-      amt: 1228,
-    },
-    {
-      name: "English",
-      uv: 1520,
-      pv: 1108,
-      amt: 1100,
-    },
-    {
-      name: "Islam",
-      uv: 1400,
-      pv: 680,
-      amt: 1700,
-    },
+
+  const stats = [
+    { label: "Active Courses", value: "12", icon: FiBook, color: "text-blue-600", bg: "bg-blue-100" },
+    { label: "Completed", value: "8", icon: FiCheckCircle, color: "text-emerald-600", bg: "bg-emerald-100" },
+    { label: "Hours Learned", value: "124", icon: FiClock, color: "text-indigo-600", bg: "bg-indigo-100" },
+    { label: "Avg. Score", value: "A-", icon: FiAward, color: "text-amber-600", bg: "bg-amber-100" },
+  ];
+
+  const recentCourses = [
+    { title: "Algebra 101", progress: 75, color: "bg-blue-500", icon: "📐" },
+    { title: "Physics Basics", progress: 40, color: "bg-indigo-500", icon: "⚛️" },
+    { title: "Arabic Lit", progress: 90, color: "bg-emerald-500", icon: "📚" },
+    { title: "Intro to JS", progress: 15, color: "bg-amber-500", icon: "💻" },
+  ];
+
+  const tests = [
+    { subject: "Mathematics", topic: "Linear Equations", date: "Jul 20", time: "10:00 AM", color: "border-blue-500" },
+    { subject: "Physics", topic: "Kinematics", date: "Jul 22", time: "02:00 PM", color: "border-indigo-500" },
+    { subject: "Arabic", topic: "Grammar Rules", date: "Jul 25", time: "09:00 AM", color: "border-emerald-500" },
   ];
 
   useEffect(() => {
     const getFourDays = () => {
-      const today = new Date();
+      const todayDate = new Date();
       const daysArray = [];
-
       for (let i = 0; i < 5; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() + i);
+        const date = new Date(todayDate);
+        date.setDate(todayDate.getDate() + i);
         const day = date.getDate();
         const month = date.toLocaleString("en-US", { month: "short" });
         daysArray.push(`${day} ${month}`);
       }
-
       setDays(daysArray);
     };
-
     const getTodayDate = () => {
       const day = new Date().getDate();
       const month = new Date().getMonth();
-      const shortMonths = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
+      const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       setToday(day + " " + shortMonths[month]);
     };
-
     getTodayDate();
     getFourDays();
   }, []);
 
-  const subjectFill = {
-    "Algebra 101 - Mathematics 7th Grade": "bg-blue-100 text-blue-600",
-    "JavaScript - Computer programming 7th Grade": "bg-red-100 text-red-600",
-    Arabic: "bg-yellow-100 text-yellow-600",
-    "Language C - C++ - C#": "bg-purple-100 text-yellow-600",
-  };
-
-  const user = useContext(userContext);
-
   return (
-    <div className="home flex flex-col xl:flex-row pl-2 lg:pl-6 gap-6 ">
-      <section className="welcome xl:p-[72px]">
-        <motion.h1
-          initial={{ left: "30%", rotateY: 0 }}
-          animate={{ left: "0%", rotateY: "360deg" }}
-          transition={{ duration: 2, delay: 0.2 }}
-          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
+    <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto">
+      {/* Left Main Content */}
+      <div className="flex-1 flex flex-col gap-8">
+        
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative bg-gradient-to-r from-indigo-600 to-blue-500 rounded-2xl p-8 text-white shadow-lg overflow-hidden"
         >
-          welcome,
-          {/* {user["first name"] + user["last name"]} */}
-        </motion.h1>
-        <div className="tests ">
-          <div className="head mb-5 flex justify-between">
-            <h3 className="text-gray-700">Your tests</h3>
-            <button className="text-primary-100 border-none">see all</button>
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-20 w-40 h-40 bg-blue-300 opacity-20 rounded-full blur-2xl"></div>
+          
+          <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Welcome back, Khalid! 👋</h1>
+              <p className="text-indigo-100 text-lg">You've learned for 5 hours this week. Keep it up!</p>
+            </div>
+            <button onClick={() => navigate('/dashboard/courses')} className="px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 transition-colors shadow-sm">
+              Resume Learning
+            </button>
           </div>
-          <div className="all-tests flex gap-[0.9rem] flex-wrap">
-            {tests.map((t, id) => (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  translateX: id === 0 ? -50 : id === 2 ? 50 : "",
-                  translateY: id === 1 ? -50 : "",
-                }}
-                animate={{ opacity: 1, translateX: 0, translateY: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                key={id}
-                className="cover border-[1px] border-grayD border-solid "
-              >
-                <div className="test flex items-center w-[300px] ">
-                  <div
-                    className={cn(
-                      `image-box h-[50px] mr-3`,
-                      subjectFill[t.subject]
-                    )}
-                  >
-                    <img
-                      src={mainLogo}
-                      alt="logo"
-                      className="w-[100%] h-[100%]"
-                    />
-                  </div>
-                  <div className="info ">
-                    <div className="subject-student">
-                      <span className="capitalize text-gray-700">
-                        {t.subject}
-                      </span>
-                    </div>
-                    <div className="student">
-                      <h4 className="capitalize text-gray-600">{t.student}</h4>
-                    </div>
-                  </div>
+        </motion.div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {stats.map((stat, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center gap-4">
+                <div className={cn("p-3 rounded-xl", stat.bg, stat.color)}>
+                  <stat.icon size={24} />
                 </div>
-                <div className="date mt-2 flex items-center text-gray-600">
-                  <div className="icon mr-2">
-                    <img src={calender} alt="calender" />
+                <div>
+                  <p className="text-gray-500 text-sm font-medium">{stat.label}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</h3>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Chart & Recent Courses */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Chart */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold text-gray-900">Weekly Activity</h3>
+              <select className="bg-gray-50 border-none text-sm font-medium text-gray-600 rounded-lg py-2 px-3 outline-none cursor-pointer">
+                <option>This Week</option>
+                <option>Last Week</option>
+              </select>
+            </div>
+            <div className="h-[250px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={activityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#4F46E5" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#4F46E5" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} dy={10} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
+                  <CartesianGrid vertical={false} stroke="#F3F4F6" />
+                  <Tooltip
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                    itemStyle={{ color: '#4F46E5', fontWeight: 600 }}
+                  />
+                  <Area type="monotone" dataKey="hours" stroke="#4F46E5" strokeWidth={3} fillOpacity={1} fill="url(#colorHours)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </motion.div>
+
+          {/* Recent Courses */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold text-gray-900">Recent Courses</h3>
+              <button onClick={() => navigate('/dashboard/courses')} className="text-indigo-600 text-sm font-medium hover:underline">View All</button>
+            </div>
+            <div className="flex flex-col gap-5">
+              {recentCourses.map((course, idx) => (
+                <div key={idx} className="flex items-center gap-4 group cursor-pointer">
+                  <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-xl text-white shadow-sm group-hover:scale-105 transition-transform", course.color)}>
+                    {course.icon}
                   </div>
-                  <span>
-                    {t.month}, {t.date}
+                  <div className="flex-1">
+                    <h4 className="text-gray-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">{course.title}</h4>
+                    <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
+                      <div className={cn("h-1.5 rounded-full", course.color)} style={{ width: `${course.progress}%` }}></div>
+                    </div>
+                  </div>
+                  <span className="text-xs font-bold text-gray-500">{course.progress}%</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Right Sidebar */}
+      <div className="xl:w-80 flex flex-col gap-6">
+        
+        {/* Profile Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-r from-blue-100 to-indigo-100"></div>
+          <img src={avatar} alt="Profile" className="w-20 h-20 rounded-full border-4 border-white shadow-sm z-10 mt-6 bg-white" />
+          <h2 className="text-lg font-bold text-gray-900 mt-3">Khalid Al Walid</h2>
+          <p className="text-gray-500 text-sm font-medium">7th Grade Scholar</p>
+          
+          <div className="flex justify-center gap-2 mt-4 w-full pt-4 border-t border-gray-100">
+            {[1, 2, 3, 4, 5].map((badge) => (
+              <div key={badge} className="w-8 h-8 rounded-full bg-amber-100 text-amber-500 flex items-center justify-center shadow-sm">
+                <CiBadgeDollar size={18} />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Mini Calendar */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-bold text-gray-900">Schedule</h3>
+            <FiCalendar className="text-gray-400" />
+          </div>
+          <div className="flex justify-between items-center">
+            {days.map((day, index) => {
+              const isToday = today === day;
+              return (
+                <div
+                  key={index}
+                  className={cn(
+                    "flex flex-col items-center justify-center w-12 h-14 rounded-xl cursor-pointer transition-colors",
+                    isToday ? "bg-indigo-600 text-white shadow-md" : "hover:bg-gray-50 text-gray-600"
+                  )}
+                >
+                  <span className="text-xs font-medium">{day.split(" ")[1]}</span>
+                  <span className="text-lg font-bold">{day.split(" ")[0]}</span>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Upcoming Tests */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex-1"
+        >
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900">Upcoming Tests</h3>
+            <button onClick={() => navigate('/dashboard/calendar')} className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors">
+              <FiBell size={14} />
+            </button>
+          </div>
+          
+          <div className="flex flex-col gap-4">
+            {tests.map((test, idx) => (
+              <div key={idx} className={cn("p-4 rounded-xl bg-gray-50 border-l-4", test.color)}>
+                <h4 className="font-bold text-gray-900 text-sm">{test.subject}</h4>
+                <p className="text-xs font-medium text-gray-500 mt-1">{test.topic}</p>
+                <div className="flex items-center gap-3 mt-3 text-xs font-semibold text-gray-600">
+                  <span className="flex items-center gap-1 bg-white px-2 py-1 rounded shadow-sm">
+                    <FiCalendar size={12} className="text-indigo-500"/> {test.date}
+                  </span>
+                  <span className="flex items-center gap-1 bg-white px-2 py-1 rounded shadow-sm">
+                    <FiClock size={12} className="text-indigo-500"/> {test.time}
                   </span>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </div>
-        <div className="subjects">
-          <div className="head mb-5 flex justify-between">
-            <h3 className="text-gray-700">Your classes</h3>
-            <button className="text-primary-100 border-none">see all</button>
-          </div>
-          <div className="flex items-center justify-center min-h-[200px]">
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-              minHeight={"200px"}
-              minWidth={"200px"}
-            >
-              <ComposedChart
-                layout="vertical"
-                width={500}
-                height={400}
-                data={data}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  bottom: 20,
-                  left: 20,
-                }}
-                className={"m-auto !max-w-[900px]"}
-              >
-                <CartesianGrid stroke="#f5f5f5" vertical="" horizontal="" />
-                <XAxis type="number" stroke="#524f4f" fontSize={"13px"} />
-                <YAxis
-                  dataKey="name"
-                  type="category"
-                  scale="band"
-                  stroke="#524f4f"
-                  fontSize={"13px"}
-                />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-                <Area dataKey="amt" fill="#1865f25c" stroke="#8884d8" />
-                <Bar dataKey="pv" barSize={15} fill="#2563EB" />
-                <Line dataKey="uv" stroke="#ff7300" />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        <div className="lessons">
-          <div className="head flex justify-between items-center">
-            <h3 className="text-gray-700"> Your lessons</h3>
-            <div className="hidden md:flex search-input relative">
-              <img src={search} alt="search" />
-              <input
-                type="search"
-                name="search"
-                className="!border-gray-300"
-                placeholder="Placeholder"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-3">
-            {courses.map((c, idx) => (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  translateX: idx % 2 === 0 ? 60 : -60,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  translateX: 0,
-                }}
-                transition={{ duration: 1.5, delay: idx * 0.2 }}
-                key={idx}
-                className="course"
-              >
-                <div className="top-section flex justify-between py-3 border-b-2 border-grayD border-b-solid">
-                  <p className="my-auto text-normalColor">{c.title}</p>
-                  {c.length > 5 && (
-                    <button className="text-link">See all ({c.length})</button>
-                  )}
-                </div>
-                <div className="all-lessons pb-4 pl-3">
-                  {c.lessons.map((l, idx) => (
-                    <div
-                      key={idx}
-                      className="lesson flex justify-start relative mt-6 cursor-pointer"
-                    >
-                      <span
-                        className={cn(
-                          `circle  after:bg-grayD`,
-                          subjectFill[c.title]
-                        )}
-                      >
-                        {l.id}
-                      </span>
-                      <p className="lesson-name my-auto ml-3 w-[100px] text-normalColor">
-                        {l.name}
-                        <span className="student-name !w-[100%] text-gray-600">
-                          khalid al walid
-                        </span>
-                      </p>
-                      {idx === 0 || c.lessons[idx - 1]?.completed ? (
-                        <button className="bg-primary-100 text-white rounded-md py-1 px-3 absolute right-0">
-                          {l.status !== "finished" &&
-                          c.type === "not programming"
-                            ? "continue"
-                            : l.status !== "finished" &&
-                              c.type === "programming"
-                            ? "start"
-                            : ""}
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section
-        className={`right-side bg-gray-50 !border-gray-200 py-5 ${
-          closeOpenRightSide ? "open" : ""
-        }`}
-      >
-        <span
-          className="right-side-button cursor-pointer xl:hidden"
-          onClick={() => setCloseOpenRightSide(!closeOpenRightSide)}
-        >
-          <img
-            onClick={() => setCloseOpenRightSide(!closeOpenRightSide)}
-            src={mark}
-            alt="mark"
-          />
-        </span>
-        <div className="profile-info bg-white">
-          <div className="details flex-wrap flex justify-between items-center">
-            <div className="left !w-max flex items-center">
-              <div className="photo">
-                <img src={mainLogo} alt="avatar" />
-              </div>
-              <div className="name-class">
-                <h5 className="name text-gray-700">khalid al walid</h5>
-                <span className="class text-gray-600">7th grade</span>
-              </div>
-            </div>
-            <div className="badges flex items-center justify-between flex-wrap">
-              <span className="badge-item flex justify-center items-center">
-                <CiBadgeDollar />
-              </span>
-              <span className="badge-item flex justify-center items-center">
-                <CiBadgeDollar />
-              </span>
-              <span className="badge-item flex justify-center items-center">
-                <CiBadgeDollar />
-              </span>
-              <span className="badge-item flex justify-center items-center">
-                <CiBadgeDollar />
-              </span>
-              <span className="badge-item flex justify-center items-center">
-                <CiBadgeDollar />
-              </span>
-            </div>
-          </div>
-          <div className="calender flex-wrap gap-1 flex justify-between items-center">
-            {days.map((day, index) => (
-              <span
-                key={index}
-                className={`date ${
-                  today === day
-                    ? "text-white bg-primary-100"
-                    : "text-gray-700 bg-white"
-                }`}
-              >
-                {day.split(" ")[0]} <br /> <b>{day.split(" ")[1]}</b>
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="teachers">
-          <div className="top-section flex justify-between mb-3">
-            <p className="my-auto capitalize text-gray-700 ">notices</p>
-          </div>
-          <div className="all-notices flex flex-col gap-3">
-            <div className="box flex items-start bg-white">
-              <div className="image w-8 h-8 relative">
-                <img src={mainLogo} alt="avatar" className="absolute w-8 h-8" />
-              </div>
-              <div className="info ml-3">
-                <span className="subject-teacher capitalize text-gray-700 !flex !items-center gap-2">
-                  Math{" "}
-                  <small className="text-gray-600 flex items-center gap-2">
-                    <p>●</p> 2 hours ago
-                  </small>{" "}
-                </span>
-                <h5 className="unit capitalize text-gray-700">
-                  unit1: linear equation
-                </h5>
-                <p className="notice text-gray-700 ">
-                  {" "}
-                  Iure placeat quasi similique tempore debitis doloremque atque
-                  et provident adipisci{" "}
-                </p>
-              </div>
-            </div>
-            <div className="box flex items-start bg-white">
-              <div className="image w-8 h-8 relative">
-                <img src={mainLogo} alt="avatar" className="absolute w-8 h-8" />
-              </div>
-              <div className="info ml-3">
-                <span className="subject-teacher capitalize text-gray-700 flex items-center gap-2">
-                  Math{" "}
-                  <small className="text-gray-600 flex items-center gap-2">
-                    <p>●</p> 2 hours ago
-                  </small>
-                </span>
-                <h5 className="unit capitalize">unit1: linear equation</h5>
-                <p className="notice">
-                  {" "}
-                  Iure placeat quasi similique tempore debitis doloremque atque
-                  et provident adipisci{" "}
-                </p>
-              </div>
-            </div>
-            <div className="box flex items-start bg-white">
-              <div className="image w-8 h-8 relative">
-                <img src={mainLogo} alt="avatar" className="absolute w-8 h-8" />
-              </div>
-              <div className="info ml-3">
-                <span className="subject-teacher capitalize text-gray-700 flex items-center gap-2">
-                  Math{" "}
-                  <small className="text-gray-600 flex items-center gap-2">
-                    <p>●</p> 2 hours ago
-                  </small>
-                </span>
-                <h5 className="unit capitalize">unit1: linear equation</h5>
-                <p className="notice">
-                  {" "}
-                  Iure placeat quasi similique tempore debitis doloremque atque
-                  et provident adipisci{" "}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </motion.div>
+
+      </div>
     </div>
   );
 }
 
 export default Home;
-
-export const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && label) {
-    return (
-      <div className="p-4 bg-slate-900 flex-col gap-4 rounded-md ">
-        <p className="text-medium text-lg text-white">{label}</p>
-        <p className="text-sm text-blue-400">
-          amt: <span className="ml-2">{payload[0].value}</span>
-        </p>
-        <p className="text-sm text-indigo-400 ">
-          pv: <span className="ml-2">{payload[1].value}</span>
-        </p>
-        <p className="text-sm text-indigo-400 ">
-          uv: <span className="ml-2">{payload[2].value}</span>
-        </p>
-      </div>
-    );
-  }
-};

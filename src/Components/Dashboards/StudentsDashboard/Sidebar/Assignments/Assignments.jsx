@@ -1,346 +1,276 @@
-import "./Assignments.css";
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import React, { useState } from "react";
+import { useLocation, useNavigate, Link, Outlet, useParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { FiSearch, FiFilter, FiMoreHorizontal, FiCalendar, FiClock, FiX } from "react-icons/fi";
+
 import avatar from "../../../../../images/avatar.svg";
-import close from "../../../../../images/close.svg";
-import DataTable from "./DataTable/DataTable";
+import mainLogo from "../../../../../images/logo2.svg";
 import enrolling from "../../../../../images/enrolling.svg";
 import config from "../../../../../images/config.svg";
-import { Link, Outlet } from "react-router-dom";
-import mainLogo from "../../../../../images/logo2.svg";
-import mark from "../../../../../images/inter.svg";
-import { motion } from "framer-motion";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
 
 function Assignments() {
-  const [columns, setColumns] = useState([]);
-  const data = [
-    {
-      id: 1,
-      assignment: "mathematic",
-      status: "pending",
-      date: "20 aug",
-      teacher: avatar,
-      updates: "23:10",
-      icon: <HiOutlineDotsHorizontal />,
-    },
-    {
-      id: 2,
-      assignment: "Arabic",
-      status: "pending",
-      date: "20 aug",
-      teacher: avatar,
-      updates: "23:10",
-      icon: <HiOutlineDotsHorizontal />,
-    },
-    {
-      id: 3,
-      assignment: "programming",
-      status: "pending",
-      date: "20 aug",
-      teacher: avatar,
-      updates: "23:10",
-      icon: <HiOutlineDotsHorizontal />,
-    },
-  ];
-  const [move, setMove] = useState(["about", "resources", "learnings"]);
-  const [pending, setPending] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [sideWidth, setSideWidth] = useState(632);
+  const [activeTab, setActiveTab] = useState("all");
+  const [openDrawerId, setOpenDrawerId] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
 
-  const customStyles = {
-    rows: {
-      style: {
-        display: "flex",
-        padding: " 0.875rem var(--spacing-0rem, 0rem)",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "0.5rem",
-      },
-    },
-    headCells: {
-      style: {
-        textTransform: "capitalize",
-        color: "#4B5563",
-        textAlign: "center",
-        fontFamily: "Inter",
-        fontSize: "0.875rem",
-        fontStyle: "normal",
-        fontWeight: "500",
-        lineHeight: "1.25rem" /* 142.857% */,
-        display: "flex",
-        padding: "0.375rem  0.25rem 0.375rem 0.25rem",
-        alignItems: "flex-start",
-        marginRight: "0.5rem",
-      },
-    },
-    cells: {
-      style: {
-        paddingLeft: "8px", // override the cell padding for data cells
-        paddingRight: "8px",
-        justifyContent: "space-between",
-        fontFamily: "Inter",
-        fontSize: "14px",
-        fontWeight: "500",
-        lineHeight: "20px",
-        textTransform: "capitalize",
-        color: "#4B5563",
-      },
-    },
+  const [move, setMove] = useState(["about", "resources", "learnings"]);
+
+  const assignmentsData = [
+    { id: 1, title: "Mathematics", subject: "Algebra Unit 1", status: "pending", date: "Aug 20", time: "23:10", teacher: avatar, color: "bg-blue-100 text-blue-700" },
+    { id: 2, title: "Arabic", subject: "Grammar Rules", status: "completed", date: "Aug 18", time: "14:00", teacher: avatar, color: "bg-emerald-100 text-emerald-700" },
+    { id: 3, title: "Programming", subject: "Intro to JS", status: "overdue", date: "Aug 15", time: "23:59", teacher: avatar, color: "bg-red-100 text-red-700" },
+    { id: 4, title: "Physics", subject: "Kinematics", status: "pending", date: "Aug 22", time: "10:30", teacher: avatar, color: "bg-indigo-100 text-indigo-700" },
+  ];
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case "pending": return <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">Pending</span>;
+      case "completed": return <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold">Completed</span>;
+      case "overdue": return <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">Overdue</span>;
+      default: return <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold">{status}</span>;
+    }
   };
 
-  const goToTable = (id) => {
-    navigate(move[0] + "/" + id);
-    setOpen(true);
+  const openDrawer = (assignId) => {
+    setOpenDrawerId(assignId);
+    navigate(`about/${assignId}`);
   };
 
-  const backFromTable = () => {
-    console.log("success");
+  const closeDrawer = () => {
+    setOpenDrawerId(null);
     navigate("");
-    setOpen(false);
   };
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setColumns([
-        {
-          name: "assignment",
-          selector: (row) => row.assignment,
-          width: "250px",
-        },
-        {
-          name: "status",
-          selector: (row) => row.status,
-          width: "7.75rem",
-          style: {
-            width: "max-content",
-            display: "flex",
-            padding: " 0.25rem 0.375rem",
-            alignItems: "center",
-            gap: "0.375rem",
-            color: "#4B5563",
-            fontFamily: "Inter",
-            fontSize: "0.6875rem",
-            fontStyle: "normal",
-            fontWeight: "500",
-            lineHeight: "1rem",
-            borderRadius: "0.25rem",
-            background: "#F3F4F6",
-          },
-        },
-        {
-          name: "date",
-          selector: (row) => row.date,
-
-          width: "7.75rem",
-          style: {
-            width: "max-content",
-            display: "flex",
-            padding: " 0.25rem 0.375rem",
-            alignItems: "center",
-            gap: "0.375rem",
-            color: "#4B5563",
-            fontFamily: "Inter",
-            fontSize: "0.6875rem",
-            fontStyle: "normal",
-            fontWeight: "500",
-            lineHeight: "1rem",
-            borderRadius: "0.25rem",
-            background: "#F3F4F6",
-          },
-        },
-        {
-          name: "teacher",
-          selector: (row) => row.teacher,
-          width: "4rem",
-        },
-        {
-          name: "updates",
-          selector: (row) => row.updates,
-          width: "6.25rem",
-        },
-        {
-          name: "",
-          selector: (row) => row.icon,
-          width: "2rem",
-        },
-      ]);
-      setPending(false);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, []);
 
   return (
-    <div className="Assignments flex">
-      <div
-        className="left"
-        style={{ width: open && `calc(100% - ${sideWidth}px )` }}
-      >
-        <motion.h1
-          initial={{ left: "30%", rotateY: 0 }}
-          animate={{ left: "0%", rotateY: "360deg" }}
-          transition={{ duration: 2, delay: 0.2 }}
-          className="capitalize text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
-        >
-          Assignments
-        </motion.h1>
-        <div className="assignment-table">
-          <DataTable
-            goToTable={goToTable}
-            data={data}
-            closeOpenRightSide={closeOpenRightSide}
-          />
-        </div>
-      </div>
-      <div
-        className={`right-side bg-gray-50 !border-gray-200 py-5 ${
-          closeOpenRightSide ? "open" : ""
-        }`}
-      >
-        <span
-          className="right-side-button cursor-pointer xl:hidden"
-          onClick={() => setCloseOpenRightSide(!closeOpenRightSide)}
-        >
-          <img src={mark} alt="mark" />
-        </span>
-        <div className="subject right-box rounded-lg border-[1px] border-grayD border-solid bg-white my-[15px] min-h-[230px]">
-          <div
-            className={`image-box h-[127px] mb-4 flex justify-center items-center bg-purple-200`}
+    <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto overflow-hidden relative">
+      
+      {/* Main Content */}
+      <div className={cn("flex-1 flex flex-col gap-6 transition-all duration-300", openDrawerId ? "xl:mr-[400px]" : "")}>
+        
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-bold text-gray-900"
           >
-            <img src={mainLogo} alt="logo" className="w-[50px] h-[50px]" />
-          </div>
-          <div class="h-[152px] p-4 flex-col justify-between items-start gap-4 inline-flex">
-            <div class="self-stretch h-[68px] flex-col justify-center items-start gap-2 flex">
-              <div class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-                Build right features, the right way
-              </div>
-              <div class="self-stretch text-gray-700 text-sm font-normal font-['Inter'] leading-tight">
-                Prioritize your ideas then easily move them into delivery,
-                without losing any details on the way.
-              </div>
-            </div>
-            <div class="w-[230px] my-[10px] justify-start items-center gap-2 inline-flex">
-              <div class="px-3 py-2 w-[100%] bg-gray-100 rounded-md justify-center items-center gap-1.5 flex">
-                <div class="text-gray-600 text-[0.83rem] font-medium font-['Inter'] leading-tight cursor-pointer">
-                  Try is now
-                </div>
-              </div>
-              <div class="px-3 py-2 w-[100%] rounded-md justify-center items-center gap-1.5 flex">
-                <div class="text-gray-600 text-sm font-medium font-['Inter'] leading-tight cursor-pointer">
-                  Learn more
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="upcoming right-box rounded-lg shadow h-[285.24px] flex-col justify-start items-start inline-flex bg-white my-[15px] ">
-          <div class="h-11 w-[100%] px-3 py-3 border-b border-gray-200 justify-between items-center inline-flex">
-            <div class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-              Upcoming Classes
-            </div>
-            <div class="text-blue-600 text-sm font-medium font-['Inter'] leading-none">
-              View all
-            </div>
-          </div>
-          <div className="content self-stretch h-[217.24px] px-4 py-5 pb-1  flex-col justify-start items-center flex">
-            <div className="image mt-3">
-              <img
-                src={enrolling}
-                alt="enrolling"
-                className="w-[100px] h-[65.20px]"
+            Assignments
+          </motion.h1>
+
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input 
+                type="text" 
+                placeholder="Search assignments..." 
+                className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm w-full sm:w-64"
               />
             </div>
-            <div class="h-10 pt-5 flex-col justify-start items-center inline-flex">
-              <h2 class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-                Start Enrolling Classes
-              </h2>
-            </div>
-            <div class="h-[52px] pt-3 flex-col justify-start items-center inline-flex">
-              <p class="self-stretch text-center text-gray-700 text-sm font-normal font-['Inter'] leading-tight">
-                Make sure that you never miss a class and are always notified
-                ahead of time.
-              </p>
-            </div>
-            <div className="h-9 pt-4 relative">
-              <Link
-                to="more"
-                className="text-center after:content-[''] after:absolute after:bottom-[-2px] after:h-[2px] after:w-[100%] after:left-0 after:bg-blue-600 text-blue-600 text-sm font-normal font-['Inter'] underline leading-tight"
-              >
-                Read more
-              </Link>
-            </div>
+            <button className="p-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 shadow-sm transition-colors">
+              <FiFilter size={18} />
+            </button>
           </div>
         </div>
-        <div className="alerts right-box rounded-lg shadow h-[285.24px] flex-col justify-start items-start inline-flex bg-white my-[15px] ">
-          <div class="h-11 w-[100%] px-3 py-3 border-b border-gray-200 justify-between items-center inline-flex">
-            <div class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-              Alerts
-            </div>
-            <div class="text-blue-600 text-sm font-medium font-['Inter'] leading-none">
-              View all
-            </div>
-          </div>
-          <div className="content self-stretch h-[217.24px] px-4 py-5 pb-1  flex-col justify-start items-center flex">
-            <div className="image mt-3">
-              <img
-                src={config}
-                alt="config"
-                className="w-[100px] h-[65.20px]"
-              />
-            </div>
-            <div class="h-10 pt-5 flex-col justify-start items-center inline-flex">
-              <h2 class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-                Configure your alerts
-              </h2>
-            </div>
-            <div class="h-[52px] pt-3 flex-col justify-start items-center inline-flex">
-              <p class="self-stretch text-center text-gray-700 text-sm font-normal font-['Inter'] leading-tight">
-                Be notified of important events in your class or school to
-                ensure you never miss a thing.
-              </p>
-            </div>
-            <div className="h-9 pt-4 relative">
-              <Link
-                to="more"
-                className="text-center after:content-[''] after:absolute after:bottom-[-2px] after:h-[2px] after:w-[100%] after:left-0 after:bg-blue-600 text-blue-600 text-sm font-normal font-['Inter'] underline leading-tight"
-              >
-                Read more
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={`show-table w-[632px] ${open && "!right-0"} bg-gray-50`}>
-        <div className="close">
-          <img src={close} alt="close" onClick={() => backFromTable()} />
-        </div>
-        <div className="unit">
-          <span className="capitalize text-gray-500">unit 2</span>
-          <h2 className="capitalize text-gray-700">unit test</h2>
-        </div>
-        <div className="move after:bg-slate-200 flex items-center">
-          {move.map((e, idx) => (
-            <Link
-              key={idx}
-              to={e + "/" + id}
-              className={
-                location.pathname.includes(e)
-                  ? "text-[#1865F2] active mr-3 capitalize after:bg-[#1865F2]"
-                  : "text-gray-600 mr-3 capitalize "
-              }
+
+        {/* Filters */}
+        <div className="flex items-center gap-2">
+          {['all', 'pending', 'completed', 'overdue'].map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={cn(
+                "px-4 py-2 rounded-lg text-sm font-semibold capitalize transition-colors shadow-sm",
+                activeTab === tab ? "bg-indigo-600 text-white" : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200"
+              )}
             >
-              {e}
-            </Link>
+              {tab}
+            </button>
           ))}
         </div>
-        <div className="w-[100%] mt-[-26px]">
-          <Outlet />
-        </div>
+
+        {/* Modern Table Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-100">
+                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Assignment</th>
+                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Due Date</th>
+                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Teacher</th>
+                  <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {assignmentsData.filter(a => activeTab === 'all' || a.status === activeTab).map((item, idx) => (
+                  <tr 
+                    key={item.id} 
+                    onClick={() => openDrawer(item.id)}
+                    className="hover:bg-indigo-50/50 transition-colors cursor-pointer group"
+                  >
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center gap-3">
+                        <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm", item.color)}>
+                          {item.title.charAt(0)}
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{item.title}</p>
+                          <p className="text-xs text-gray-500">{item.subject}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {getStatusBadge(item.status)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-gray-900 flex items-center gap-1.5"><FiCalendar className="text-gray-400"/> {item.date}</span>
+                        <span className="text-xs text-gray-500 flex items-center gap-1.5"><FiClock className="text-gray-400"/> {item.time}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <img src={item.teacher} alt="teacher" className="w-8 h-8 rounded-full border-2 border-white shadow-sm" />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <button className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                        <FiMoreHorizontal size={20} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            
+            {assignmentsData.filter(a => activeTab === 'all' || a.status === activeTab).length === 0 && (
+              <div className="p-8 text-center text-gray-500 font-medium">
+                No assignments found for this filter.
+              </div>
+            )}
+          </div>
+        </motion.div>
       </div>
+
+      {/* Right Sidebar - Promo & Alerts (Hidden if drawer is open on desktop) */}
+      <div className={cn("xl:w-80 flex flex-col gap-6 transition-all duration-300", openDrawerId ? "hidden" : "flex")}>
+        
+        {/* Promo Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+          <h3 className="text-xl font-bold mb-2 relative z-10">Study Groups 👥</h3>
+          <p className="text-indigo-100 text-sm mb-6 relative z-10">Join a study group for your upcoming assignments to collaborate.</p>
+          <button onClick={() => navigate('/dashboard/message')} className="w-full py-2.5 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition-colors shadow-sm relative z-10">
+            Find a Group
+          </button>
+        </motion.div>
+
+        {/* Alerts Box */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900">Notifications</h3>
+            <span onClick={() => navigate('/dashboard/settings')} className="text-indigo-600 text-sm font-medium cursor-pointer hover:underline">Settings</span>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <img src={config} alt="config" className="w-24 h-auto mb-4" />
+            <h4 className="text-gray-900 font-bold mb-2">Configure your alerts</h4>
+            <p className="text-gray-500 text-sm mb-4">Be notified of important events in your class or school so you never miss a thing.</p>
+            <button onClick={() => navigate('/dashboard/settings')} className="text-indigo-600 font-semibold text-sm hover:underline">Setup Alerts →</button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Assignment Detail Drawer / Panel */}
+      <AnimatePresence>
+        {openDrawerId && (
+          <motion.div
+            initial={{ x: 400, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 400, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="fixed inset-y-0 overflow-x-hidden right-0 w-full sm:w-[500px] bg-white shadow-2xl border-l border-gray-200 z-[9999999] flex flex-col"
+          >
+            {/* Drawer Header */}
+            <div className="h-24 bg-gradient-to-r from-indigo-600 to-blue-500 p-6 flex justify-between items-start text-white">
+              <div>
+                <span className="text-indigo-100 text-xs font-bold uppercase tracking-wider">Unit 2</span>
+                <h2 className="text-xl font-bold mt-1">Assignment Detail</h2>
+              </div>
+              <button 
+                onClick={closeDrawer}
+                className="p-2 bg-white/20 hover:bg-white/30 rounded-full transition-colors"
+              >
+                <FiX size={20} />
+              </button>
+            </div>
+
+            {/* Drawer Tabs */}
+            <div className="flex items-center px-6 border-b border-gray-100 pt-4">
+              {move.map((tab, idx) => {
+                const isActive = location.pathname.includes(tab);
+                return (
+                  <Link
+                    key={idx}
+                    to={`${tab}/${id}`}
+                    className={cn(
+                      "capitalize pb-3 text-sm font-semibold transition-colors relative mr-6",
+                      isActive ? "text-indigo-600" : "text-gray-500 hover:text-gray-800"
+                    )}
+                  >
+                    {tab}
+                    {isActive && (
+                      <motion.div
+                        layoutId="drawerTabIndicator"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-t-full"
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Drawer Content Area (Outlet) */}
+            <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+              <Outlet />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Overlay for mobile drawer */}
+      <AnimatePresence>
+        {openDrawerId && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeDrawer}
+            className="fixed inset-0 bg-gray-900/20 backdrop-blur-sm z-40 sm:hidden"
+          />
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

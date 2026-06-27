@@ -3,7 +3,6 @@
   "name": "dashboard",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3000",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/memoize": "^0.9.0",

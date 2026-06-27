@@ -21,45 +21,49 @@ export const AuthProvider = ({ children }) => {
     const { data, status } = await axios.get("/users");
     setUsers(data);
     setStatus(status);
+    return data; // return directly to avoid async state timing issues
   };
 
   const login = async ({ ...data }) => {
-    // await csrf();
     try {
-      await getUser();
-      // eslint-disable-next-line array-callback-return
-      users.map((user) => {
-        if (user && user.email === data.email) {
-          setIsFound(true);
-          if (user.password === data.password) {
-            setIsPasswordCorrect(true);
-            setIsSuccessed(true);
-            toast.success("Successful Login", {
-              position: "top-center",
-              draggable: true,
-            });
-            navigate("/dashboard");
-            setCurrentUser(user);
-            localStorage.setItem("user", user.id);
-          } else {
-            setIsPasswordCorrect(false);
-          }
-        } else {
-          setIsFound(false);
-          // eslint-disable-next-line no-lone-blocks
-          {
-            !isFound &&
-              toast.warning("The account not found", {
-                position: "top-center",
-                draggable: true,
-              });
-          }
-        }
-      });
-    } catch (error) {
-      if (error.response && error.response.status === 431) {
-        console.error("Request header too large:", error.response.data);
+      const fetchedUsers = await getUser();
+
+      const matchedUser = fetchedUsers && fetchedUsers.find((user) => user.email === data.email);
+
+      if (!matchedUser) {
+        setIsFound(false);
+        toast.warning("Account not found", {
+          position: "top-center",
+          draggable: true,
+        });
+        return;
       }
+
+      setIsFound(true);
+
+      if (matchedUser.password !== data.password) {
+        setIsPasswordCorrect(false);
+        toast.error("Incorrect password", {
+          position: "top-center",
+          draggable: true,
+        });
+        return;
+      }
+
+      setIsPasswordCorrect(true);
+      setIsSuccessed(true);
+      setCurrentUser(matchedUser);
+      localStorage.setItem("user", matchedUser.id);
+      toast.success("Successful Login", {
+        position: "top-center",
+        draggable: true,
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error?.message || error);
+      toast.error("Could not reach the server. Make sure json-server is running on port 3001.", {
+        position: "top-center",
+      });
     }
   };
 

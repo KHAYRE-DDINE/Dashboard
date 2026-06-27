@@ -53,16 +53,10 @@ function Header({ sidebarWidth, setSidebarWidth }) {
             placeholder="Search something..."
           />
         </div>
-        <div className="hidden lg:flex gap-0">
-          <button className="w-[44px] h-[56px] px-3 leading-[50%]">
-            <DropDownNotification />
-          </button>
-          <button className="w-[44px] h-[56px] px-3 leading-[50%]">
-            <DropDownSetting />
-          </button>
-          <button className="w-[56px] h-[56px] px-3 leading-[50%]">
-            <DropDownProfile />
-          </button>
+        <div className="hidden lg:flex items-center gap-2">
+          <DropDownNotification />
+          <DropDownSetting />
+          <DropDownProfile />
         </div>
       </nav>
     </header>

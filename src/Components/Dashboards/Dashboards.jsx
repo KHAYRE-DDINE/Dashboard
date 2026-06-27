@@ -76,7 +76,7 @@ function Dashboard() {
       ),
     },
     {
-      listName: "Library",
+      listName: "library",
       listIcon: (
         <IoLibrary
           className={`${sidebarWidth === 60 ? "mr-3" : "mr-[5px]"}`}
@@ -104,17 +104,20 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="dashboard min-h-screen overflow-x-hidden">
+    <div className="dashboard min-h-screen overflow-x-hidden bg-[#F8FAFF]">
       <Header setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />
-        <main className={`layout flex relative top-[56px]`}>
+        <main className={`layout flex relative pt-[56px] min-h-screen`}>
           <Sidebar
             list={StudentsList}
             sidebarWidth={sidebarWidth}
             setSidebarWidth={setSidebarWidth}
           />
           <div
-            className={`under-layout absolute right-0  xlg:px-10 `}
-            style={{ width: `calc(100% - ${sidebarWidth}px)` }}
+            className={`flex-1 transition-all duration-300 min-h-[calc(100vh-56px)] w-full`}
+            style={{ 
+              marginLeft: window.innerWidth >= 768 ? `${sidebarWidth}px` : '0',
+              width: window.innerWidth >= 768 ? `calc(100% - ${sidebarWidth}px)` : '100%'
+            }}
           >
             <Outlet />
           </div>

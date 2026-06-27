@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./Courses.css";
-import icon from "../../../../../images/logo.svg";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import enrolling from "../../../../../images/enrolling.svg";
-import config from "../../../../../images/config.svg";
-import mainLogo from "../../../../../images/logo2.svg";
-import mark from "../../../../../images/inter.svg";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { FiBookOpen, FiClock, FiPlayCircle, FiCheckCircle, FiMoreVertical } from "react-icons/fi";
+import { PiStudentFill } from "react-icons/pi";
+
+import mainLogo from "../../../../../images/logo2.svg";
+import enrolling from "../../../../../images/enrolling.svg";
+import config from "../../../../../images/config.svg";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -16,108 +16,127 @@ export function cn(...inputs) {
 
 function Courses() {
   const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
-  const [move, setMove] = useState([
-    "current learning",
-    "completed",
-    "archived",
-  ]);
+  const [move, setMove] = useState(["current learning", "completed", "archived"]);
+  
   const [subject, setSubject] = useState([
     {
       id: 1,
-      icon: icon,
-      subject: "arabic",
-      description:
-        "Arabic is a beautiful language, like a treasure chest filled with secrets! It's spoken by many people and is even the language of the Quran, a holy book.",
+      subject: "Arabic Literature",
+      description: "Arabic is a beautiful language, like a treasure chest filled with secrets!",
+      progress: 65,
+      totalHours: 24,
+      students: 120,
+      color: "bg-emerald-500",
+      bgSoft: "bg-emerald-50",
+      textSoft: "text-emerald-700",
+      icon: "📚"
     },
     {
       id: 2,
-      icon: icon,
-      subject: "physics",
-      description:
-        "Physics is like being a superhero, figuring out how everything moves, from your bike to the stars – it's super cool!",
+      subject: "Physics",
+      description: "Physics is like being a superhero, figuring out how everything moves.",
+      progress: 30,
+      totalHours: 40,
+      students: 85,
+      color: "bg-indigo-500",
+      bgSoft: "bg-indigo-50",
+      textSoft: "text-indigo-700",
+      icon: "⚛️"
     },
     {
       id: 3,
-      icon: icon,
-      subject: "math",
-      description:
-        "Math is the language of the universe, helping us decode hidden patterns, conquer challenges, and navigate the world with logic and wonder! ",
+      subject: "Mathematics",
+      description: "Math is the language of the universe, helping us decode hidden patterns.",
+      progress: 90,
+      totalHours: 60,
+      students: 210,
+      color: "bg-blue-500",
+      bgSoft: "bg-blue-50",
+      textSoft: "text-blue-700",
+      icon: "📐"
     },
   ]);
-  const subjectFill = {
-    math: "bg-blue-100 text-blue-600",
-    physics: "bg-red-100 text-red-600",
-    arabic: "bg-yellow-100 text-yellow-600",
-  };
+
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes("courses")) {
+    if (location.pathname.endsWith("courses") || location.pathname.endsWith("courses/")) {
       navigate("current learning");
     }
-  }, []);
+  }, [location.pathname, navigate]);
 
   return (
-    <div className="courses flex ">
-      <div className="left-side">
-        <motion.h1
-          initial={{ left: "30%", rotateY: 0 }}
-          animate={{ left: "0%", rotateY: "360deg" }}
-          transition={{ duration: 2, delay: 0.2 }}
-          className="capitalize w-full
-           text-gray-700 text-[28px] font-medium font-['Inter'] leading-loose "
-        >
-          courses
-        </motion.h1>
-        <div className="w-full">
-          <div className="top-section ">
-            <div className="move  border-slate-200 flex items-center">
-              <Link className={"active capitalize after:bg-link text-link"}>
-                recent courses
-              </Link>
-            </div>
-          </div>
-          <div className="recent-courses flex justify-start items-center flex-wrap gap-4 mt-8">
-            {subject.map((l, id) => (
+    <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto">
+      {/* Left Main Content */}
+      <div className="flex-1 flex flex-col gap-8">
+        
+        <div className="flex items-center justify-between">
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-bold text-gray-900"
+          >
+            My Courses
+          </motion.h1>
+          <button onClick={() => alert('Catalog feature coming soon!')} className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
+            Browse Catalog
+          </button>
+        </div>
+
+        {/* Course Cards Grid */}
+        <div>
+          <h2 className="text-lg font-bold text-gray-900 mb-4">Recent Courses</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {subject.map((course, id) => (
               <motion.div
-                initial={{ scale: 0, rotate: "360deg", borderRadius: "50%" }}
-                whileInView={{ scale: 1, rotate: "0deg", borderRadius: "0%" }}
-                transition={{ duration: 3, delay: 0.3 }}
                 key={id}
-                className="subject overflow-hidden rounded-lg border-[1px] border-gray-100 border-solid bg-white"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: id * 0.1 }}
+                className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden group flex flex-col"
               >
-                <div
-                  className={cn(
-                    `image-box h-[127px] flex justify-center items-center`,
-                    subjectFill[l.subject]
-                  )}
-                >
-                  <img
-                    src={mainLogo}
-                    alt="logo"
-                    className="w-[50px] h-[50px]"
-                  />
+                {/* Card Header (Color Block) */}
+                <div className={cn("h-24 w-full relative p-4 flex justify-between items-start", course.bgSoft)}>
+                  <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm bg-white")}>
+                    {course.icon}
+                  </div>
+                  <button className="text-gray-400 hover:text-gray-600 transition-colors bg-white/50 rounded-lg p-1">
+                    <FiMoreVertical size={20} />
+                  </button>
                 </div>
-                <div className="info ">
-                  <div>
-                    <div className="subject-student">
-                      <span className="capitalize text-gray-700">
-                        {l.subject}
-                      </span>
+
+                {/* Card Body */}
+                <div className="p-5 flex-1 flex flex-col">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                    {course.subject}
+                  </h3>
+                  <p className="text-sm text-gray-500 line-clamp-2 mb-4 flex-1">
+                    {course.description}
+                  </p>
+
+                  {/* Meta Stats */}
+                  <div className="flex items-center gap-4 text-xs font-medium text-gray-500 mb-5">
+                    <span className="flex items-center gap-1.5"><FiClock size={14} className={course.textSoft} /> {course.totalHours}h Total</span>
+                    <span className="flex items-center gap-1.5"><PiStudentFill size={14} className={course.textSoft} /> {course.students}</span>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="mb-5">
+                    <div className="flex justify-between items-end mb-2">
+                      <span className="text-xs font-bold text-gray-900">Course Progress</span>
+                      <span className={cn("text-xs font-bold", course.textSoft)}>{course.progress}%</span>
                     </div>
-                    <div className="description">
-                      <h4 className="capitalize text-gray-700">
-                        {l.description}
-                      </h4>
+                    <div className="w-full bg-gray-100 rounded-full h-2">
+                      <div className={cn("h-2 rounded-full transition-all duration-1000", course.color)} style={{ width: `${course.progress}%` }}></div>
                     </div>
                   </div>
-                  <div className="buttons">
-                    <button className="continue text-primary-100 bg-primary-600">
-                      continue
-                    </button>
-                    <button className="assignment bg-colorGray-100 text-colorGray-600">
-                      assignments
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50">
+                    <button onClick={() => navigate('/dashboard/assignments')} className={cn("flex-1 py-2.5 rounded-xl font-semibold text-sm flex justify-center items-center gap-2 transition-colors", course.color, "text-white hover:opacity-90")}>
+                      <FiPlayCircle size={18} /> Continue
                     </button>
                   </div>
                 </div>
@@ -125,148 +144,94 @@ function Courses() {
             ))}
           </div>
         </div>
-        <div className="sections">
-          <div className="top-section mb-7">
-            <div className="move after:bg-grayD flex items-center">
-              {move.map((e, idx) => (
+
+        {/* Tabs and Outlet Section */}
+        <div className="mt-4">
+          <div className="flex items-center gap-6 border-b border-gray-200 mb-6">
+            {move.map((tab, idx) => {
+              const isActive = location.pathname.includes(tab.replace(" ", "%20")) || location.pathname.includes(tab);
+              return (
                 <Link
                   key={idx}
-                  to={e}
-                  className={
-                    location.pathname.includes(e.substring(0, 6))
-                      ? "text-primary-100 active mr-3 capitalize after:bg-primary-100"
-                      : "text-normalColor mr-3 capitalize "
-                  }
+                  to={tab}
+                  className={cn(
+                    "capitalize pb-3 text-sm font-semibold transition-colors relative",
+                    isActive ? "text-indigo-600" : "text-gray-500 hover:text-gray-800"
+                  )}
                 >
-                  {e}
+                  {tab}
+                  {isActive && (
+                    <motion.div
+                      layoutId="courseTabIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-t-full"
+                    />
+                  )}
                 </Link>
-              ))}
-            </div>
+              );
+            })}
           </div>
-          <Outlet subject={subject} subjectFill={subjectFill} cn={cn} />
+          <div className="min-h-[200px]">
+            <Outlet context={{ subject, cn }} />
+          </div>
         </div>
       </div>
-      <div
-        className={`right-side bg-gray-50 !border-gray-200 py-5 ${
-          closeOpenRightSide ? "open" : ""
-        }`}
-      >
-        <span
-          className="right-side-button cursor-pointer xl:hidden"
-          onClick={() => setCloseOpenRightSide(!closeOpenRightSide)}
+
+      {/* Right Sidebar */}
+      <div className="xl:w-80 flex flex-col gap-6">
+        
+        {/* Promo Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden"
         >
-          <img
-            onClick={() => setCloseOpenRightSide(!closeOpenRightSide)}
-            src={mark}
-            alt="mark"
-          />
-        </span>
-        <div className="subject right-box rounded-lg border-[1px] border-grayD border-solid bg-white my-[15px] min-h-[230px]">
-          <div
-            className={`image-box h-[127px] mb-4 flex justify-center items-center bg-purple-200`}
-          >
-            <img src={mainLogo} alt="logo" className="w-[50px] h-[50px]" />
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+          <h3 className="text-xl font-bold mb-2 relative z-10">Upgrade to Pro 🚀</h3>
+          <p className="text-indigo-100 text-sm mb-6 relative z-10">Get access to premium courses, 1-on-1 tutoring, and advanced analytics.</p>
+          <button className="w-full py-2.5 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition-colors shadow-sm relative z-10">
+            View Plans
+          </button>
+        </motion.div>
+
+        {/* Upcoming Classes Box */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900">Upcoming Classes</h3>
+            <span onClick={() => navigate('/dashboard/calendar')} className="text-indigo-600 text-sm font-medium cursor-pointer hover:underline">View all</span>
           </div>
-          <div class="h-[152px] p-4 flex-col justify-between items-start gap-4 inline-flex">
-            <div class="self-stretch h-[68px] flex-col justify-center items-start gap-2 flex">
-              <div class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-                Build right features, the right way
-              </div>
-              <div class="self-stretch text-gray-700 text-sm font-normal font-['Inter'] leading-tight">
-                Prioritize your ideas then easily move them into delivery,
-                without losing any details on the way.
-              </div>
-            </div>
-            <div class="w-[230px] my-[10px] justify-start items-center gap-2 inline-flex">
-              <div class="px-3 py-2 w-[100%] bg-gray-100 rounded-md justify-center items-center gap-1.5 flex">
-                <div class="text-gray-600 text-[0.83rem] font-medium font-['Inter'] leading-tight cursor-pointer">
-                  Try is now
-                </div>
-              </div>
-              <div class="px-3 py-2 w-[100%] rounded-md justify-center items-center gap-1.5 flex">
-                <div class="text-gray-600 text-sm font-medium font-['Inter'] leading-tight cursor-pointer">
-                  Learn more
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col items-center text-center">
+            <img src={enrolling} alt="enrolling" className="w-24 h-auto mb-4" />
+            <h4 className="text-gray-900 font-bold mb-2">Ready to learn?</h4>
+            <p className="text-gray-500 text-sm mb-4">Make sure you never miss a class by enrolling in your upcoming semesters early.</p>
+            <button onClick={() => navigate('/dashboard/calendar')} className="text-indigo-600 font-semibold text-sm hover:underline">Start Enrolling →</button>
           </div>
-        </div>
-        <div className="upcoming right-box rounded-lg shadow h-[285.24px] flex-col justify-start items-start inline-flex bg-white my-[15px] ">
-          <div class="h-11 w-[100%] px-3 py-3 border-b border-gray-200 justify-between items-center inline-flex">
-            <div class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-              Upcoming Classes
-            </div>
-            <div class="text-blue-600 text-sm font-medium font-['Inter'] leading-none">
-              View all
-            </div>
+        </motion.div>
+
+        {/* Alerts Box */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900">Notifications</h3>
+            <span onClick={() => navigate('/dashboard/settings')} className="text-indigo-600 text-sm font-medium cursor-pointer hover:underline">Settings</span>
           </div>
-          <div className="content self-stretch h-[217.24px] px-4 py-5 pb-1  flex-col justify-start items-center flex">
-            <div className="image mt-3">
-              <img
-                src={enrolling}
-                alt="enrolling"
-                className="w-[100px] h-[65.20px]"
-              />
-            </div>
-            <div class="h-10 pt-5 flex-col justify-start items-center inline-flex">
-              <h2 class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-                Start Enrolling Classes
-              </h2>
-            </div>
-            <div class="h-[52px] pt-3 flex-col justify-start items-center inline-flex">
-              <p class="self-stretch text-center text-gray-700 text-sm font-normal font-['Inter'] leading-tight">
-                Make sure that you never miss a class and are always notified
-                ahead of time.
-              </p>
-            </div>
-            <div className="h-9 pt-4 relative">
-              <Link
-                to="more"
-                className="text-center after:content-[''] after:absolute after:bottom-[-2px] after:h-[2px] after:w-[100%] after:left-0 after:bg-blue-600 text-blue-600 text-sm font-normal font-['Inter'] underline leading-tight"
-              >
-                Read more
-              </Link>
-            </div>
+          <div className="flex flex-col items-center text-center">
+            <img src={config} alt="config" className="w-24 h-auto mb-4" />
+            <h4 className="text-gray-900 font-bold mb-2">Configure your alerts</h4>
+            <p className="text-gray-500 text-sm mb-4">Be notified of important events in your class or school so you never miss a thing.</p>
+            <button onClick={() => navigate('/dashboard/settings')} className="text-indigo-600 font-semibold text-sm hover:underline">Setup Alerts →</button>
           </div>
-        </div>
-        <div className="alerts right-box rounded-lg shadow h-[285.24px] flex-col justify-start items-start inline-flex bg-white my-[15px] ">
-          <div class="h-11 w-[100%] px-3 py-3 border-b border-gray-200 justify-between items-center inline-flex">
-            <div class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-              Alerts
-            </div>
-            <div class="text-blue-600 text-sm font-medium font-['Inter'] leading-none">
-              View all
-            </div>
-          </div>
-          <div className="content self-stretch h-[217.24px] px-4 py-5 pb-1  flex-col justify-start items-center flex">
-            <div className="image mt-3">
-              <img
-                src={config}
-                alt="config"
-                className="w-[100px] h-[65.20px]"
-              />
-            </div>
-            <div class="h-10 pt-5 flex-col justify-start items-center inline-flex">
-              <h2 class="text-gray-700 text-base font-medium font-['Inter'] leading-tight">
-                Configure your alerts
-              </h2>
-            </div>
-            <div class="h-[52px] pt-3 flex-col justify-start items-center inline-flex">
-              <p class="self-stretch text-center text-gray-700 text-sm font-normal font-['Inter'] leading-tight">
-                Be notified of important events in your class or school to
-                ensure you never miss a thing.
-              </p>
-            </div>
-            <div className="h-9 pt-4 relative">
-              <Link
-                to="more"
-                className="text-center after:content-[''] after:absolute after:bottom-[-2px] after:h-[2px] after:w-[100%] after:left-0 after:bg-blue-600 text-blue-600 text-sm font-normal font-['Inter'] underline leading-tight"
-              >
-                Read more
-              </Link>
-            </div>
-          </div>
-        </div>
+        </motion.div>
+
       </div>
     </div>
   );
