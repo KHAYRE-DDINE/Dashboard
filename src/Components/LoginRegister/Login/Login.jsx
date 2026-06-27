@@ -13,7 +13,7 @@ function Login() {
   const [codeClass, setCodeClass] = useState([]);
   const [isFull, setIsFull] = useState(false);
   const [getPassword, setGetPassword] = useState(false);
-  const { login, isCorrect, isPasswordCorrect } = useAuthContext();
+  const { login, isFound, isPasswordCorrect } = useAuthContext();
   const refInp = useRef();
 
   const [info, setInfo] = useState({
@@ -96,7 +96,7 @@ function Login() {
                     <BoxesCode
                       setCodeClass={setCodeClass}
                       setIsFull={setIsFull}
-                      isFound={isCorrect}
+                      isFound={isFound}
                       dataError="Error message."
                     />
                     <input

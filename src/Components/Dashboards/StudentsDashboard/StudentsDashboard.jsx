@@ -59,8 +59,8 @@ function StudentsDashboard() {
             <Route path="home" element={<Home />} />
             <Route path="courses" element={<Courses />}>
               <Route path="current learning" element={<Current />} />
-              <Route path="Archived" element={<Archived />} />
-              <Route path="Completed" element={<Completed />} />
+              <Route path="archived" element={<Archived />} />
+              <Route path="completed" element={<Completed />} />
             </Route>
             <Route path="classes" element={<Classes />} />
             <Route path="charts" element={<Charts />} />

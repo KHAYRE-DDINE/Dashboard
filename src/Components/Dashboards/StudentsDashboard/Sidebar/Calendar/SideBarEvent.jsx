@@ -3,6 +3,7 @@ import { FiX, FiCalendar, FiClock, FiType, FiAlignLeft } from "react-icons/fi";
 import moment from "moment";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { toast } from "react-toastify";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -23,26 +24,42 @@ function SideBarEvent({ addEvent, showAddEventSide, setShowAddEventSide }) {
     e.preventDefault();
 
     if (!Event.title || !Event.date || !Event.startTime || !Event.endTime) {
-      alert("Please fill in all required fields.");
+      toast.warning("Please fill in all required fields.");
+      return;
+    }
+
+    const selectedDate = moment(Event.date);
+
+    if (selectedDate.year() !== 2026) {
+      toast.warning("Please select a date in year 2026.");
+      return;
+    }
+
+    const start = selectedDate
+      .set({
+        hour: parseInt(Event.startTime.split(":")[0], 10),
+        minute: parseInt(Event.startTime.split(":")[1], 10),
+      })
+      .toDate();
+
+    const end = moment(Event.date)
+      .set({
+        hour: parseInt(Event.endTime.split(":")[0], 10),
+        minute: parseInt(Event.endTime.split(":")[1], 10),
+      })
+      .toDate();
+
+    if (end <= start) {
+      toast.warning("End time must be after start time.");
       return;
     }
 
     const newEvent = {
       title: Event.title,
-      start: moment(Event.date)
-        .set({
-          hour: parseInt(Event.startTime.split(":")[0]),
-          minute: parseInt(Event.startTime.split(":")[1]),
-        })
-        .toDate(),
-      end: moment(Event.date)
-        .set({
-          hour: parseInt(Event.endTime.split(":")[0]),
-          minute: parseInt(Event.endTime.split(":")[1]),
-        })
-        .toDate(),
+      start,
+      end,
       color: Event.colorTitle,
-      colorDescription: Event.description, // using this for description text
+      description: Event.description,
     };
 
     addEvent(newEvent);
@@ -72,7 +89,7 @@ function SideBarEvent({ addEvent, showAddEventSide, setShowAddEventSide }) {
       {/* Slide-out Panel */}
       <div
         className={cn(
-          "fixed top-0 bottom-0 right-0 w-full sm:w-[400px] bg-white shadow-2xl border-l border-gray-100 z-50 flex flex-col transition-transform duration-300 ease-in-out",
+          "fixed top-0 bottom-0 right-0 w-full sm:w-[500px] bg-white shadow-2xl border-l border-gray-100 z-[999999999] flex flex-col transition-transform duration-300 ease-in-out",
           showAddEventSide ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -135,6 +152,8 @@ function SideBarEvent({ addEvent, showAddEventSide, setShowAddEventSide }) {
                 id="date"
                 value={Event.date ? moment(Event.date).format("YYYY-MM-DD") : ""}
                 onChange={(e) => setEvent({ ...Event, date: new Date(e.target.value) })}
+                min="2026-01-01"
+                max="2026-12-31"
                 className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow shadow-sm text-gray-700"
                 required
               />

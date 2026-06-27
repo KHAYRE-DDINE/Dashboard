@@ -5,7 +5,7 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   TbSettings,
@@ -19,6 +19,8 @@ import {
   TbChevronRight,
 } from "react-icons/tb";
 import settings from "../../../images/settings.svg";
+import axios from "../../api/axios";
+import { toast } from "react-toastify";
 
 const quickLinks = [
   {
@@ -66,6 +68,56 @@ const quickLinks = [
 export default function DropDownSetting() {
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
+  const userId = useMemo(() => localStorage.getItem("user"), []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadAppearance = async () => {
+      if (!userId) return;
+
+      try {
+        const { data } = await axios.get(`/users/${userId}`);
+        const appearance = data?.preferences?.appearance;
+
+        if (isMounted) {
+          setDarkMode(appearance === "dark");
+        }
+      } catch (error) {
+        // Keep default mode if settings cannot be loaded.
+      }
+    };
+
+    loadAppearance();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userId]);
+
+  const handleToggleDarkMode = async () => {
+    const nextDarkMode = !darkMode;
+    setDarkMode(nextDarkMode);
+
+    if (!userId) {
+      return;
+    }
+
+    try {
+      const { data: user } = await axios.get(`/users/${userId}`);
+      const preferences = user?.preferences || {};
+
+      await axios.patch(`/users/${userId}`, {
+        preferences: {
+          ...preferences,
+          appearance: nextDarkMode ? "dark" : "light",
+        },
+      });
+    } catch (error) {
+      setDarkMode(!nextDarkMode);
+      toast.error("Could not update appearance setting.");
+    }
+  };
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -107,7 +159,7 @@ export default function DropDownSetting() {
               </span>
             </div>
             <button
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={handleToggleDarkMode}
               className={`relative w-10 h-5 rounded-full transition-colors duration-300 ${
                 darkMode ? "bg-indigo-500" : "bg-gray-200"
               }`}

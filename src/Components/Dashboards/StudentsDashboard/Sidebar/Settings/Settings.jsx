@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./Settings.css";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   TbUser,
   TbBell,
@@ -19,6 +21,7 @@ import {
   TbEyeOff,
 } from "react-icons/tb";
 import avatar from "../../../../../images/avatar.svg";
+import axios from "../../../../api/axios";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -67,6 +70,9 @@ function SectionCard({ title, icon, children, index }) {
 }
 
 function Settings() {
+  const navigate = useNavigate();
+  const userId = useMemo(() => localStorage.getItem("user"), []);
+
   const [profileData, setProfileData] = useState({
     firstName: "Ahmed",
     lastName: "Al Rashid",
@@ -86,9 +92,16 @@ function Settings() {
   });
 
   const [appearance, setAppearance] = useState("light");
+  const [passwords, setPasswords] = useState({
+    current: "",
+    next: "",
+    confirm: "",
+  });
   const [showCurrentPw, setShowCurrentPw] = useState(false);
   const [showNewPw, setShowNewPw] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [privacy, setPrivacy] = useState({
     profileVisible: true,
@@ -96,9 +109,162 @@ function Settings() {
     allowMessages: true,
   });
 
-  const handleSave = () => {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadSettings = async () => {
+      if (!userId) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const { data } = await axios.get(`/users/${userId}`);
+
+        if (!isMounted || !data) return;
+
+        const preferences = data.preferences || {};
+
+        setProfileData((prev) => ({
+          ...prev,
+          firstName: data.firstName || data["first name"] || prev.firstName,
+          lastName: data.lastName || data["last name"] || prev.lastName,
+          email: data.email || prev.email,
+          phone: data.phone || prev.phone,
+          bio: data.bio || prev.bio,
+          language: data.language || prev.language,
+        }));
+
+        setNotifications((prev) => ({
+          ...prev,
+          ...(preferences.notifications || {}),
+        }));
+
+        setAppearance(preferences.appearance || "light");
+
+        setPrivacy((prev) => ({
+          ...prev,
+          ...(preferences.privacy || {}),
+        }));
+      } catch (error) {
+        toast.error("Could not load your settings.");
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
+
+    loadSettings();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userId]);
+
+  const buildPayload = (includePassword = false) => {
+    const payload = {
+      email: profileData.email,
+      firstName: profileData.firstName,
+      lastName: profileData.lastName,
+      "first name": profileData.firstName,
+      "last name": profileData.lastName,
+      phone: profileData.phone,
+      bio: profileData.bio,
+      language: profileData.language,
+      preferences: {
+        notifications,
+        appearance,
+        privacy,
+      },
+    };
+
+    if (includePassword) {
+      payload.password = passwords.next;
+    }
+
+    return payload;
+  };
+
+  const handleSave = async () => {
+    if (!userId) {
+      toast.error("No active user session found. Please log in again.");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await axios.patch(`/users/${userId}`, buildPayload(false));
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+      toast.success("Settings saved successfully.");
+    } catch (error) {
+      toast.error("Could not save your settings.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handlePasswordUpdate = async () => {
+    if (!userId) {
+      toast.error("No active user session found. Please log in again.");
+      return;
+    }
+
+    if (!passwords.current || !passwords.next || !passwords.confirm) {
+      toast.warning("Please fill all password fields.");
+      return;
+    }
+
+    if (passwords.next.length < 8) {
+      toast.warning("New password must be at least 8 characters.");
+      return;
+    }
+
+    if (passwords.next !== passwords.confirm) {
+      toast.error("New password and confirmation do not match.");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const { data: user } = await axios.get(`/users/${userId}`);
+      if (user.password !== passwords.current) {
+        toast.error("Current password is incorrect.");
+        return;
+      }
+
+      await axios.patch(`/users/${userId}`, buildPayload(true));
+      setPasswords({ current: "", next: "", confirm: "" });
+      toast.success("Password updated successfully.");
+    } catch (error) {
+      toast.error("Could not update password.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!userId) {
+      toast.error("No active user session found. Please log in again.");
+      return;
+    }
+
+    const shouldDelete = window.confirm(
+      "This will permanently delete your account. Do you want to continue?"
+    );
+
+    if (!shouldDelete) return;
+
+    setSaving(true);
+    try {
+      await axios.delete(`/users/${userId}`);
+      localStorage.removeItem("user");
+      toast.success("Your account has been removed.");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Could not delete your account.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -119,6 +285,7 @@ function Settings() {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={handleSave}
+          disabled={saving || isLoading}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm ${
             saved
               ? "bg-emerald-500 text-white"
@@ -126,7 +293,7 @@ function Settings() {
           }`}
         >
           {saved ? <TbCheck size={16} /> : null}
-          {saved ? "Saved!" : "Save Changes"}
+          {isLoading ? "Loading..." : saved ? "Saved!" : saving ? "Saving..." : "Save Changes"}
         </motion.button>
       </motion.div>
 
@@ -286,6 +453,10 @@ function Settings() {
               <input
                 type={showCurrentPw ? "text" : "password"}
                 placeholder="Enter current password"
+                value={passwords.current}
+                onChange={(e) =>
+                  setPasswords((prev) => ({ ...prev, current: e.target.value }))
+                }
                 className="w-full pl-9 pr-10 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all"
               />
               <button
@@ -307,6 +478,10 @@ function Settings() {
               <input
                 type={showNewPw ? "text" : "password"}
                 placeholder="Enter new password"
+                value={passwords.next}
+                onChange={(e) =>
+                  setPasswords((prev) => ({ ...prev, next: e.target.value }))
+                }
                 className="w-full pl-9 pr-10 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all"
               />
               <button
@@ -328,11 +503,19 @@ function Settings() {
               <input
                 type="password"
                 placeholder="Confirm new password"
+                value={passwords.confirm}
+                onChange={(e) =>
+                  setPasswords((prev) => ({ ...prev, confirm: e.target.value }))
+                }
                 className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-50 transition-all"
               />
             </div>
           </div>
-          <button className="mt-2 px-5 py-2.5 bg-gray-800 text-white text-sm rounded-xl font-medium hover:bg-gray-900 transition-colors">
+          <button
+            onClick={handlePasswordUpdate}
+            disabled={saving || isLoading}
+            className="mt-2 px-5 py-2.5 bg-gray-800 text-white text-sm rounded-xl font-medium hover:bg-gray-900 transition-colors disabled:opacity-60"
+          >
             Update Password
           </button>
         </div>
@@ -362,7 +545,11 @@ function Settings() {
           <p className="text-xs font-semibold text-red-500 uppercase tracking-wide mb-3">
             Danger Zone
           </p>
-          <button className="text-sm text-red-500 border border-red-200 px-4 py-2 rounded-xl hover:bg-red-50 transition-colors">
+          <button
+            onClick={handleDeleteAccount}
+            disabled={saving || isLoading}
+            className="text-sm text-red-500 border border-red-200 px-4 py-2 rounded-xl hover:bg-red-50 transition-colors disabled:opacity-60"
+          >
             Delete Account
           </button>
         </div>

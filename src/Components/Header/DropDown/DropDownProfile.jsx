@@ -5,6 +5,7 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   TbUser,
@@ -18,6 +19,7 @@ import {
 } from "react-icons/tb";
 import avatar from "../../../images/avatar.svg";
 import useAuthContext from "../../authentication/AuthContext";
+import axios from "../../api/axios";
 
 const menuItems = [
   {
@@ -57,6 +59,41 @@ const menuItems = [
 export default function DropDownProfile() {
   const { logout } = useAuthContext();
   const navigate = useNavigate();
+  const userId = useMemo(() => localStorage.getItem("user"), []);
+  const [userInfo, setUserInfo] = useState({
+    fullName: "Ahmed Al Rashid",
+    email: "ahmed.rashid@alrihla.com",
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadUserInfo = async () => {
+      if (!userId) return;
+
+      try {
+        const { data } = await axios.get(`/users/${userId}`);
+        if (!isMounted || !data) return;
+
+        const firstName = data.firstName || data["first name"] || "";
+        const lastName = data.lastName || data["last name"] || "";
+        const fullName = `${firstName} ${lastName}`.trim() || "Student";
+
+        setUserInfo({
+          fullName,
+          email: data.email || "student@example.com",
+        });
+      } catch (error) {
+        // Keep fallback values when profile data cannot be loaded.
+      }
+    };
+
+    loadUserInfo();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userId]);
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -95,10 +132,10 @@ export default function DropDownProfile() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-gray-900 text-sm truncate">
-                  Ahmed Al Rashid
+                  {userInfo.fullName}
                 </p>
                 <p className="text-xs text-gray-500 truncate">
-                  ahmed.rashid@alrihla.com
+                  {userInfo.email}
                 </p>
                 <div className="flex items-center gap-1 mt-1">
                   <TbStar size={11} className="text-amber-400" />

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { clsx } from "clsx";
@@ -18,6 +18,7 @@ import { CiBadgeDollar } from "react-icons/ci";
 import icon from "../../../../../images/logo.svg";
 import mainLogo from "../../../../../images/logo2.svg";
 import avatar from "../../../../../images/avatar.svg";
+import useAuthContext from "../../../../authentication/AuthContext";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -35,8 +36,16 @@ const activityData = [
 
 function Home() {
   const navigate = useNavigate();
+  const { currentUser } = useAuthContext();
   const [days, setDays] = useState([]);
   const [today, setToday] = useState("");
+
+  const firstName =
+    currentUser?.firstName || currentUser?.["first name"] || "Student";
+  const fullName =
+    `${currentUser?.firstName || currentUser?.["first name"] || ""} ${
+      currentUser?.lastName || currentUser?.["last name"] || ""
+    }`.trim() || "Student";
 
   const stats = [
     { label: "Active Courses", value: "12", icon: FiBook, color: "text-blue-600", bg: "bg-blue-100" },
@@ -98,7 +107,7 @@ function Home() {
           
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Welcome back, Khalid! 👋</h1>
+              <h1 className="text-3xl font-bold mb-2">Welcome back, {firstName}! 👋</h1>
               <p className="text-indigo-100 text-lg">You've learned for 5 hours this week. Keep it up!</p>
             </div>
             <button onClick={() => navigate('/dashboard/courses')} className="px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 transition-colors shadow-sm">
@@ -211,7 +220,7 @@ function Home() {
         >
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-r from-blue-100 to-indigo-100"></div>
           <img src={avatar} alt="Profile" className="w-20 h-20 rounded-full border-4 border-white shadow-sm z-10 mt-6 bg-white" />
-          <h2 className="text-lg font-bold text-gray-900 mt-3">Khalid Al Walid</h2>
+          <h2 className="text-lg font-bold text-gray-900 mt-3">{fullName}</h2>
           <p className="text-gray-500 text-sm font-medium">7th Grade Scholar</p>
           
           <div className="flex justify-center gap-2 mt-4 w-full pt-4 border-t border-gray-100">
