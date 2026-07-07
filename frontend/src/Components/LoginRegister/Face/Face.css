@@ -1,0 +1,43 @@
+.face {
+    background-color: #2D2C53;
+    min-height: 100vh;
+}
+
+
+.face .logo img {
+    width: 316px;
+    margin: auto;
+}
+
+.face .info :is(h1, p) {
+    color: #FFFFFF;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.face .info h1 {
+    font-family: Source Serif Pro;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 39.6px;
+    text-align: center;
+}
+
+.face .info {
+    margin-top: -100px;
+}
+
+.face .info p {
+    letter-spacing: 1px;
+    margin-top: 16px;
+    font-family: Noto sans;
+    font-size: 16px;
+    /* font-weight: 400; */
+    line-height: 28px;
+}
+
+@media (max-width : 768px) {
+    .face {
+        display: none;
+    }
+}

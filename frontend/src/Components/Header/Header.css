@@ -1,0 +1,58 @@
+header {
+    height: 56px;
+}
+
+header .box-lang {
+    width: 88px;
+}
+
+header .box-lang select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    text-align: center;
+}
+
+header .search-input {
+    margin-right: 22px;
+    width: 478.91px;
+    height: 56px;
+    gap: 0px;
+    justify-content: end;
+    align-items: center;
+}
+
+header .search-input input {
+    border: 1px solid;
+    padding: 8px 19px 7px 36px;
+    outline: none;
+    height: 42px;
+    width: 266.91px;
+    height: 32px;
+    border-radius: 5.82px;
+}
+
+header .search-input img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 234px;
+}
+
+header .logo {
+    width: 300px;
+}
+
+header .logo h2 {
+    height: 18.18px;
+    gap: 6px;
+    opacity: 0px;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+}
+
+header .logo h2 img {}

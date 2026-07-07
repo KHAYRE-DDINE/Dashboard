@@ -1,0 +1,153 @@
+.login {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.login .wrapper {
+    margin: 0 auto;
+    Width: 435px;
+}
+
+.login .form {
+    padding: 29px 35px 0;
+    margin: 0 auto;
+}
+
+.login .form span.or {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    color: var(--second-color);
+    opacity: .6;
+    font-weight: 400;
+}
+
+.login .form span::after,
+.login .form span::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    width: 45%;
+    height: 2px;
+    background-color: #ecedf2;
+}
+
+.login .form span::after {
+    right: 0;
+}
+
+.login .form span::before {
+    left: 0;
+}
+
+.inputs fieldset {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    border: 0;
+    position: relative;
+    /* width: 367px; */
+}
+
+.inputs fieldset label {
+    position: relative;
+}
+
+.inputs fieldset label a {
+    position: absolute;
+    right: 0;
+    color: var(--link-color);
+    font-size: 15px;
+}
+
+.inputs fieldset label b {
+    color: var(--required-color);
+    font-weight: 800;
+}
+
+.inputs fieldset input {
+    outline: none;
+    width: 367px;
+    height: 44px;
+    border-radius: 7px;
+    padding: 0 0 0 12px;
+    border: 1px solid #adabab7d;
+    margin: 3px 0 13px;
+    Padding: 10px 12px 10px 12px;
+}
+
+.inputs fieldset.email.error::after {
+    content: attr(data-error);
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    color: var(--required-color);
+    font-size: 12px;
+    bottom: -7px;
+}
+
+.inputs fieldset.email.error input,
+.login .form .get.error .password input {
+    border-color: var(--required-color);
+    background-color: var(--error-background);
+}
+
+.inputs fieldset.email.error ::placeholder {
+    color: var(--required-color);
+}
+
+.inputs input[type="submit"] {
+    color: #3B4A7866;
+    background-color: #ecedf2;
+    border: navajowhite;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 10px;
+    height: 40px;
+    width: 366px;
+    font-family: noto sans;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.inputs input[type="submit"].blue {
+    background-color: var(--link-color);
+    color: #ffff;
+}
+
+.login .form p {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: .8;
+}
+
+.login .form p a {
+    color: var(--link-color);
+}
+
+@media(max-width: 640px) {
+    .login .wrapper {
+        Width: max-content !important;
+        margin: 0 !important;
+    }
+
+    .login .form {
+        padding: 29px 0 0 !important;
+        width: 300px !important;
+        margin: 0 37px !important;
+    }
+
+    .login input {
+        width: 300px !important;
+    }
+
+    .login input[type="submit"] {
+        width: 300px !important;
+    }
+
+}
+
+@media (min-width: 640px) and (max-width : 768px) {}

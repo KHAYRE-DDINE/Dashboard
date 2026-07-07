@@ -1,0 +1,17 @@
+.settings-page {
+  font-family: 'Inter', 'Noto Sans', sans-serif;
+}
+
+.settings-card {
+  transition: box-shadow 0.2s;
+}
+
+.settings-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}

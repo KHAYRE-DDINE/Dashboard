@@ -1,0 +1,162 @@
+.wrapper {
+    width: 435px;
+}
+
+.register {
+    padding: 30px;
+}
+
+.face-register {
+    height: 100vh !important;
+}
+
+.register .title {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 42.8px;
+    color: var(--second-color);
+    font-family: Source Serif Pro;
+}
+
+.register :is(p, .birth span) {
+    font-family: Noto Sans;
+    font-weight: 400;
+    line-height: 19.6px;
+    font-size: 15px;
+    margin: 14px 0 6px;
+    display: block;
+    opacity: .8;
+}
+
+.register .signer {
+    border: 1px solid var(--link-color);
+    width: 368.3px;
+    height: 44px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.register .signer .btn {
+    width: 122px;
+    height: 100%;
+    padding: 10px 16px 10px 16px;
+    color: var(--link-color);
+    border: none;
+    background: white;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-weight: 500;
+    font-family: Noto Sans;
+    font-size: 14px;
+    line-height: 19.6px;
+}
+
+.register .signer .btn.clicked {
+    background-color: var(--link-color);
+    color: white;
+}
+
+.register .birth span {
+    margin-top: 20px;
+}
+
+.register .birth form {
+    display: flex;
+    gap: 8px;
+}
+
+.register .birth form .select {
+    position: relative;
+}
+
+.register .birth form select {
+    text-transform: capitalize;
+    color: var(--second-color);
+    width: 117px;
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid #CCD2E6;
+    Padding: 10px 12px 10px 12px;
+    outline: none;
+    font-weight: 600;
+    font-size: 14px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    font-family: Noto Sans;
+    line-height: 19.6px;
+}
+
+.register .birth form .select img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .7;
+    right: 12px;
+}
+
+.register.english .birth form .select:after {
+    right: 10px;
+}
+
+.register.arabic .birth form .select:after {
+    left: 10px;
+}
+
+.register .birth form select.error {
+    border-color: var(--required-color);
+    background-color: var(--error-background);
+}
+
+.register .birth form select.error::placeholder {
+    color: var(--required-color);
+}
+
+.register .links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 31px;
+    /* margin-top: 50px; */
+    margin-top: 20px;
+}
+
+.register .links a {
+    color: var(--link-color);
+}
+
+.Rg .face {
+    height: 100vh;
+}
+
+@media(max-width: 640px) {
+
+    .signer {
+        width: 299px !important;
+        margin: auto;
+    }
+
+    .signer .btn {
+        width: 99px !important;
+    }
+
+    .register :is(p, .birth span) {
+        width: 300px;
+        margin: 14px auto 6px;
+    }
+
+    .register .title {
+        width: 300px;
+        margin: auto;
+    }
+
+    .register .birth form {
+        width: 300px;
+        margin: auto;
+    }
+
+    .register .birth form select {
+        width: 95px;
+    }
+}

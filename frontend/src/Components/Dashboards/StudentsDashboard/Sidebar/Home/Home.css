@@ -1,0 +1,8 @@
+/* Home.css is intentionally left minimal as styles are handled by Tailwind CSS in the new design system */
+.recharts-wrapper {
+  outline: none !important;
+}
+
+.recharts-tooltip-cursor {
+  fill: #F3F4F6 !important;
+}
