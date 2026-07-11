@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdashboard=self.webpackChunkdashboard||[]).push([[919],{7919:(e,s,a)=>{a.d(s,{A:()=>d});a(5043);const d=a.p+"static/media/pngegg (22).007e37d6dec2af12e799ee451610f5be.svg"}}]);
+//# sourceMappingURL=919.805c804c.chunk.js.map
