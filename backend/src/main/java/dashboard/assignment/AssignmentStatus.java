@@ -1,4 +1,8 @@
 package dashboard.assignment;
 
-public class AssignmentStatus {
+public enum AssignmentStatus {
+    PENDING,
+    IN_PROGRESS,
+    COMPLETED,
+    OVERDUE
 }

@@ -1,4 +1,4 @@
 package dashboard.assignment.dto;
 
-public class SubmitAssignmentRequest {
+public record SubmitAssignmentRequest() {
 }
