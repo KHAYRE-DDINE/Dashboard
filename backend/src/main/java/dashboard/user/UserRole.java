@@ -1,4 +1,6 @@
 package dashboard.user;
 
-public class UserRole {
+public enum UserRole {
+    student,
+    teacher
 }

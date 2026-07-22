@@ -3,8 +3,9 @@ package dashboard.assignment;
 import dashboard.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -12,8 +13,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "submission")
-
+@Table(name = "submissions")
+@Getter
+@Setter
 public class Submission {
 
     @Id
@@ -22,7 +24,7 @@ public class Submission {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "assignment_id")
-    private String assignment;
+    private Assignment assignment;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User student;
