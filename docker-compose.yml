@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dashboard-mysql
+    environment:
+      MYSQL_DATABASE: dashboard_db
+      MYSQL_USER: dashboard
+      MYSQL_PASSWORD: dash_123
+      MYSQL_ROOT_PASSWORD: root_123
+    ports:
+      - "3307:3306"
+    volumes:
+      - dashboard-mysql-data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: dashboard-backend
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dashboard_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: dashboard
+      SPRING_DATASOURCE_PASSWORD: dash_123
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+volumes:
+  dashboard-mysql-data:

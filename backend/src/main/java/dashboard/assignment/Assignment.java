@@ -20,7 +20,6 @@ import java.util.UUID;
 @Table(name = "assignments")
 
 public class Assignment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -33,7 +32,7 @@ public class Assignment {
     private String title;
 
     @Column(nullable = false, length = 500)
-    private String images;
+    private String image;
 
     @Column(length = 455)
     private String description;
@@ -59,7 +58,7 @@ public class Assignment {
 
 
     @PrePersist
-    void onCreate(){
+    void onCreate() {
         Instant now = Instant.now();
         createdAt = now;
         updateAt = now;
@@ -68,7 +67,7 @@ public class Assignment {
     }
 
     @PreUpdate
-    void onUpdate(){
+    void onUpdate() {
         updateAt = Instant.now();
     }
 }

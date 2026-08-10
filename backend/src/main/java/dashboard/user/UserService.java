@@ -1,14 +1,10 @@
 package dashboard.user;
 
 
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,23 +18,23 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAll(){
-       return userRepository.findAll();
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
-    public User getById(@PathVariable UUID id){
+    public User getById(@PathVariable UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id" + id));
     }
 
-    public ResponseEntity<User> addUser( User user){
+    public ResponseEntity<User> addUser(User user) {
         return ResponseEntity.ok(userRepository.save(user));
     }
 
-    public ResponseEntity<User> updateUser( UUID id , User user){
+    public ResponseEntity<User> updateUser(UUID id, User user) {
         Optional<User> existingUser = userRepository.findById(id);
 
-        if(!existingUser.isPresent()){
+        if (!existingUser.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 

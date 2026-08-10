@@ -47,12 +47,14 @@ public class User {
     private Instant updateAt;
 
     @PrePersist
-    void onCreate(){
+    void onCreate() {
+
         createAt = Instant.now();
+        updateAt = Instant.now();
     }
 
     @PreUpdate
-    void onUpdate(){
+    void onUpdate() {
         updateAt = Instant.now();
     }
 }

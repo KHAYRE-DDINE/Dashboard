@@ -16,14 +16,14 @@ public record UpdateAssignmentRequest(
         Date deadline
 ) {
 
-    public static UpdateAssignmentRequest from(Assignment updatedAssignment){
+    public static UpdateAssignmentRequest from(Assignment updatedAssignment) {
         return new UpdateAssignmentRequest(
                 updatedAssignment.getTitle(),
+                updatedAssignment.getImage(),
                 updatedAssignment.getDescription(),
-                updatedAssignment.getImages(),
-                updatedAssignment.getLearningContent(),
-                updatedAssignment.getStatus(),
                 updatedAssignment.getTeacherName(),
+                updatedAssignment.getStatus(),
+                updatedAssignment.getLearningContent(),
                 updatedAssignment.getDeadline()
         );
     }
