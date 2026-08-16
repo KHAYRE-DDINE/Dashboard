@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: Dashboard-1
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npx serve -s build
