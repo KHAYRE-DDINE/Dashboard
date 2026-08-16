@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./Settings.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,9 @@ import {
   TbEye,
   TbEyeOff,
 } from "react-icons/tb";
-import avatar from "../../../../../images/avatar.svg";
+import defaultAvatar from "../../../../../images/avatar.svg";
 import axios from "../../../../api/axios";
+import useAuthContext from "../../../../authentication/AuthContext";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -71,7 +72,9 @@ function SectionCard({ title, icon, children, index }) {
 
 function Settings() {
   const navigate = useNavigate();
+  const { currentUser, updateCurrentUser } = useAuthContext();
   const userId = useMemo(() => localStorage.getItem("user"), []);
+  const avatarFileRef = useRef(null);
 
   const [profileData, setProfileData] = useState({
     firstName: "Ahmed",
@@ -160,6 +163,27 @@ function Settings() {
     };
   }, [userId]);
 
+  const handleAvatarSelect = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image size should be less than 5MB");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      try {
+        await updateCurrentUser({ avatar: reader.result });
+        toast.success("Profile photo updated successfully!");
+      } catch (error) {
+        toast.error("Could not update profile photo.");
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const buildPayload = (includePassword = false) => {
     const payload = {
       email: profileData.email,
@@ -192,7 +216,7 @@ function Settings() {
 
     setSaving(true);
     try {
-      await axios.patch(`/users/${userId}`, buildPayload(false));
+      await updateCurrentUser(buildPayload(false));
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
       toast.success("Settings saved successfully.");
@@ -299,23 +323,37 @@ function Settings() {
 
       {/* Profile Section */}
       <SectionCard title="Profile Information" icon={<TbUser size={17} />} index={0}>
+        <input
+          type="file"
+          ref={avatarFileRef}
+          onChange={handleAvatarSelect}
+          accept="image/*"
+          className="hidden"
+        />
         <div className="flex items-start gap-6 mb-6">
-          <div className="relative flex-shrink-0">
+          <div className="relative flex-shrink-0 cursor-pointer" onClick={() => avatarFileRef.current?.click()}>
             <img
-              src={avatar}
+              src={currentUser?.avatar || defaultAvatar}
               alt="Avatar"
               className="w-20 h-20 rounded-2xl object-cover border-2 border-gray-100"
             />
-            <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center shadow-md hover:bg-blue-600 transition-colors">
+            <button 
+              onClick={() => avatarFileRef.current?.click()} 
+              className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center shadow-md hover:bg-blue-600 transition-colors"
+            >
               <TbCamera size={15} />
             </button>
           </div>
           <div>
             <p className="font-semibold text-gray-800">Profile Photo</p>
             <p className="text-xs text-gray-400 mt-1 mb-3">
-              JPG, PNG or GIF. Max 2MB
+              JPG, PNG or GIF. Max 5MB
             </p>
-            <button className="text-xs text-blue-500 border border-blue-200 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors">
+            <button 
+              type="button"
+              onClick={() => avatarFileRef.current?.click()} 
+              className="text-xs text-blue-500 border border-blue-200 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors"
+            >
               Upload new photo
             </button>
           </div>

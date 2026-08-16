@@ -37,6 +37,8 @@ const Classes = lazy(() => import("./Sidebar/Classes/Classes"));
 const Courses = lazy(() => import("./Sidebar/Courses/Courses"));
 const Home = lazy(() => import("./Sidebar/Home/Home"));
 
+const CourseDetail = lazy(() => import("./Sidebar/Courses/CourseDetail/CourseDetail"));
+
 export const userContext = createContext(null);
 
 function StudentsDashboard() {
@@ -57,6 +59,7 @@ function StudentsDashboard() {
           <Routes>
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
+            <Route path="courses/details/:id" element={<CourseDetail />} />
             <Route path="courses" element={<Courses />}>
               <Route path="current learning" element={<Current />} />
               <Route path="archived" element={<Archived />} />

@@ -3,26 +3,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiSend, FiChevronDown, FiChevronUp, FiBookOpen } from "react-icons/fi";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { toast } from "react-toastify";
 
-import avatar from "../../../../../../images/avatar.svg";
+import defaultAvatar from "../../../../../../images/avatar.svg";
 import avatar14 from "../../../../../../images/pngegg (14).svg";
 import avatar16 from "../../../../../../images/pngegg (16).svg";
 import avatar19 from "../../../../../../images/pngegg (19).svg";
+import useAuthContext from "../../../../../authentication/AuthContext";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
 function Learning() {
-  const [openIds, setOpenIds] = useState([1]); // First item open by default
+  const { currentUser } = useAuthContext();
+  const userName = `${currentUser?.firstName || currentUser?.["first name"] || "Student"} ${
+    currentUser?.lastName || currentUser?.["last name"] || ""
+  }`.trim();
+  const userAvatar = currentUser?.avatar || defaultAvatar;
 
-  const toggleUpdate = (id) => {
-    setOpenIds(prev => 
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-    );
-  };
+  const [openIds, setOpenIds] = useState([1]);
+  const [postInput, setPostInput] = useState("");
+  const [replyInputs, setReplyInputs] = useState({});
 
-  const updates = [
+  const [updates, setUpdates] = useState([
     {
       id: 1,
       title: "How to solve Question 4 on the worksheet?",
@@ -57,7 +61,62 @@ function Learning() {
         }
       ]
     }
-  ];
+  ]);
+
+  const toggleUpdate = (id) => {
+    setOpenIds(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  const handlePostUpdate = (e) => {
+    e?.preventDefault();
+    if (!postInput.trim()) {
+      toast.warning("Please enter a question or tip before posting.");
+      return;
+    }
+
+    const newUpdate = {
+      id: Date.now(),
+      title: postInput.trim().slice(0, 60) + (postInput.length > 60 ? "..." : ""),
+      author: userName,
+      time: "Just now",
+      authorAvatar: userAvatar,
+      content: postInput.trim(),
+      replies: []
+    };
+
+    setUpdates((prev) => [newUpdate, ...prev]);
+    setOpenIds((prev) => [...prev, newUpdate.id]);
+    setPostInput("");
+    toast.success("Learning update posted!");
+  };
+
+  const handleSendReply = (updateId, e) => {
+    e?.preventDefault();
+    const text = replyInputs[updateId]?.trim();
+    if (!text) {
+      toast.warning("Please type a reply first.");
+      return;
+    }
+
+    const newReply = {
+      id: Date.now(),
+      name: userName,
+      time: "Just now",
+      text,
+      avatar: userAvatar
+    };
+
+    setUpdates((prev) =>
+      prev.map((up) =>
+        up.id === updateId ? { ...up, replies: [...up.replies, newReply] } : up
+      )
+    );
+
+    setReplyInputs((prev) => ({ ...prev, [updateId]: "" }));
+    toast.success("Reply posted!");
+  };
 
   return (
     <div className="flex flex-col gap-6 max-w-4xl py-6">
@@ -74,17 +133,19 @@ function Learning() {
       </div>
 
       {/* Input Form */}
-      <div className="flex gap-4 items-center bg-white p-4 rounded-2xl border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
-        <img src={avatar} alt="avatar" className="w-10 h-10 rounded-full border border-gray-100 shadow-sm" />
+      <form onSubmit={handlePostUpdate} className="flex gap-4 items-center bg-white p-4 rounded-2xl border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+        <img src={userAvatar} alt="avatar" className="w-10 h-10 rounded-full border border-gray-100 shadow-sm object-cover" />
         <input
           type="text"
+          value={postInput}
+          onChange={(e) => setPostInput(e.target.value)}
           className="flex-1 bg-transparent border-none text-sm focus:outline-none text-gray-800"
           placeholder="Share a learning tip or ask for help..."
         />
-        <button className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm">
+        <button type="submit" className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm">
           Post <FiSend size={16} />
         </button>
-      </div>
+      </form>
 
       {/* Updates List */}
       <div className="flex flex-col gap-4">
@@ -103,7 +164,7 @@ function Learning() {
                 className="p-5 flex gap-4 cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => toggleUpdate(update.id)}
               >
-                <img src={update.authorAvatar} alt="avatar" className="w-10 h-10 rounded-full shadow-sm border border-white" />
+                <img src={update.authorAvatar} alt="avatar" className="w-10 h-10 rounded-full shadow-sm border border-white object-cover" />
                 <div className="flex-1">
                   <h4 className="text-base font-bold text-gray-900 leading-snug">{update.title}</h4>
                   <div className="flex items-center gap-2 mt-1">
@@ -126,7 +187,7 @@ function Learning() {
                     transition={{ duration: 0.3 }}
                     className="border-t border-gray-100 bg-gray-50/50"
                   >
-                    <div className="p-5 pl-19"> {/* pl-19 to align with text above */}
+                    <div className="p-5 sm:pl-19">
                       <p className="text-gray-700 text-sm leading-relaxed bg-white p-4 rounded-xl border border-gray-100 shadow-sm mb-4">
                         {update.content}
                       </p>
@@ -135,7 +196,7 @@ function Learning() {
                       <div className="flex flex-col gap-4 pl-4 border-l-2 border-indigo-100">
                         {update.replies.map(reply => (
                           <div key={reply.id} className="flex gap-3 items-start">
-                            <img src={reply.avatar} alt="avatar" className="w-8 h-8 rounded-full shadow-sm" />
+                            <img src={reply.avatar} alt="avatar" className="w-8 h-8 rounded-full shadow-sm object-cover" />
                             <div className="flex-1 bg-white p-3 rounded-xl rounded-tl-sm border border-gray-100 shadow-sm">
                               <div className="flex justify-between items-center mb-1">
                                 <span className="font-bold text-gray-900 text-xs">{reply.name}</span>
@@ -146,15 +207,20 @@ function Learning() {
                           </div>
                         ))}
                         
-                        {/* Reply Input */}
-                        <div className="flex gap-3 mt-2 items-center">
-                          <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full shadow-sm" />
+                        {/* Reply Input Form */}
+                        <form onSubmit={(e) => handleSendReply(update.id, e)} className="flex gap-3 mt-2 items-center">
+                          <img src={userAvatar} alt="avatar" className="w-8 h-8 rounded-full shadow-sm object-cover" />
                           <input 
                             type="text" 
+                            value={replyInputs[update.id] || ""}
+                            onChange={(e) => setReplyInputs({ ...replyInputs, [update.id]: e.target.value })}
                             className="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500"
                             placeholder="Write a reply..."
                           />
-                        </div>
+                          <button type="submit" className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
+                            Reply
+                          </button>
+                        </form>
                       </div>
                     </div>
                   </motion.div>

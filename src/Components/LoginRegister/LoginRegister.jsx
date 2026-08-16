@@ -15,13 +15,8 @@ function LoginRegister() {
     toast("Password is : 123456789 !");
   };
 
-  const secondNotify = () => {
-    toast("Dashboard still under development");
-  };
-
   useEffect(() => {
     firstNotify();
-    secondNotify();
   }, []);
 
   return (

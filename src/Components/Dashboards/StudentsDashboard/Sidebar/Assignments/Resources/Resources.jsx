@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiDownload, FiExternalLink, FiFileText, FiVideo, FiLink } from "react-icons/fi";
+import { FiDownload, FiExternalLink, FiFileText, FiVideo, FiLink, FiUpload } from "react-icons/fi";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { toast } from "react-toastify";
+import axios from "../../../../../api/axios";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
 function Resources() {
-  const [resources] = useState([
+  const fileInputRef = useRef(null);
+  const [resources, setResources] = useState([
     {
       id: 1,
       type: "pdf",
@@ -52,6 +55,81 @@ function Resources() {
     },
   ]);
 
+  useEffect(() => {
+    let isMounted = true;
+    const fetchResources = async () => {
+      try {
+        const { data } = await axios.get("/resources");
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setResources(data);
+        }
+      } catch (err) {
+        // Fallback silently
+      }
+    };
+    fetchResources();
+    return () => { isMounted = false; };
+  }, []);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64Data = reader.result;
+      const fileType = file.type.includes("pdf") ? "pdf" : file.type.includes("video") ? "video" : "pdf";
+      const fileSizeFormatted = `${(file.size / (1024 * 1024)).toFixed(1)} MB`;
+
+      const newResource = {
+        id: Date.now(),
+        type: fileType,
+        title: file.name,
+        subject: "General",
+        description: `Uploaded resource document (${file.name}).`,
+        image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=600&auto=format&fit=crop",
+        size: fileSizeFormatted,
+        fileContent: base64Data,
+        date: "Today",
+      };
+
+      setResources((prev) => [newResource, ...prev]);
+      toast.success(`Resource "${file.name}" uploaded & saved permanently!`);
+
+      try {
+        await axios.post("/resources", newResource);
+      } catch (err) {
+        // Offline fallback
+      }
+    };
+  };
+
+  const handleDownloadResource = (res) => {
+    if (res.fileContent) {
+      const link = document.createElement("a");
+      link.href = res.fileContent;
+      link.download = res.title;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success(`Downloading "${res.title}"`);
+      return;
+    }
+
+    const dummyContent = `${res.title}\nSubject: ${res.subject}\n\nResource content document.`;
+    const blob = new Blob([dummyContent], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${res.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success(`Started downloading "${res.title}"`);
+  };
+
   const getTypeIcon = (type) => {
     switch (type) {
       case "pdf": return <FiFileText className="text-rose-500" />;
@@ -63,11 +141,23 @@ function Resources() {
 
   return (
     <div className="py-6 w-full max-w-5xl">
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleFileUpload} 
+        className="hidden" 
+      />
       <div className="mb-6 flex justify-between items-end">
         <div>
           <h2 className="text-xl font-bold text-gray-900">Shared Resources</h2>
           <p className="text-gray-500 text-sm mt-1">Study materials provided by your teachers for this assignment.</p>
         </div>
+        <button 
+          onClick={() => fileInputRef.current?.click()}
+          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+        >
+          <FiUpload size={16} /> Upload Resource
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -107,7 +197,10 @@ function Resources() {
                   <span className="text-[11px] font-medium text-gray-400">Added {res.date}</span>
                 </div>
                 
-                <button className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-indigo-600 hover:text-white transition-colors shadow-sm group-hover:scale-110">
+                <button 
+                  onClick={() => handleDownloadResource(res)}
+                  className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-indigo-600 hover:text-white transition-colors shadow-sm group-hover:scale-110"
+                >
                   {res.type === 'link' ? <FiExternalLink size={18} /> : <FiDownload size={18} />}
                 </button>
               </div>

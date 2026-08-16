@@ -39,6 +39,7 @@ function Home() {
   const { currentUser } = useAuthContext();
   const [days, setDays] = useState([]);
   const [today, setToday] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const firstName =
     currentUser?.firstName || currentUser?.["first name"] || "Student";
@@ -55,17 +56,19 @@ function Home() {
   ];
 
   const recentCourses = [
-    { title: "Algebra 101", progress: 75, color: "bg-blue-500", icon: "📐" },
-    { title: "Physics Basics", progress: 40, color: "bg-indigo-500", icon: "⚛️" },
-    { title: "Arabic Lit", progress: 90, color: "bg-emerald-500", icon: "📚" },
-    { title: "Intro to JS", progress: 15, color: "bg-amber-500", icon: "💻" },
+    { id: 1, title: "Algebra 101", progress: 75, color: "bg-blue-500", icon: "📐" },
+    { id: 2, title: "Physics Basics", progress: 40, color: "bg-indigo-500", icon: "⚛️" },
+    { id: 3, title: "Arabic Lit", progress: 90, color: "bg-emerald-500", icon: "📚" },
+    { id: 4, title: "Intro to JS", progress: 15, color: "bg-amber-500", icon: "💻" },
   ];
 
-  const tests = [
-    { subject: "Mathematics", topic: "Linear Equations", date: "Jul 20", time: "10:00 AM", color: "border-blue-500" },
-    { subject: "Physics", topic: "Kinematics", date: "Jul 22", time: "02:00 PM", color: "border-indigo-500" },
-    { subject: "Arabic", topic: "Grammar Rules", date: "Jul 25", time: "09:00 AM", color: "border-emerald-500" },
-  ];
+  const testsByDate = {
+    default: [
+      { subject: "Mathematics", topic: "Linear Equations", date: "Jul 20", time: "10:00 AM", color: "border-blue-500" },
+      { subject: "Physics", topic: "Kinematics", date: "Jul 22", time: "02:00 PM", color: "border-indigo-500" },
+      { subject: "Arabic", topic: "Grammar Rules", date: "Jul 25", time: "09:00 AM", color: "border-emerald-500" },
+    ]
+  };
 
   useEffect(() => {
     const getFourDays = () => {
@@ -79,16 +82,25 @@ function Home() {
         daysArray.push(`${day} ${month}`);
       }
       setDays(daysArray);
+      if (daysArray.length > 0) {
+        setSelectedDate(daysArray[0]);
+      }
     };
     const getTodayDate = () => {
       const day = new Date().getDate();
       const month = new Date().getMonth();
       const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      setToday(day + " " + shortMonths[month]);
+      const formattedToday = day + " " + shortMonths[month];
+      setToday(formattedToday);
     };
     getTodayDate();
     getFourDays();
   }, []);
+
+  const activeTests = testsByDate[selectedDate] || [
+    { subject: "Chemistry", topic: "Atomic Structure", date: selectedDate || "Today", time: "11:00 AM", color: "border-purple-500" },
+    { subject: "Computer Science", topic: "Algorithms Quiz", date: selectedDate || "Today", time: "03:30 PM", color: "border-blue-500" },
+  ];
 
   return (
     <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto">
@@ -110,7 +122,7 @@ function Home() {
               <h1 className="text-3xl font-bold mb-2">Welcome back, {firstName}! 👋</h1>
               <p className="text-indigo-100 text-lg">You've learned for 5 hours this week. Keep it up!</p>
             </div>
-            <button onClick={() => navigate('/dashboard/courses')} className="px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 transition-colors shadow-sm">
+            <button onClick={() => navigate('/dashboard/courses/current%20learning')} className="px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 transition-colors shadow-sm">
               Resume Learning
             </button>
           </div>
@@ -186,11 +198,15 @@ function Home() {
           >
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-lg font-bold text-gray-900">Recent Courses</h3>
-              <button onClick={() => navigate('/dashboard/courses')} className="text-indigo-600 text-sm font-medium hover:underline">View All</button>
+              <button onClick={() => navigate('/dashboard/courses/current%20learning')} className="text-indigo-600 text-sm font-medium hover:underline">View All</button>
             </div>
             <div className="flex flex-col gap-5">
               {recentCourses.map((course, idx) => (
-                <div key={idx} className="flex items-center gap-4 group cursor-pointer">
+                <div 
+                  key={idx} 
+                  onClick={() => navigate('/dashboard/courses/current%20learning')} 
+                  className="flex items-center gap-4 group cursor-pointer p-2 rounded-xl hover:bg-gray-50 transition-colors"
+                >
                   <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-xl text-white shadow-sm group-hover:scale-105 transition-transform", course.color)}>
                     {course.icon}
                   </div>
@@ -219,9 +235,13 @@ function Home() {
           className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-r from-blue-100 to-indigo-100"></div>
-          <img src={avatar} alt="Profile" className="w-20 h-20 rounded-full border-4 border-white shadow-sm z-10 mt-6 bg-white" />
+          <img 
+            src={currentUser?.avatar || avatar} 
+            alt="Profile" 
+            className="w-20 h-20 rounded-full border-4 border-white shadow-sm z-10 mt-6 bg-white object-cover" 
+          />
           <h2 className="text-lg font-bold text-gray-900 mt-3">{fullName}</h2>
-          <p className="text-gray-500 text-sm font-medium">7th Grade Scholar</p>
+          <p className="text-gray-500 text-sm font-medium">{currentUser?.title || "7th Grade Scholar • Software Enthusiast"}</p>
           
           <div className="flex justify-center gap-2 mt-4 w-full pt-4 border-t border-gray-100">
             {[1, 2, 3, 4, 5].map((badge) => (
@@ -232,7 +252,7 @@ function Home() {
           </div>
         </motion.div>
 
-        {/* Mini Calendar */}
+        {/* Mini Calendar Schedule */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -245,13 +265,16 @@ function Home() {
           </div>
           <div className="flex justify-between items-center">
             {days.map((day, index) => {
-              const isToday = today === day;
+              const isSelected = selectedDate === day;
               return (
                 <div
                   key={index}
+                  onClick={() => setSelectedDate(day)}
                   className={cn(
-                    "flex flex-col items-center justify-center w-12 h-14 rounded-xl cursor-pointer transition-colors",
-                    isToday ? "bg-indigo-600 text-white shadow-md" : "hover:bg-gray-50 text-gray-600"
+                    "flex flex-col items-center justify-center w-12 h-14 rounded-xl cursor-pointer transition-all",
+                    isSelected 
+                      ? "bg-indigo-600 text-white shadow-md scale-105" 
+                      : "hover:bg-gray-100 text-gray-600 bg-gray-50"
                   )}
                 >
                   <span className="text-xs font-medium">{day.split(" ")[1]}</span>
@@ -262,7 +285,7 @@ function Home() {
           </div>
         </motion.div>
 
-        {/* Upcoming Tests */}
+        {/* Upcoming Tests for Selected Schedule Date */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -270,14 +293,17 @@ function Home() {
           className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex-1"
         >
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-gray-900">Upcoming Tests</h3>
+            <div>
+              <h3 className="text-lg font-bold text-gray-900">Upcoming Tests</h3>
+              <p className="text-xs text-indigo-600 font-semibold mt-0.5">Selected: {selectedDate}</p>
+            </div>
             <button onClick={() => navigate('/dashboard/calendar')} className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors">
               <FiBell size={14} />
             </button>
           </div>
           
           <div className="flex flex-col gap-4">
-            {tests.map((test, idx) => (
+            {activeTests.map((test, idx) => (
               <div key={idx} className={cn("p-4 rounded-xl bg-gray-50 border-l-4", test.color)}>
                 <h4 className="font-bold text-gray-900 text-sm">{test.subject}</h4>
                 <p className="text-xs font-medium text-gray-500 mt-1">{test.topic}</p>
