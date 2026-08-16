@@ -17,7 +17,7 @@ function Login() {
   const refInp = useRef();
 
   const [info, setInfo] = useState({
-    email: "khirdin@email.com",
+    email: "ahrarkhirdin@gmail.com",
   });
 
   const whileWriting = (event) => {

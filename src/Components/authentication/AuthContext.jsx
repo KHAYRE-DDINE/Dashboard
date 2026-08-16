@@ -76,7 +76,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const fetchedUsers = await getUser();
 
-      const matchedUser = fetchedUsers && fetchedUsers.find((user) => user.email === data.email);
+      const targetEmail = data.email?.toLowerCase().trim();
+      const matchedUser = fetchedUsers && fetchedUsers.find(
+        (user) => user.email?.toLowerCase().trim() === targetEmail
+      );
 
       if (!matchedUser) {
         setIsFound(false);
