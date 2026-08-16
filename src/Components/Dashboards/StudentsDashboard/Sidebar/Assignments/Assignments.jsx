@@ -1,34 +1,120 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link, Outlet, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { FiSearch, FiFilter, FiMoreHorizontal, FiCalendar, FiClock, FiX } from "react-icons/fi";
-
+import { FiSearch, FiFilter, FiMoreHorizontal, FiCalendar, FiClock, FiX, FiPlus, FiTrash2, FiCheckCircle } from "react-icons/fi";
+import { toast } from "react-toastify";
 import avatar from "../../../../../images/avatar.svg";
-import mainLogo from "../../../../../images/logo2.svg";
-import enrolling from "../../../../../images/enrolling.svg";
 import config from "../../../../../images/config.svg";
+import axios from "../../../../api/axios";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+const initialAssignments = [
+  { id: 1, title: "Mathematics", subject: "Algebra Unit 1", status: "pending", date: "Aug 20", time: "23:10", teacher: avatar, color: "bg-blue-100 text-blue-700" },
+  { id: 2, title: "Arabic", subject: "Grammar Rules", status: "completed", date: "Aug 18", time: "14:00", teacher: avatar, color: "bg-emerald-100 text-emerald-700" },
+  { id: 3, title: "Programming", subject: "Intro to JS", status: "overdue", date: "Aug 15", time: "23:59", teacher: avatar, color: "bg-red-100 text-red-700" },
+  { id: 4, title: "Physics", subject: "Kinematics", status: "pending", date: "Aug 22", time: "10:30", teacher: avatar, color: "bg-indigo-100 text-indigo-700" },
+];
+
 function Assignments() {
   const [activeTab, setActiveTab] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [openDrawerId, setOpenDrawerId] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  const [newTitle, setNewTitle] = useState("");
+  const [newSubject, setNewSubject] = useState("");
+  const [newDate, setNewDate] = useState("Aug 25");
+  const [newTime, setNewTime] = useState("23:59");
+  const [newStatus, setNewStatus] = useState("pending");
+
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [move, setMove] = useState(["about", "resources", "learnings"]);
+  const [assignmentsData, setAssignmentsData] = useState(initialAssignments);
 
-  const assignmentsData = [
-    { id: 1, title: "Mathematics", subject: "Algebra Unit 1", status: "pending", date: "Aug 20", time: "23:10", teacher: avatar, color: "bg-blue-100 text-blue-700" },
-    { id: 2, title: "Arabic", subject: "Grammar Rules", status: "completed", date: "Aug 18", time: "14:00", teacher: avatar, color: "bg-emerald-100 text-emerald-700" },
-    { id: 3, title: "Programming", subject: "Intro to JS", status: "overdue", date: "Aug 15", time: "23:59", teacher: avatar, color: "bg-red-100 text-red-700" },
-    { id: 4, title: "Physics", subject: "Kinematics", status: "pending", date: "Aug 22", time: "10:30", teacher: avatar, color: "bg-indigo-100 text-indigo-700" },
-  ];
+  useEffect(() => {
+    let isMounted = true;
+    const fetchAssignments = async () => {
+      try {
+        const { data } = await axios.get("/assignments");
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setAssignmentsData(data.map(a => ({
+            ...a,
+            teacher: avatar
+          })));
+        }
+      } catch (err) {
+        // Fallback silently
+      }
+    };
+    fetchAssignments();
+    return () => { isMounted = false; };
+  }, []);
+
+  const handleAddAssignment = async (e) => {
+    e.preventDefault();
+    if (!newTitle.trim() || !newSubject.trim()) {
+      toast.warning("Title and subject are required.");
+      return;
+    }
+
+    const newObj = {
+      id: Date.now(),
+      title: newTitle.trim(),
+      subject: newSubject.trim(),
+      status: newStatus,
+      date: newDate,
+      time: newTime,
+      teacher: avatar,
+      color: newStatus === 'completed' ? "bg-emerald-100 text-emerald-700" : "bg-indigo-100 text-indigo-700"
+    };
+
+    setAssignmentsData(prev => [newObj, ...prev]);
+    setShowAddModal(false);
+    setNewTitle("");
+    setNewSubject("");
+    toast.success(`Assignment "${newObj.title}" created successfully!`);
+
+    try {
+      await axios.post("/assignments", newObj);
+    } catch (e) {
+      // Offline fallback
+    }
+  };
+
+  const handleDeleteAssignment = async (assignId, e) => {
+    e.stopPropagation();
+    setAssignmentsData(prev => prev.filter(a => a.id !== assignId));
+    toast.info("Assignment removed.");
+
+    try {
+      await axios.delete(`/assignments/${assignId}`);
+    } catch (e) {
+      // Offline fallback
+    }
+  };
+
+  const handleToggleComplete = async (assignId, currentStatus, e) => {
+    e.stopPropagation();
+    const nextStatus = currentStatus === 'completed' ? 'pending' : 'completed';
+    const nextColor = nextStatus === 'completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700';
+
+    setAssignmentsData(prev => prev.map(a => a.id === assignId ? { ...a, status: nextStatus, color: nextColor } : a));
+    toast.success(`Assignment marked as ${nextStatus}!`);
+
+    try {
+      await axios.patch(`/assignments/${assignId}`, { status: nextStatus, color: nextColor });
+    } catch (e) {
+      // Offline fallback
+    }
+  };
 
   const getStatusBadge = (status) => {
     switch (status) {
@@ -48,6 +134,13 @@ function Assignments() {
     setOpenDrawerId(null);
     navigate("");
   };
+
+  const filteredAssignments = assignmentsData.filter(a => {
+    const matchesTab = activeTab === 'all' || a.status === activeTab;
+    const matchesSearch = a.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          a.subject.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesTab && matchesSearch;
+  });
 
   return (
     <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto overflow-hidden relative">
@@ -70,12 +163,17 @@ function Assignments() {
               <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input 
                 type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search assignments..." 
                 className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm w-full sm:w-64"
               />
             </div>
-            <button className="p-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 shadow-sm transition-colors">
-              <FiFilter size={18} />
+            <button 
+              onClick={() => setShowAddModal(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+            >
+              <FiPlus size={16} /> Create Assignment
             </button>
           </div>
         </div>
@@ -115,7 +213,7 @@ function Assignments() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {assignmentsData.filter(a => activeTab === 'all' || a.status === activeTab).map((item, idx) => (
+                {filteredAssignments.map((item) => (
                   <tr 
                     key={item.id} 
                     onClick={() => openDrawer(item.id)}
@@ -145,18 +243,31 @@ function Assignments() {
                       <img src={item.teacher} alt="teacher" className="w-8 h-8 rounded-full border-2 border-white shadow-sm" />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <button className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
-                        <FiMoreHorizontal size={20} />
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button 
+                          onClick={(e) => handleToggleComplete(item.id, item.status, e)}
+                          title="Toggle Complete"
+                          className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                        >
+                          <FiCheckCircle size={18} />
+                        </button>
+                        <button 
+                          onClick={(e) => handleDeleteAssignment(item.id, e)}
+                          title="Delete Assignment"
+                          className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                        >
+                          <FiTrash2 size={18} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
             
-            {assignmentsData.filter(a => activeTab === 'all' || a.status === activeTab).length === 0 && (
+            {filteredAssignments.length === 0 && (
               <div className="p-8 text-center text-gray-500 font-medium">
-                No assignments found for this filter.
+                No assignments found.
               </div>
             )}
           </div>
@@ -268,6 +379,105 @@ function Assignments() {
             onClick={closeDrawer}
             className="fixed inset-0 bg-gray-900/20 backdrop-blur-sm z-40 sm:hidden"
           />
+        )}
+      </AnimatePresence>
+
+      {/* Create Assignment Modal */}
+      <AnimatePresence>
+        {showAddModal && (
+          <div className="fixed inset-0 z-[99999999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 relative"
+            >
+              <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900">Create Assignment</h3>
+                <button onClick={() => setShowAddModal(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <FiX size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={handleAddAssignment} className="flex flex-col gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Subject</label>
+                  <input 
+                    type="text" 
+                    required 
+                    value={newTitle} 
+                    onChange={(e) => setNewTitle(e.target.value)} 
+                    placeholder="e.g. Mathematics" 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Assignment Title</label>
+                  <input 
+                    type="text" 
+                    required 
+                    value={newSubject} 
+                    onChange={(e) => setNewSubject(e.target.value)} 
+                    placeholder="e.g. Algebra Unit 2 Quiz" 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Due Date</label>
+                    <input 
+                      type="text" 
+                      value={newDate} 
+                      onChange={(e) => setNewDate(e.target.value)} 
+                      placeholder="Aug 25" 
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Due Time</label>
+                    <input 
+                      type="text" 
+                      value={newTime} 
+                      onChange={(e) => setNewTime(e.target.value)} 
+                      placeholder="23:59" 
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Initial Status</label>
+                  <select 
+                    value={newStatus} 
+                    onChange={(e) => setNewStatus(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="overdue">Overdue</option>
+                  </select>
+                </div>
+
+                <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-gray-100">
+                  <button 
+                    type="button" 
+                    onClick={() => setShowAddModal(false)} 
+                    className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-200 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors shadow-sm"
+                  >
+                    Save Assignment
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 

@@ -95,14 +95,6 @@ function Dashboard() {
     },
   ];
 
-  const secondNotify = () => {
-    toast("Dashboard still under development");
-  };
-
-  useEffect(() => {
-    secondNotify();
-  }, []);
-
   return (
     <div className="dashboard min-h-screen overflow-x-hidden bg-[#F8FAFF]">
       <Header setSidebarWidth={setSidebarWidth} sidebarWidth={sidebarWidth} />

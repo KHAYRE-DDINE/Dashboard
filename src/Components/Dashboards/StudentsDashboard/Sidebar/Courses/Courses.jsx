@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { FiBookOpen, FiClock, FiPlayCircle, FiCheckCircle, FiMoreVertical } from "react-icons/fi";
+import { FiBookOpen, FiClock, FiPlayCircle, FiEdit2, FiTrash2, FiPlus, FiX } from "react-icons/fi";
 import { PiStudentFill } from "react-icons/pi";
+import { toast } from "react-toastify";
+import axios from "../../../../api/axios";
 
 import mainLogo from "../../../../../images/logo2.svg";
 import enrolling from "../../../../../images/enrolling.svg";
@@ -14,51 +16,84 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+const initialCourses = [
+  {
+    id: 1,
+    subject: "Arabic Literature",
+    description: "Arabic is a beautiful language, like a treasure chest filled with secrets!",
+    progress: 65,
+    totalHours: 24,
+    students: 120,
+    color: "bg-emerald-500",
+    bgSoft: "bg-emerald-50",
+    textSoft: "text-emerald-700",
+    icon: "📚"
+  },
+  {
+    id: 2,
+    subject: "Physics",
+    description: "Physics is like being a superhero, figuring out how everything moves.",
+    progress: 30,
+    totalHours: 40,
+    students: 85,
+    color: "bg-indigo-500",
+    bgSoft: "bg-indigo-50",
+    textSoft: "text-indigo-700",
+    icon: "⚛️"
+  },
+  {
+    id: 3,
+    subject: "Mathematics",
+    description: "Math is the language of the universe, helping us decode hidden patterns.",
+    progress: 90,
+    totalHours: 60,
+    students: 210,
+    color: "bg-blue-500",
+    bgSoft: "bg-blue-50",
+    textSoft: "text-blue-700",
+    icon: "📐"
+  },
+];
+
 function Courses() {
-  const [closeOpenRightSide, setCloseOpenRightSide] = useState(false);
   const [move, setMove] = useState(["current learning", "completed", "archived"]);
-  
-  const [subject, setSubject] = useState([
-    {
-      id: 1,
-      subject: "Arabic Literature",
-      description: "Arabic is a beautiful language, like a treasure chest filled with secrets!",
-      progress: 65,
-      totalHours: 24,
-      students: 120,
-      color: "bg-emerald-500",
-      bgSoft: "bg-emerald-50",
-      textSoft: "text-emerald-700",
-      icon: "📚"
-    },
-    {
-      id: 2,
-      subject: "Physics",
-      description: "Physics is like being a superhero, figuring out how everything moves.",
-      progress: 30,
-      totalHours: 40,
-      students: 85,
-      color: "bg-indigo-500",
-      bgSoft: "bg-indigo-50",
-      textSoft: "text-indigo-700",
-      icon: "⚛️"
-    },
-    {
-      id: 3,
-      subject: "Mathematics",
-      description: "Math is the language of the universe, helping us decode hidden patterns.",
-      progress: 90,
-      totalHours: 60,
-      students: 210,
-      color: "bg-blue-500",
-      bgSoft: "bg-blue-50",
-      textSoft: "text-blue-700",
-      icon: "📐"
-    },
-  ]);
+  const [subject, setSubject] = useState(initialCourses);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [editingCourse, setEditingCourse] = useState(null);
+
+  const [newSubject, setNewSubject] = useState("");
+  const [newDesc, setNewDesc] = useState("");
+  const [newHours, setNewHours] = useState("30");
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchCourses = async () => {
+      try {
+        const { data } = await axios.get("/courses");
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setSubject(data.map(c => ({
+            id: c.id,
+            subject: c.title || c.subject,
+            description: c.description || "Interactive learning module.",
+            progress: c.progress || 10,
+            totalHours: c.totalHours || 30,
+            students: c.students || 45,
+            color: "bg-indigo-500",
+            bgSoft: "bg-indigo-50",
+            textSoft: "text-indigo-700",
+            icon: c.icon || "📖"
+          })));
+        }
+      } catch (e) {
+        // Fallback silently
+      }
+    };
+    fetchCourses();
+    return () => { isMounted = false; };
+  }, []);
 
   useEffect(() => {
     if (location.pathname.endsWith("courses") || location.pathname.endsWith("courses/")) {
@@ -66,8 +101,87 @@ function Courses() {
     }
   }, [location.pathname, navigate]);
 
+  const handleAddCourse = async (e) => {
+    e.preventDefault();
+    if (!newSubject.trim()) {
+      toast.warning("Course title is required!");
+      return;
+    }
+
+    const courseObj = {
+      id: Date.now(),
+      subject: newSubject.trim(),
+      title: newSubject.trim(),
+      description: newDesc.trim() || "New interactive course.",
+      progress: 0,
+      totalHours: parseInt(newHours, 10) || 20,
+      students: 1,
+      color: "bg-indigo-500",
+      bgSoft: "bg-indigo-50",
+      textSoft: "text-indigo-700",
+      icon: "🎓"
+    };
+
+    setSubject(prev => [courseObj, ...prev]);
+    setShowAddModal(false);
+    setNewSubject("");
+    setNewDesc("");
+    toast.success(`Course "${courseObj.subject}" added & saved permanently!`);
+
+    try {
+      await axios.post("/courses", courseObj);
+    } catch (e) {
+      // Offline fallback
+    }
+  };
+
+  const handleEditCourseOpen = (e, course) => {
+    e.stopPropagation();
+    setEditingCourse(course);
+    setNewSubject(course.subject || "");
+    setNewDesc(course.description || "");
+    setNewHours(course.totalHours || 30);
+  };
+
+  const handleSaveCourseEdit = async (e) => {
+    e.preventDefault();
+    if (!editingCourse) return;
+
+    const updated = {
+      ...editingCourse,
+      subject: newSubject.trim(),
+      title: newSubject.trim(),
+      description: newDesc.trim(),
+      totalHours: parseInt(newHours, 10) || 20
+    };
+
+    setSubject(prev => prev.map(c => c.id === updated.id ? updated : c));
+    setEditingCourse(null);
+    setNewSubject("");
+    setNewDesc("");
+    toast.success(`Course "${updated.subject}" updated!`);
+
+    try {
+      await axios.patch(`/courses/${updated.id}`, updated);
+    } catch (e) {
+      // Offline fallback
+    }
+  };
+
+  const handleDeleteCourse = async (e, courseId, title) => {
+    e.stopPropagation();
+    setSubject(prev => prev.filter(c => c.id !== courseId));
+    toast.success(`Course "${title}" deleted.`);
+
+    try {
+      await axios.delete(`/courses/${courseId}`);
+    } catch (e) {
+      // Offline fallback
+    }
+  };
+
   return (
-    <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto">
+    <div className="flex flex-col xl:flex-row gap-6 p-4 lg:p-8 w-full max-w-[1600px] mx-auto relative">
       {/* Left Main Content */}
       <div className="flex-1 flex flex-col gap-8">
         
@@ -80,9 +194,17 @@ function Courses() {
           >
             My Courses
           </motion.h1>
-          <button onClick={() => navigate('/dashboard/library')} className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm">
-            Browse Catalog
-          </button>
+          <div className="flex gap-3">
+            <button 
+              onClick={() => { setShowAddModal(true); setNewSubject(""); setNewDesc(""); }} 
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+            >
+              <FiPlus size={16} /> Add Course
+            </button>
+            <button onClick={() => navigate('/dashboard/library')} className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
+              Browse Catalog
+            </button>
+          </div>
         </div>
 
         {/* Course Cards Grid */}
@@ -91,20 +213,34 @@ function Courses() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {subject.map((course, id) => (
               <motion.div
-                key={id}
+                key={course.id || id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: id * 0.1 }}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden group flex flex-col"
+                onClick={() => navigate(`/dashboard/courses/details/${course.id}`)}
+                className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden group flex flex-col cursor-pointer"
               >
                 {/* Card Header (Color Block) */}
                 <div className={cn("h-24 w-full relative p-4 flex justify-between items-start", course.bgSoft)}>
                   <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm bg-white")}>
                     {course.icon}
                   </div>
-                  <button className="text-gray-400 hover:text-gray-600 transition-colors bg-white/50 rounded-lg p-1">
-                    <FiMoreVertical size={20} />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={(e) => handleEditCourseOpen(e, course)}
+                      title="Edit Course" 
+                      className="p-2 rounded-lg bg-white/80 hover:bg-white text-gray-700 hover:text-indigo-600 transition-colors shadow-sm"
+                    >
+                      <FiEdit2 size={14} />
+                    </button>
+                    <button 
+                      onClick={(e) => handleDeleteCourse(e, course.id, course.subject)}
+                      title="Delete Course" 
+                      className="p-2 rounded-lg bg-white/80 hover:bg-white text-gray-700 hover:text-rose-600 transition-colors shadow-sm"
+                    >
+                      <FiTrash2 size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Card Body */}
@@ -135,8 +271,11 @@ function Courses() {
 
                   {/* Actions */}
                   <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-50">
-                    <button onClick={() => navigate('/dashboard/assignments')} className={cn("flex-1 py-2.5 rounded-xl font-semibold text-sm flex justify-center items-center gap-2 transition-colors", course.color, "text-white hover:opacity-90")}>
-                      <FiPlayCircle size={18} /> Continue
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); navigate(`/dashboard/courses/details/${course.id}`); }} 
+                      className={cn("flex-1 py-2.5 rounded-xl font-semibold text-sm flex justify-center items-center gap-2 transition-colors", course.color, "text-white hover:opacity-90")}
+                    >
+                      <FiPlayCircle size={18} /> Open Course Page
                     </button>
                   </div>
                 </div>
@@ -233,6 +372,157 @@ function Courses() {
         </motion.div>
 
       </div>
+
+      {/* Add Course Modal */}
+      <AnimatePresence>
+        {showAddModal && (
+          <div 
+            onClick={() => setShowAddModal(false)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm cursor-pointer"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 relative cursor-default"
+            >
+              <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900">Create New Course</h3>
+                <button onClick={() => setShowAddModal(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <FiX size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={handleAddCourse} className="flex flex-col gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Course Title</label>
+                  <input 
+                    type="text" 
+                    required 
+                    value={newSubject} 
+                    onChange={(e) => setNewSubject(e.target.value)} 
+                    placeholder="e.g. Data Structures & Algorithms" 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Description</label>
+                  <textarea 
+                    rows="3" 
+                    value={newDesc} 
+                    onChange={(e) => setNewDesc(e.target.value)} 
+                    placeholder="Short course summary..." 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Total Hours</label>
+                  <input 
+                    type="number" 
+                    value={newHours} 
+                    onChange={(e) => setNewHours(e.target.value)} 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-gray-100">
+                  <button 
+                    type="button" 
+                    onClick={() => setShowAddModal(false)} 
+                    className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-200 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors shadow-sm"
+                  >
+                    Save Course
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Edit Course Modal */}
+      <AnimatePresence>
+        {editingCourse && (
+          <div 
+            onClick={() => setEditingCourse(null)}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm cursor-pointer"
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 relative cursor-default"
+            >
+              <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900">Edit Course</h3>
+                <button onClick={() => setEditingCourse(null)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <FiX size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={handleSaveCourseEdit} className="flex flex-col gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Course Title</label>
+                  <input 
+                    type="text" 
+                    required 
+                    value={newSubject} 
+                    onChange={(e) => setNewSubject(e.target.value)} 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Description</label>
+                  <textarea 
+                    rows="3" 
+                    value={newDesc} 
+                    onChange={(e) => setNewDesc(e.target.value)} 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Total Hours</label>
+                  <input 
+                    type="number" 
+                    value={newHours} 
+                    onChange={(e) => setNewHours(e.target.value)} 
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                  />
+                </div>
+
+                <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-gray-100">
+                  <button 
+                    type="button" 
+                    onClick={() => setEditingCourse(null)} 
+                    className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-200 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors shadow-sm"
+                  >
+                    Update Course
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

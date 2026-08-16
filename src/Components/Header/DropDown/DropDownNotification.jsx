@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Menu,
   MenuButton,
@@ -19,53 +19,42 @@ import {
 } from "react-icons/tb";
 import avatar from "../../../images/avatar.svg";
 import notification from "../../../images/notification.svg";
+import axios from "../../api/axios";
 
 const initialNotifications = [
   {
     id: 1,
     type: "achievement",
     icon: <TbTrophy size={16} />,
-    iconColor: "text-amber-500",
     iconBg: "bg-amber-50",
-    title: "Congratulation Lettie 🎉",
-    body: "Won the monthly best seller gold badge",
-    time: "1h ago",
+    iconColor: "text-amber-500",
+    title: "New Assignment Posted",
+    body: "Mathematics teacher posted Algebra Unit 2 quiz.",
+    time: "10 mins ago",
     read: false,
-    avatar: avatar,
+    avatar: null,
   },
   {
     id: 2,
-    type: "connection",
-    icon: <TbUserCheck size={16} />,
-    iconColor: "text-emerald-500",
-    iconBg: "bg-emerald-50",
-    title: "Charles Franklin",
-    body: "Accepted your connection request",
-    time: "12h ago",
+    type: "alert",
+    icon: <TbAlertCircle size={16} />,
+    iconBg: "bg-red-50",
+    iconColor: "text-red-500",
+    title: "Class Reminder",
+    body: "Physics online class starts in 1 hour.",
+    time: "1h ago",
     read: false,
-    avatar: avatar,
+    avatar: null,
   },
   {
     id: 3,
     type: "message",
     icon: <TbMail size={16} />,
-    iconColor: "text-blue-500",
     iconBg: "bg-blue-50",
-    title: "New Message ✉️",
-    body: "You have a new message from Natalie",
-    time: "30min ago",
-    read: true,
-    avatar: avatar,
-  },
-  {
-    id: 4,
-    type: "alert",
-    icon: <TbAlertCircle size={16} />,
-    iconColor: "text-red-500",
-    iconBg: "bg-red-50",
-    title: "Assignment Due Soon",
-    body: "Math assignment is due in 2 hours",
-    time: "2h ago",
+    iconColor: "text-blue-500",
+    title: "Grade Published",
+    body: "Your score for Arabic Grammar test is published (A).",
+    time: "Yesterday",
     read: true,
     avatar: null,
   },
@@ -73,6 +62,36 @@ const initialNotifications = [
 
 export default function DropDownNotification() {
   const [notes, setNotes] = useState(initialNotifications);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await axios.get("/notifications");
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setNotes(
+            data.map((n) => ({
+              id: n.id,
+              type: "alert",
+              icon: <TbBell size={16} />,
+              iconBg: "bg-blue-50",
+              iconColor: "text-blue-500",
+              title: n.title || "Notification",
+              body: n.message || "",
+              time: n.time || "Just now",
+              read: Boolean(n.read),
+              avatar: null,
+            }))
+          );
+        }
+      } catch (err) {
+        // Fallback to initialNotifications silently
+      }
+    };
+    fetchNotifications();
+    return () => { isMounted = false; };
+  }, []);
+
   const unread = notes.filter((n) => !n.read).length;
 
   const markAllRead = () =>
