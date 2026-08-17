@@ -12,7 +12,7 @@ function LoginRegister() {
   const [id, setId] = useState(0);
 
   const firstNotify = () => {
-    toast("Password is : 123456789 !");
+    toast("Email: ahrarkhirdin@gmail.com | Password is : 123456 !");
   };
 
   useEffect(() => {
