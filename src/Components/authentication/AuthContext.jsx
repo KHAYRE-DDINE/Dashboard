@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [users, setUsers] = useState(undefined);
   const [isFound, setIsFound] = useState(true);
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSuccessed, setIsSuccessed] = useState(undefined);
   const [status, setStatus] = useState();
   const [token, setToken] = useState();
@@ -73,7 +74,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async ({ ...data }) => {
+    setIsLoading(true);
     try {
+      await new Promise((resolve) => setTimeout(resolve, 800)); // smooth visual spinner delay
       const fetchedUsers = await getUser();
 
       const targetEmail = data.email?.toLowerCase().trim();
@@ -115,12 +118,15 @@ export const AuthProvider = ({ children }) => {
       toast.error("Could not reach the server. Make sure json-server is running on port 3001.", {
         position: "top-center",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const register = async ({ ...data }) => {
-    // await csrf();
+    setIsLoading(true);
     try {
+      await new Promise((resolve) => setTimeout(resolve, 800));
       const payload = {
         ...data,
         id: data.id || crypto.randomUUID(),
@@ -148,6 +154,8 @@ export const AuthProvider = ({ children }) => {
       if (e?.response?.status === 422) {
         console.log(e);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -194,6 +202,7 @@ export const AuthProvider = ({ children }) => {
         updateUserPreferences,
         isPasswordCorrect,
         isFound,
+        isLoading,
       }}
     >
       {children}

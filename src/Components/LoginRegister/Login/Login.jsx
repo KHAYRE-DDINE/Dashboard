@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import TermsPrivacy from "../TermsPrivacy/TermsPrivacy";
 import BoxesCode from "../BoxesCode/BoxesCode";
 import LoginMethod from "../LoginMethod/LoginMethod";
+import { FiLoader } from "react-icons/fi";
 
 function Login() {
   const location = useLocation();
@@ -13,7 +14,7 @@ function Login() {
   const [codeClass, setCodeClass] = useState([]);
   const [isFull, setIsFull] = useState(false);
   const [getPassword, setGetPassword] = useState(false);
-  const { login, isFound, isPasswordCorrect } = useAuthContext();
+  const { login, isFound, isPasswordCorrect, isLoading } = useAuthContext();
   const refInp = useRef();
 
   const [info, setInfo] = useState({
@@ -99,18 +100,40 @@ function Login() {
                       isFound={isFound}
                       dataError="Error message."
                     />
-                    <input
+                    <button
                       type="submit"
-                      value="Login"
-                      className={info.email !== "" && isMatched ? "blue" : ""}
-                    />
+                      disabled={isLoading || info.email === "" || !isMatched}
+                      className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold transition-all ${
+                        info.email !== "" && isMatched ? "blue bg-indigo-600 text-white" : ""
+                      }`}
+                    >
+                      {isLoading ? (
+                        <>
+                          <FiLoader className="animate-spin text-lg" />
+                          <span>Logging in...</span>
+                        </>
+                      ) : (
+                        "Login"
+                      )}
+                    </button>
                   </fieldset>
                 ) : (
-                  <input
+                  <button
                     type="submit"
-                    value="Get Password"
-                    className={info.email !== "" && isMatched ? "blue" : ""}
-                  />
+                    disabled={isLoading || info.email === "" || !isMatched}
+                    className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold transition-all ${
+                      info.email !== "" && isMatched ? "blue bg-indigo-600 text-white" : ""
+                    }`}
+                  >
+                    {isLoading ? (
+                      <>
+                        <FiLoader className="animate-spin text-lg" />
+                        <span>Verifying...</span>
+                      </>
+                    ) : (
+                      "Get Password"
+                    )}
+                  </button>
                 )}
               </form>
             ) : (
@@ -156,20 +179,27 @@ function Login() {
                     </p>
                   )}
                 </fieldset>
-                <input
-                  className={
-                    info.email !== "" && info.password !== "" && isMatched
-                      ? "blue"
-                      : ""
-                  }
-                  disabled={
-                    info.email !== "" && info.password !== "" && isMatched
-                      ? false
-                      : true
-                  }
+                <button
                   type="submit"
-                  value="Log in"
-                />
+                  disabled={
+                    isLoading ||
+                    !(info.email !== "" && info.password !== "" && isMatched)
+                  }
+                  className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold transition-all ${
+                    info.email !== "" && info.password !== "" && isMatched
+                      ? "blue bg-indigo-600 text-white cursor-pointer"
+                      : "opacity-50 cursor-not-allowed"
+                  }`}
+                >
+                  {isLoading ? (
+                    <>
+                      <FiLoader className="animate-spin text-lg" />
+                      <span>Logging in...</span>
+                    </>
+                  ) : (
+                    "Log in"
+                  )}
+                </button>
               </form>
             )}
             <p>

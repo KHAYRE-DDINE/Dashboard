@@ -5,6 +5,7 @@ import useAuthContext from "../../authentication/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ValidationForm from "../ValidationForm/ValidationForm";
 import TermsPrivacy from "../TermsPrivacy/TermsPrivacy";
+import { FiLoader } from "react-icons/fi";
 
 function Steps() {
   const [values, setValues] = useState({
@@ -15,7 +16,7 @@ function Steps() {
     password: "",
   });
   const [error, setError] = useState({});
-  const { register } = useAuthContext();
+  const { register, isLoading } = useAuthContext();
 
   function handleValues(event) {
     const newValues = { ...values, [event.target.name]: event.target.value };
@@ -28,29 +29,6 @@ function Steps() {
     e.preventDefault();
     register(values);
   };
-
-  // const handleToken = (length) => {
-  //   // const crypto = require("crypto");
-
-  //   // // Generate a random 32-byte token and convert to hexadecimal string
-  //   // const token = crypto.randomBytes(32).toString("hex");
-  //   // console.log("Generated Token:", token);
-
-  //   let token = "";
-  //   const characters =
-  //     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  //   const charactersLength = characters.length;
-
-  //   for (let i = 0; i < length; i++) {
-  //     token += characters.charAt(Math.floor(Math.random() * charactersLength));
-  //   }
-
-  //   return setToken(token);
-  // };
-
-  // useEffect(() => {
-  //   handleToken(16);
-  // }, []);
 
   return (
     <div className="steps login stepsToSignUp">
@@ -107,30 +85,39 @@ function Steps() {
               onBlur={() => setError(() => ValidationForm(values))}
             />
           </fieldset>
-          <fieldset>
-            <button onClick={() => navigate(-1)}>back</button>
-            <input
+          <fieldset className="flex items-center gap-3">
+            <button type="button" onClick={() => navigate(-1)}>back</button>
+            <button
               type="submit"
-              className={
-                values["first name"] !== "" &&
-                values["last name"] !== "" &&
-                values.email !== "" &&
-                values.password !== "" &&
-                Object.keys(error).length === 0
-                  ? "blue"
-                  : ""
-              }
-              value="Sign up"
               disabled={
+                isLoading ||
+                !(
+                  values["first name"] !== "" &&
+                  values["last name"] !== "" &&
+                  values.email !== "" &&
+                  values.password !== "" &&
+                  Object.keys(error).length === 0
+                )
+              }
+              className={`flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-bold transition-all ${
                 values["first name"] !== "" &&
                 values["last name"] !== "" &&
                 values.email !== "" &&
                 values.password !== "" &&
                 Object.keys(error).length === 0
-                  ? false
-                  : true
-              }
-            />
+                  ? "blue bg-indigo-600 text-white cursor-pointer"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+            >
+              {isLoading ? (
+                <>
+                  <FiLoader className="animate-spin text-lg" />
+                  <span>Creating account...</span>
+                </>
+              ) : (
+                "Sign up"
+              )}
+            </button>
           </fieldset>
         </form>
         <TermsPrivacy info="By signing up" />
