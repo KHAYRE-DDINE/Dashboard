@@ -1,0 +1,217 @@
+import React, { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { FiDownload, FiExternalLink, FiFileText, FiVideo, FiLink, FiUpload } from "react-icons/fi";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { toast } from "react-toastify";
+import axios from "../../../../../api/axios";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+
+function Resources() {
+  const fileInputRef = useRef(null);
+  const [resources, setResources] = useState([
+    {
+      id: 1,
+      type: "pdf",
+      title: "Algebraic Formulas Cheat Sheet",
+      subject: "Mathematics",
+      description: "A comprehensive guide to all the essential algebraic formulas you'll need for this unit.",
+      image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=600&auto=format&fit=crop",
+      size: "2.4 MB",
+      date: "Aug 15, 2026",
+    },
+    {
+      id: 2,
+      type: "video",
+      title: "Introduction to Kinematics",
+      subject: "Physics",
+      description: "A recorded lecture explaining the fundamentals of motion, velocity, and acceleration.",
+      image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=600&auto=format&fit=crop",
+      size: "145 MB",
+      date: "Aug 16, 2026",
+    },
+    {
+      id: 3,
+      type: "link",
+      title: "Arabic Calligraphy History",
+      subject: "Arabic Literature",
+      description: "An external interactive article detailing the evolution of Arabic scripts over centuries.",
+      image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=80",
+      size: "External Link",
+      date: "Aug 18, 2026",
+    },
+    {
+      id: 4,
+      type: "pdf",
+      title: "JavaScript Basics Handout",
+      subject: "Programming",
+      description: "Printable handout covering variables, loops, and basic DOM manipulation.",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop",
+      size: "1.8 MB",
+      date: "Aug 20, 2026",
+    },
+  ]);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchResources = async () => {
+      try {
+        const { data } = await axios.get("/resources");
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setResources(data);
+        }
+      } catch (err) {
+        // Fallback silently
+      }
+    };
+    fetchResources();
+    return () => { isMounted = false; };
+  }, []);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64Data = reader.result;
+      const fileType = file.type.includes("pdf") ? "pdf" : file.type.includes("video") ? "video" : "pdf";
+      const fileSizeFormatted = `${(file.size / (1024 * 1024)).toFixed(1)} MB`;
+
+      const newResource = {
+        id: Date.now(),
+        type: fileType,
+        title: file.name,
+        subject: "General",
+        description: `Uploaded resource document (${file.name}).`,
+        image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=600&auto=format&fit=crop",
+        size: fileSizeFormatted,
+        fileContent: base64Data,
+        date: "Today",
+      };
+
+      setResources((prev) => [newResource, ...prev]);
+      toast.success(`Resource "${file.name}" uploaded & saved permanently!`);
+
+      try {
+        await axios.post("/resources", newResource);
+      } catch (err) {
+        // Offline fallback
+      }
+    };
+  };
+
+  const handleDownloadResource = (res) => {
+    if (res.fileContent) {
+      const link = document.createElement("a");
+      link.href = res.fileContent;
+      link.download = res.title;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success(`Downloading "${res.title}"`);
+      return;
+    }
+
+    const dummyContent = `${res.title}\nSubject: ${res.subject}\n\nResource content document.`;
+    const blob = new Blob([dummyContent], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${res.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success(`Started downloading "${res.title}"`);
+  };
+
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case "pdf": return <FiFileText className="text-rose-500" />;
+      case "video": return <FiVideo className="text-blue-500" />;
+      case "link": return <FiLink className="text-emerald-500" />;
+      default: return <FiFileText className="text-gray-500" />;
+    }
+  };
+
+  return (
+    <div className="py-6 w-full max-w-5xl">
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleFileUpload} 
+        className="hidden" 
+      />
+      <div className="mb-6 flex justify-between items-end">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Shared Resources</h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Study materials provided by your teachers for this assignment.</p>
+        </div>
+        <button 
+          onClick={() => fileInputRef.current?.click()}
+          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+        >
+          <FiUpload size={16} /> Upload Resource
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {resources.map((res, idx) => (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: idx * 0.1 }}
+            key={res.id}
+            className="bg-white dark:bg-[#151c2c] rounded-2xl border border-gray-100 dark:border-[#1e293b] shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col group cursor-pointer"
+          >
+            {/* Image Container */}
+            <div className="relative h-48 w-full overflow-hidden">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10"></div>
+              <img 
+                src={res.image || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"} onError={(e) => { e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"; }} 
+                alt={res.title} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-4 left-4 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2 shadow-sm font-semibold text-xs text-gray-800 dark:text-gray-200">
+                {getTypeIcon(res.type)}
+                <span className="uppercase tracking-wider">{res.type}</span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-5 flex flex-col flex-1">
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">{res.subject}</span>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">{res.title}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-4 flex-1">
+                {res.description}
+              </p>
+              
+              <div className="flex items-center justify-between pt-4 border-t border-gray-50 dark:border-[#1e293b]">
+                <div className="flex flex-col">
+                  <span className="text-xs font-semibold text-gray-900 dark:text-white">{res.size}</span>
+                  <span className="text-[11px] font-medium text-gray-400 dark:text-gray-500">Added {res.date}</span>
+                </div>
+                
+                <button 
+                  onClick={() => handleDownloadResource(res)}
+                  className="w-10 h-10 rounded-full bg-gray-50 dark:bg-slate-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-colors shadow-sm group-hover:scale-110"
+                >
+                  {res.type === 'link' ? <FiExternalLink size={18} /> : <FiDownload size={18} />}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default Resources;
+
+

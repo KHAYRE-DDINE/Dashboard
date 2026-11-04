@@ -1,0 +1,17 @@
+target/*
+!target/*.jar
+.git/
+.gitignore
+*.md
+.idea/
+*.iml
+.mvn/
+mvnw*
+
+# Exclude runtime secrets from Docker build contexts.
+.env
+.env.*
+!.env.example
+!.env.production.example
+*.pem
+*.key
