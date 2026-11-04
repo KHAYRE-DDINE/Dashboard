@@ -1,0 +1,350 @@
+{
+  "users": [
+    {
+      "id": "b3397b2d-daf5-4cec-864c-abd284807b82",
+      "email": "ahrarkhirdin@gmail.com",
+      "firstName": "Khayreddine",
+      "lastName": "Ahrar",
+      "first name": "Khayreddine",
+      "last name": "Ahrar",
+      "password": "123456",
+      "phone": "+212 637-625661",
+      "bio": "Full-Stack Software Engineer specializing in modern React web applications, scalable Node.js microservices, and high-performance UI systems.",
+      "location": "Casablanca, Morocco",
+      "title": "Full-Stack Software Engineer • UI/UX Specialist",
+      "language": "English",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=80",
+      "isDarkMode": true
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "subject": "Full-Stack React & Node.js Architecture",
+      "title": "Modern Full-Stack Development",
+      "description": "Mastering React 18, Custom Hooks, Node.js Express APIs, RESTful Architecture, and Tailwind CSS design systems.",
+      "progress": 85,
+      "totalHours": 48,
+      "lessons": 32,
+      "students": "1.4k",
+      "color": "bg-indigo-500",
+      "bgSoft": "bg-indigo-50",
+      "textSoft": "text-indigo-700",
+      "icon": "💻",
+      "nextAssignment": "RESTful API & Auth due Aug 26",
+      "category": "current"
+    },
+    {
+      "id": 2,
+      "subject": "Data Structures & System Design",
+      "title": "Computer Science Fundamentals",
+      "description": "Comprehensive study of trees, graphs, dynamic programming, space-time complexity analysis, and system architecture.",
+      "progress": 68,
+      "totalHours": 60,
+      "lessons": 40,
+      "students": "2.1k",
+      "color": "bg-emerald-500",
+      "bgSoft": "bg-emerald-50",
+      "textSoft": "text-emerald-700",
+      "icon": "🧠",
+      "nextAssignment": "Graph Search Algorithms due Aug 28",
+      "category": "current"
+    },
+    {
+      "id": 3,
+      "subject": "Cloud Services & DevOps Pipeline",
+      "title": "Cloud & Containerization",
+      "description": "Deploying cloud applications with Docker containers, CI/CD automation pipelines, Nginx reverse proxy, and AWS.",
+      "progress": 52,
+      "totalHours": 36,
+      "lessons": 24,
+      "students": "980",
+      "color": "bg-sky-500",
+      "bgSoft": "bg-sky-50",
+      "textSoft": "text-sky-700",
+      "icon": "☁️",
+      "nextAssignment": "Docker Multi-Stage Build due Aug 30",
+      "category": "current"
+    },
+    {
+      "id": 4,
+      "subject": "AI & Machine Learning Foundations",
+      "title": "Artificial Intelligence Engineering",
+      "description": "Building predictive ML models using Python, Pandas, Scikit-learn, Neural Networks, and PyTorch frameworks.",
+      "progress": 100,
+      "totalHours": 50,
+      "lessons": 35,
+      "students": "3.2k",
+      "color": "bg-purple-500",
+      "bgSoft": "bg-purple-50",
+      "textSoft": "text-purple-700",
+      "icon": "🤖",
+      "nextAssignment": "Course Completed with Honor",
+      "category": "completed"
+    },
+    {
+      "id": 5,
+      "subject": "Advanced UI/UX & Accessible Web Design",
+      "title": "Design Systems & Accessibility",
+      "description": "Crafting responsive accessibility-first UI design components, dark theme tokens, glassmorphism, and micro-interactions.",
+      "progress": 100,
+      "totalHours": 30,
+      "lessons": 20,
+      "students": "1.8k",
+      "color": "bg-rose-500",
+      "bgSoft": "bg-rose-50",
+      "textSoft": "text-rose-700",
+      "icon": "🎨",
+      "nextAssignment": "Course Completed with Honor",
+      "category": "completed"
+    },
+    {
+      "id": 6,
+      "subject": "Legacy Web Foundations (HTML4/jQuery)",
+      "title": "Historical Web Standards",
+      "description": "Understanding early web architecture, DOM manipulation with jQuery, and backward compatibility standards.",
+      "progress": 100,
+      "totalHours": 20,
+      "lessons": 15,
+      "students": "520",
+      "color": "bg-amber-500",
+      "bgSoft": "bg-amber-50",
+      "textSoft": "text-amber-700",
+      "icon": "📜",
+      "nextAssignment": "Archived for reference",
+      "category": "archived"
+    }
+  ],
+  "assignments": [
+    {
+      "id": 1,
+      "title": "Full-Stack Engineering",
+      "subject": "RESTful API Integration & JWT Authentication",
+      "status": "pending",
+      "date": "Aug 26",
+      "time": "23:59",
+      "color": "bg-blue-100 text-blue-700"
+    },
+    {
+      "id": 2,
+      "title": "Data Structures",
+      "subject": "Binary Search Tree & Graph Traversal Implementation",
+      "status": "completed",
+      "date": "Aug 22",
+      "time": "18:00",
+      "color": "bg-emerald-100 text-emerald-700"
+    },
+    {
+      "id": 3,
+      "title": "Cloud & DevOps",
+      "subject": "Docker Multi-Stage Container Setup & Nginx Config",
+      "status": "pending",
+      "date": "Aug 28",
+      "time": "20:00",
+      "color": "bg-indigo-100 text-indigo-700"
+    },
+    {
+      "id": 4,
+      "title": "Machine Learning",
+      "subject": "Supervised Classification Model & Accuracy Metrics",
+      "status": "completed",
+      "date": "Aug 18",
+      "time": "23:59",
+      "color": "bg-purple-100 text-purple-700"
+    },
+    {
+      "id": 5,
+      "title": "UI/UX Design",
+      "subject": "Interactive Dashboard Dark Theme & Contrast Audit",
+      "status": "completed",
+      "date": "Aug 15",
+      "time": "17:00",
+      "color": "bg-pink-100 text-pink-700"
+    },
+    {
+      "id": 6,
+      "title": "Database Systems",
+      "subject": "PostgreSQL Query Optimization & Indexing Strategies",
+      "status": "overdue",
+      "date": "Aug 10",
+      "time": "23:59",
+      "color": "bg-amber-100 text-amber-700"
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "title": "Full-Stack Code Review & Architectural Workshop",
+      "instructor": "Dr. Sarah Jenkins",
+      "time": "14:00 - 15:30",
+      "date": "Today",
+      "room": "Virtual Room A-1",
+      "status": "Upcoming"
+    },
+    {
+      "id": 2,
+      "title": "System Design Masterclass: Distributed Cache",
+      "instructor": "Prof. Alex Rivera",
+      "time": "10:00 - 11:30",
+      "date": "Tomorrow",
+      "room": "Virtual Lab B-3",
+      "status": "Scheduled"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "title": "Code Review Approved",
+      "body": "Your PR for RESTful API Integration passed all CI/CD tests with 98% coverage.",
+      "time": "10m ago",
+      "read": false,
+      "iconBg": "bg-emerald-100",
+      "iconColor": "text-emerald-600",
+      "icon": "✓"
+    },
+    {
+      "id": 2,
+      "title": "Assignment Graded: 98/100",
+      "body": "Binary Search Tree & Graph Traversal received top grade. Outstanding solution!",
+      "time": "1h ago",
+      "read": false,
+      "iconBg": "bg-indigo-100",
+      "iconColor": "text-indigo-600",
+      "icon": "★"
+    },
+    {
+      "id": 3,
+      "title": "New Course Resource Available",
+      "body": "Instructor posted supplementary material for System Design & Microservices.",
+      "time": "3h ago",
+      "read": true,
+      "iconBg": "bg-blue-100",
+      "iconColor": "text-blue-600",
+      "icon": "📖"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "sender": "Dr. Sarah Jenkins",
+      "role": "Senior Tech Lead",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+      "lastMessage": "Great work on the dark mode theme implementation! The contrast looks crisp.",
+      "time": "12:45 PM",
+      "unread": 1
+    },
+    {
+      "id": 2,
+      "sender": "Prof. Alex Rivera",
+      "role": "System Architect",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "lastMessage": "Let us discuss the microservices benchmarking results during tomorrow session.",
+      "time": "Yesterday",
+      "unread": 0
+    }
+  ],
+  "library": [
+    {
+      "id": 1,
+      "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+      "category": "Software Engineering",
+      "format": "PDF",
+      "size": "4.8 MB",
+      "author": "Robert C. Martin",
+      "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500&auto=format&fit=crop&q=80",
+      "description": "Essential principles, practices, and patterns for writing clean, readable, maintainable software.",
+      "color": "bg-indigo-50 text-indigo-700",
+      "toc": [
+        "Chapter 1: Clean Code",
+        "Chapter 2: Meaningful Names",
+        "Chapter 3: Functions & SOLID",
+        "Chapter 4: Unit Testing & Refactoring"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Designing Data-Intensive Applications",
+      "category": "System Architecture",
+      "format": "PDF",
+      "size": "8.2 MB",
+      "author": "Martin Kleppmann",
+      "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&auto=format&fit=crop&q=80",
+      "description": "The definitive guide to data systems architecture, scalability, consistency, and distributed computing.",
+      "color": "bg-sky-50 text-sky-700",
+      "toc": [
+        "Chapter 1: Reliable Data Systems",
+        "Chapter 2: Data Models & Query Languages",
+        "Chapter 3: Storage Engine Mechanics",
+        "Chapter 4: Distributed Replication"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "You Don't Know JS Yet: Scope & Closures",
+      "category": "JavaScript",
+      "format": "EPUB",
+      "size": "3.1 MB",
+      "author": "Kyle Simpson",
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=500&auto=format&fit=crop&q=80",
+      "description": "Deep dive into JavaScript lexical scope, closure mechanics, module patterns, and execution contexts.",
+      "color": "bg-amber-50 text-amber-700",
+      "toc": [
+        "Chapter 1: What is Scope?",
+        "Chapter 2: Lexical Scope Mechanics",
+        "Chapter 3: Function vs Block Scope",
+        "Chapter 4: Closures & Modules"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Grokking Algorithms: An Illustrated Guide",
+      "category": "Computer Science",
+      "format": "PDF",
+      "size": "6.5 MB",
+      "author": "Aditya Bhargava",
+      "image": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500&auto=format&fit=crop&q=80",
+      "description": "A fully illustrated, intuitive guide that teaches essential algorithms and problem-solving strategies.",
+      "color": "bg-emerald-50 text-emerald-700",
+      "toc": [
+        "Chapter 1: Binary Search & Big O",
+        "Chapter 2: Selection & Quicksort",
+        "Chapter 3: Hash Tables & Graphs",
+        "Chapter 4: Dynamic Programming"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "React 18 Key Concepts & Architecture Patterns",
+      "category": "Frontend Dev",
+      "format": "PDF",
+      "size": "3.9 MB",
+      "author": "Maximilian Schwarzmüller",
+      "image": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500&auto=format&fit=crop&q=80",
+      "description": "Mastering modern React hooks, Context API, state management, memoization, and server components.",
+      "color": "bg-purple-50 text-purple-700",
+      "toc": [
+        "Chapter 1: Component Lifecycle & Hooks",
+        "Chapter 2: State Optimization & Memo",
+        "Chapter 3: Context & Redux Toolkit",
+        "Chapter 4: Server Components"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Docker & Kubernetes in Production",
+      "category": "DevOps",
+      "format": "PDF",
+      "size": "5.4 MB",
+      "author": "Mark Russel",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&auto=format&fit=crop&q=80",
+      "description": "Practical guide to containerizing microservices, managing clusters, and orchestrating cloud deployments.",
+      "color": "bg-rose-50 text-rose-700",
+      "toc": [
+        "Chapter 1: Container Fundamentals",
+        "Chapter 2: Multi-Stage Dockerfiles",
+        "Chapter 3: Kubernetes Deployments",
+        "Chapter 4: Ingress & Mesh Networking"
+      ]
+    }
+  ]
+}
